@@ -20,7 +20,7 @@ function findOrCreateFolder(fileData) {
 
 function createNewClickUpTask(taskName, taskDescription) {
 
-  var token = 'pk_82322956_M0PHADY6E7T7KDTV8364W7L4BOJO3RFM';
+  var token = 'NOPE';
   var endpoint = "https://api.clickup.com/api/v2/list/901402709756/task"
 
   var headers = {
