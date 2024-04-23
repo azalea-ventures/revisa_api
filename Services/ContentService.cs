@@ -8,17 +8,16 @@ public class ContentService : IContentService
     public int PostContent(PostContentRequest request)
     {
         using var context = new RevisaDbContext();
+        Client client = context.Clients.FirstOrDefault(c => c.ClientName == request.Info.Client);
+        client.ClientName = request.Info.Client;
+
+        Subject subject = context.Subjects.FirstOrDefault(s => s.Subject1 == request.Info.Subject);
+        subject.Subject1 = request.Info.Subject;
         ContentDetail cd = new()
         {
-            Client = new Client
-            {
-                ClientName = request.Info.Client
-            },
+            Client = client,
             GradeId = context.Grades.FirstOrDefault(g => g.Grade1 == request.Info.Grade).Id,
-            Subject = new Subject
-            {
-                Subject1 = request.Info.Subject
-            },
+            Subject = subject,
             Owner = new revisa_api.Data.User
             {
                 Username = request.Info.UpdatedBy.Username,
