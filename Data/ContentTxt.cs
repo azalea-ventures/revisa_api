@@ -11,6 +11,8 @@ public partial class ContentTxt
 
     public int ContentTypeId { get; set; }
 
+    public string? ObjectId { get; set; }
+
     public string? Content { get; set; }
 
     public virtual ContentType ContentType { get; set; } = null!;

@@ -7,6 +7,7 @@ WHERE schema_name = 'content')
 BEGIN
     -- Drop all tables in the schema
     DROP TABLE IF EXISTS content.content_txt;
+    DROP TABLE IF EXISTS content.content_group;
     DROP TABLE IF EXISTS content.content_versions;
     DROP TABLE IF EXISTS content.content_details;
     DROP TABLE IF EXISTS content.content_type;
@@ -97,13 +98,20 @@ CREATE TABLE content.content_versions
 );
 GO
 
--- Create content_txt table
-CREATE TABLE content.content_txt
+-- Create content_group table
+CREATE TABLE content.content_group
 (
     id INT PRIMARY KEY IDENTITY,
     content_version_id INT REFERENCES content.content_versions(id) NOT NULL,
-    content_type_id INT REFERENCES content.content_type(id) NOT NULL,
-    content TEXT
+    content_type_id INT REFERENCES content.content_type(id) NOT NULL
+);
+GO
+
+CREATE TABLE content.content_txt
+(
+    id INT PRIMARY KEY IDENTITY,
+    content_group_id INT REFERENCES content.content_group(id) NOT NULL,
+    txt TEXT 
 );
 GO
 

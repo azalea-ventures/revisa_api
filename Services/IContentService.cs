@@ -1,3 +1,4 @@
 public interface IContentService{
-    void PostContent(PostContentRequest content);
+    int PostContent(PostContentRequest content);
+    GetContentResponse GetContent(int contentId);
 }

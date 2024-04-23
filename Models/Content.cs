@@ -9,7 +9,7 @@ public class Info
     [JsonPropertyName("delivery_date")]
     public string DeliveryDate { get; set; }
     [JsonPropertyName("updated_by")]
-    public User UpdatedBy { get; set; }
+    public User UpdatedBy { get; set; } = new();
     [JsonPropertyName("created_at")]
     public string CreatedAt { get; set; }
 }
@@ -27,4 +27,24 @@ public class PostContentRequest
     public required Info Info { get; set; }
     public required List<List<Content>> Content { get; set; }
 
+}
+
+public class GetContentResponse{
+
+    // Specifically for using with mapping entity objects to responses
+    public GetContentResponse(revisa_api.Data.ContentDetail entity)
+    {
+        Info.Client = entity.Client.ClientName;
+        Info.Grade = entity.Grade.Grade1;
+        Info.Subject = entity.Subject.Subject1;
+        Info.DeliveryDate = entity.DeliveryDate.ToString();
+        Info.CreatedAt = entity.CreatedAt.ToString();
+        Info.UpdatedBy.Email = entity.Owner.Email;
+        Info.UpdatedBy.Username = entity.Owner.Username.ToString();
+    }
+
+    public GetContentResponse(){}
+
+    public Info Info { get; set; } = new ();
+    public List<List<Content>>? Content{ get; set;} = new ();
 }
