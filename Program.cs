@@ -7,7 +7,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton<IContentService, ContentService>();
 builder.Services.AddDbContext<RevisaDbContext>(options =>
 {
-    options.UseSqlServer(builder.Configuration.GetConnectionString("RevisaDatabase"));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("REVISA_DB"));
 
 });
 
@@ -16,7 +16,7 @@ app.UseSwagger();
 app.UseSwaggerUI();
 
 
-app.MapPost("/content", (IContentService contentService, PostContentRequest request) =>
+app.MapPost("/content", (PostContentRequest request, IContentService contentService) =>
 {
     contentService.PostContent(request);
     return Results.Created("/content", request);
