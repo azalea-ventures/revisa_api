@@ -1,13 +1,27 @@
 // This function is triggered when a file is added to the monitored folder
 function onFileAddedToFolder(e) {
-  var folderId = '1fn0EiQ7GCoes41gty0vLzRACkIXsNQOw'; // Replace with the ID of the folder to monitor
+  var folderId = '1fn0EiQ7GCoes41gty0vLzRACkIXsNQOw';
   // var fileId = e['id'];
-  var fileId = '1oTPrsLNtFQHPY8rsG7t8zXVzaCH2w-Zxj8bM1vHtNl4';
+  var fileId = '18AwcRcVzAQNnDQUrc-UsytUXO0foUraqLSthPJxNaaA';
   // Check if the added file is within the monitored folder
   var file = DriveApp.getFileById(fileId);
   var parentFolderId = file.getParents().next().getId();
-  if (parentFolderId == folderId && file.getMimeType() == 'application/vnd.google-apps.presentation') {
-    sendSlidesTextContent(fileId);
+  sendSlidesTextContent(fileId, file);
+}
+
+function getMetadata(file) {
+  //parse out filename to corresponding folder
+  var name_parts = file.getName().replaceAll("MASTER_", "").split("_");
+
+  var users = file.getEditors().map((e) => {return {"name": e.getName(),"email": e.getEmail()}})
+  //use meta data obj to find or create correct folder
+  return {
+    "client": name_parts[0],
+    "grade": name_parts[1],
+    "subject": name_parts[2],
+    "delivery_date": name_parts[3] + '/' + name_parts[4] + '/' + name_parts[5],
+    "updated_by": users,
+    "created_at": file.getDateCreated()
   }
 }
 
@@ -15,7 +29,6 @@ function onFileAddedToFolder(e) {
 function getSlidesTextContent(fileId) {
 
   var slideFile = SlidesApp.openById(fileId);
-
   var slidesContent = slideFile.getSlides().map(function (slide) {
     var pageElements = slide.getPageElements();
     var slideContent = []
@@ -27,17 +40,17 @@ function getSlidesTextContent(fileId) {
         slideContent.push({ "object_id": objectId, "text_content": textContent })
       }
     })
-
     return slideContent
   })
-
   return slidesContent;
 }
 
 // Function to send a Google Slides file to an external API
-function sendSlidesTextContent(fileId) {
+function sendSlidesTextContent(fileId, file) {
 
   var slidesContent = getSlidesTextContent(fileId);
+  var request_data = { "info": getMetadata(file), "content": slidesContent }
+  DriveApp.createFile(file.getName()+".json", JSON.stringify(request_data), MimeType.PLAIN_TEXT)
 
   // Set up the API endpoint and request parameters
   var apiUrl = 'YOUR_API_ENDPOINT';

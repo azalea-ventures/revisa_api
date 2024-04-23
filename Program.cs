@@ -1,25 +1,32 @@
-var builder = WebApplication.CreateBuilder(args);
+using revisa_api.Data;
+using Microsoft.EntityFrameworkCore;
 
-// Add services to the container.
-builder.Services.AddRazorPages();
+var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+builder.Services.AddSingleton<IContentService, ContentService>();
+builder.Services.AddDbContext<RevisaDbContext>(options =>
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("REVISA_DB"));
+
+});
 
 var app = builder.Build();
+app.UseSwagger();
+app.UseSwaggerUI();
 
-// Configure the HTTP request pipeline.
-if (!app.Environment.IsDevelopment())
+
+app.MapPost("/content", (PostContentRequest request, IContentService contentService) =>
 {
-    app.UseExceptionHandler("/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-    app.UseHsts();
+    contentService.PostContent(request);
+    return Results.Created("/content", request);
 }
+).WithOpenApi();
 
-app.UseHttpsRedirection();
-app.UseStaticFiles();
-
-app.UseRouting();
-
-app.UseAuthorization();
-
-app.MapRazorPages();
+app.MapGet("/content", (int id, IContentService contentService) =>
+{
+    GetContentResponse response = contentService.GetContent(id);
+    return Results.Ok(response);
+});
 
 app.Run();
