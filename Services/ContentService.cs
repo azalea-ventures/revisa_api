@@ -14,10 +14,7 @@ public class ContentService : IContentService
             {
                 ClientName = request.Info.Client
             },
-            Grade = new Grade
-            {
-                Grade1 = request.Info.Grade
-            },
+            GradeId = context.Grades.FirstOrDefault(g => g.Grade1 == request.Info.Grade).Id,
             Subject = new Subject
             {
                 Subject1 = request.Info.Subject

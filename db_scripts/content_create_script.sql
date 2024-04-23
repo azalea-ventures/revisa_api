@@ -115,6 +115,30 @@ CREATE TABLE content.content_txt
 );
 GO
 
+BEGIN TRANSACTION
+-- Insert data into Grades table
+INSERT INTO content.grades
+    (grade)
+VALUES
+    ('K'),
+    ('1'),
+    ('2'),
+    ('3'),
+    ('4'),
+    ('5'),
+    ('6'),
+    ('7'),
+    ('8'),
+    ('9'),
+    ('10'),
+    ('11'),
+    ('12'),
+    ('primary'),
+    ('secondary'),
+    ('all');
+COMMIT;
+GO
+
 -- Trigger to insert into content_versions
 CREATE OR ALTER TRIGGER trg_insert_content_version
 ON content.content_details
