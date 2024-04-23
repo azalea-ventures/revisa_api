@@ -41,6 +41,14 @@ public class GetContentResponse{
         Info.CreatedAt = entity.CreatedAt.ToString();
         Info.UpdatedBy.Email = entity.Owner.Email;
         Info.UpdatedBy.Username = entity.Owner.Username.ToString();
+
+        foreach (var group in entity.ContentVersions.FirstOrDefault().ContentGroups){
+            List<Content> contentList = [];
+            foreach (var txt in group.ContentTxts){
+                contentList.Add(new Content{ObjectId=txt.ObjectId, TextContent=txt.Txt});
+            }
+            Content.Add(contentList);
+        }
     }
 
     public GetContentResponse(){}

@@ -21,7 +21,7 @@ public partial class ContentVersion
 
     public virtual ContentDetail ContentDetails { get; set; } = null!;
 
-    public virtual ICollection<ContentTxt> ContentTxts { get; set; } = new List<ContentTxt>();
+    public virtual ICollection<ContentGroup> ContentGroups { get; set; } = new List<ContentGroup>();
 
     public virtual User Owner { get; set; } = null!;
 }

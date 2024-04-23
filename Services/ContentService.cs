@@ -34,22 +34,30 @@ public class ContentService : IContentService
             UpdatedAt = DateTime.Now
         };
 
-
-
         _ = context.Add<ContentDetail>(cd);
 
-        int id = context.SaveChanges();
+        context.SaveChanges();
 
-        ContentVersion? contentVersion = cd.ContentVersions.FirstOrDefault(cv => cv.IsLatest == 1);
+        ContentVersion? contentVersion = context.ContentVersions
+        .Include(v => v.ContentGroups)
+        .FirstOrDefault(cv => cv.ContentDetailsId == cd.Id && cv.IsLatest == 1);
 
-        foreach (var slide in request.Content){
-            ContentTxt contentTxt = new{Content = slide.};
+        foreach (var slide in request.Content)
+        {
+            ContentGroup slideElements = new();
+            foreach (var element in slide)
+            {
+                slideElements.ContentTxts.Add(new ContentTxt { Txt = element.TextContent, ObjectId = element.ObjectId });
+            }
 
-
+            if (slideElements != null)
+            {
+                contentVersion.ContentGroups.Add(slideElements);
+            }
         }
-        contentVersion.ContentTxts
+        context.SaveChanges();
 
-        return id;
+        return cd.Id;
     }
 
     public GetContentResponse GetContent(int contentId)
@@ -67,14 +75,17 @@ public class ContentService : IContentService
         return response;
     }
 
-    private ContentDetail? GetContentDetail(int contentId){
+    private ContentDetail? GetContentDetail(int contentId)
+    {
         using var context = new RevisaDbContext();
         return context.ContentDetails
         .Include(c => c.Client)
         .Include(c => c.Grade)
-        .Include(navigationPropertyPath: c => c.Subject)
+        .Include(c => c.Subject)
         .Include(c => c.Owner)
         .Include(c => c.ContentVersions)
+        .ThenInclude(v => v.ContentGroups)
+        .ThenInclude(g => g.ContentTxts)
         .FirstOrDefault();
 
     }

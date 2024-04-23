@@ -7,15 +7,11 @@ public partial class ContentTxt
 {
     public int Id { get; set; }
 
-    public int ContentVersionId { get; set; }
+    public string ObjectId { get; set; } = null!;
 
-    public int ContentTypeId { get; set; }
+    public int ContentGroupId { get; set; }
 
-    public string? ObjectId { get; set; }
+    public string? Txt { get; set; }
 
-    public string? Content { get; set; }
-
-    public virtual ContentType ContentType { get; set; } = null!;
-
-    public virtual ContentVersion ContentVersion { get; set; } = null!;
+    public virtual ContentGroup ContentGroup { get; set; } = null!;
 }

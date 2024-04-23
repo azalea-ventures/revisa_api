@@ -8,6 +8,4 @@ public partial class ContentType
     public int Id { get; set; }
 
     public string ContentType1 { get; set; } = null!;
-
-    public virtual ICollection<ContentTxt> ContentTxts { get; set; } = new List<ContentTxt>();
 }

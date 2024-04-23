@@ -102,16 +102,16 @@ GO
 CREATE TABLE content.content_group
 (
     id INT PRIMARY KEY IDENTITY,
-    content_version_id INT REFERENCES content.content_versions(id) NOT NULL,
-    content_type_id INT REFERENCES content.content_type(id) NOT NULL
+    content_version_id INT REFERENCES content.content_versions(id) NOT NULL
 );
 GO
 
 CREATE TABLE content.content_txt
 (
     id INT PRIMARY KEY IDENTITY,
+    object_id VARCHAR(50) NOT NULL,
     content_group_id INT REFERENCES content.content_group(id) NOT NULL,
-    txt TEXT 
+    txt TEXT
 );
 GO
 
