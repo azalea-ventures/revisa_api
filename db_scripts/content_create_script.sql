@@ -28,7 +28,7 @@ GO
 -- Create clients table
 CREATE TABLE content.clients
 (
-    id INT PRIMARY KEY IDENTITY,
+    id INT PRIMARY KEY IDENTITY(1,1),
     client_name NVARCHAR(100) NOT NULL UNIQUE
 );
 GO
@@ -36,7 +36,7 @@ GO
 -- Create grades table
 CREATE TABLE content.grades
 (
-    id INT PRIMARY KEY IDENTITY,
+    id INT PRIMARY KEY IDENTITY(1,1),
     grade NVARCHAR(50) NOT NULL UNIQUE
 );
 GO
@@ -44,7 +44,7 @@ GO
 -- Create subjects table
 CREATE TABLE content.subjects
 (
-    id INT PRIMARY KEY IDENTITY,
+    id INT PRIMARY KEY IDENTITY(1,1),
     [subject] NVARCHAR(100) NOT NULL
 );
 GO
@@ -52,7 +52,7 @@ GO
 -- Create users table
 CREATE TABLE content.users
 (
-    id INT PRIMARY KEY IDENTITY,
+    id INT PRIMARY KEY IDENTITY(1,1),
     username NVARCHAR(100) NOT NULL,
     email NVARCHAR(100) NOT NULL
 );
@@ -61,7 +61,7 @@ GO
 -- Create content_details table with owner_id column
 CREATE TABLE content.content_details
 (
-    id INT PRIMARY KEY IDENTITY,
+    id INT PRIMARY KEY IDENTITY(1,1),
     client_id INT REFERENCES content.clients(id) NOT NULL,
     grade_id INT REFERENCES content.grades(id)NOT NULL,
     subject_id INT REFERENCES content.subjects(id)NOT NULL,
@@ -78,7 +78,7 @@ GO
 -- Create content_type table
 CREATE TABLE content.content_type
 (
-    id INT PRIMARY KEY,
+    id INT PRIMARY KEY IDENTITY(1,1),
     content_type NVARCHAR(100) NOT NULL
 );
 GO
@@ -86,7 +86,7 @@ GO
 -- Create content_versions table
 CREATE TABLE content.content_versions
 (
-    id INT PRIMARY KEY IDENTITY,
+    id INT PRIMARY KEY IDENTITY(1,1),
     [version] INT NOT NULL,
     owner_id INT REFERENCES content.users(id) NOT NULL,
     content_details_id INT REFERENCES content.content_details(id) NOT NULL,
@@ -101,14 +101,14 @@ GO
 -- Create content_group table
 CREATE TABLE content.content_group
 (
-    id INT PRIMARY KEY IDENTITY,
+    id INT PRIMARY KEY IDENTITY(1,1),
     content_version_id INT REFERENCES content.content_versions(id) NOT NULL
 );
 GO
 
 CREATE TABLE content.content_txt
 (
-    id INT PRIMARY KEY IDENTITY,
+    id INT PRIMARY KEY IDENTITY(1,1),
     object_id VARCHAR(50) NOT NULL,
     content_group_id INT REFERENCES content.content_group(id) NOT NULL,
     txt TEXT

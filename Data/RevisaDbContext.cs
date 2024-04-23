@@ -69,11 +69,11 @@ public partial class RevisaDbContext : DbContext
 
         modelBuilder.Entity<Client>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__clients__3213E83F7EC120C9");
+            entity.HasKey(e => e.Id).HasName("PK__clients__3213E83F2C0A969D");
 
             entity.ToTable("clients", "content", tb => tb.HasTrigger("trg_upper_client_name"));
 
-            entity.HasIndex(e => e.ClientName, "UQ__clients__9ADC3B748F0BA1CB").IsUnique();
+            entity.HasIndex(e => e.ClientName, "UQ__clients__9ADC3B74A2750E3E").IsUnique();
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.ClientName)
@@ -83,11 +83,11 @@ public partial class RevisaDbContext : DbContext
 
         modelBuilder.Entity<ContentDetail>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__content___3213E83F32437467");
+            entity.HasKey(e => e.Id).HasName("PK__content___3213E83F33212DD3");
 
             entity.ToTable("content_details", "content", tb => tb.HasTrigger("trg_insert_content_version"));
 
-            entity.HasIndex(e => e.OriginalFilename, "UQ__content___D24CB641DBB2960D").IsUnique();
+            entity.HasIndex(e => e.OriginalFilename, "UQ__content___D24CB6416DD2C4BA").IsUnique();
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.ClientId).HasColumnName("client_id");
@@ -110,27 +110,27 @@ public partial class RevisaDbContext : DbContext
             entity.HasOne(d => d.Client).WithMany(p => p.ContentDetails)
                 .HasForeignKey(d => d.ClientId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__content_d__clien__5E3FF0B0");
+                .HasConstraintName("FK__content_d__clien__0EAE1DE1");
 
             entity.HasOne(d => d.Grade).WithMany(p => p.ContentDetails)
                 .HasForeignKey(d => d.GradeId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__content_d__grade__5F3414E9");
+                .HasConstraintName("FK__content_d__grade__0FA2421A");
 
             entity.HasOne(d => d.Owner).WithMany(p => p.ContentDetails)
                 .HasForeignKey(d => d.OwnerId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__content_d__owner__611C5D5B");
+                .HasConstraintName("FK__content_d__owner__118A8A8C");
 
             entity.HasOne(d => d.Subject).WithMany(p => p.ContentDetails)
                 .HasForeignKey(d => d.SubjectId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__content_d__subje__60283922");
+                .HasConstraintName("FK__content_d__subje__10966653");
         });
 
         modelBuilder.Entity<ContentGroup>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__content___3213E83FAF0D02DB");
+            entity.HasKey(e => e.Id).HasName("PK__content___3213E83F0DCE41B7");
 
             entity.ToTable("content_group", "content");
 
@@ -140,12 +140,12 @@ public partial class RevisaDbContext : DbContext
             entity.HasOne(d => d.ContentVersion).WithMany(p => p.ContentGroups)
                 .HasForeignKey(d => d.ContentVersionId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__content_g__conte__6F6A7CB2");
+                .HasConstraintName("FK__content_g__conte__1FD8A9E3");
         });
 
         modelBuilder.Entity<ContentTxt>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__content___3213E83FF5529AC8");
+            entity.HasKey(e => e.Id).HasName("PK__content___3213E83F73BC7E51");
 
             entity.ToTable("content_txt", "content");
 
@@ -162,18 +162,16 @@ public partial class RevisaDbContext : DbContext
             entity.HasOne(d => d.ContentGroup).WithMany(p => p.ContentTxts)
                 .HasForeignKey(d => d.ContentGroupId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__content_t__conte__7246E95D");
+                .HasConstraintName("FK__content_t__conte__22B5168E");
         });
 
         modelBuilder.Entity<ContentType>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__content___3213E83FD0743754");
+            entity.HasKey(e => e.Id).HasName("PK__content___3213E83FF60C4D36");
 
             entity.ToTable("content_type", "content");
 
-            entity.Property(e => e.Id)
-                .ValueGeneratedNever()
-                .HasColumnName("id");
+            entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.ContentType1)
                 .HasMaxLength(100)
                 .HasColumnName("content_type");
@@ -181,7 +179,7 @@ public partial class RevisaDbContext : DbContext
 
         modelBuilder.Entity<ContentVersion>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__content___3213E83F6ACFF233");
+            entity.HasKey(e => e.Id).HasName("PK__content___3213E83F69444360");
 
             entity.ToTable("content_versions", "content");
 
@@ -204,12 +202,12 @@ public partial class RevisaDbContext : DbContext
             entity.HasOne(d => d.ContentDetails).WithMany(p => p.ContentVersions)
                 .HasForeignKey(d => d.ContentDetailsId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__content_v__conte__68BD7F23");
+                .HasConstraintName("FK__content_v__conte__192BAC54");
 
             entity.HasOne(d => d.Owner).WithMany(p => p.ContentVersions)
                 .HasForeignKey(d => d.OwnerId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__content_v__owner__67C95AEA");
+                .HasConstraintName("FK__content_v__owner__1837881B");
         });
 
         modelBuilder.Entity<Domain>(entity =>
@@ -309,11 +307,11 @@ public partial class RevisaDbContext : DbContext
 
         modelBuilder.Entity<Grade>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__grades__3213E83FBB869E22");
+            entity.HasKey(e => e.Id).HasName("PK__grades__3213E83FF7C7BE7F");
 
             entity.ToTable("grades", "content");
 
-            entity.HasIndex(e => e.Grade1, "UQ__grades__28A831765C081155").IsUnique();
+            entity.HasIndex(e => e.Grade1, "UQ__grades__28A83176F70217A6").IsUnique();
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.Grade1)
@@ -363,7 +361,7 @@ public partial class RevisaDbContext : DbContext
 
         modelBuilder.Entity<Subject>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__subjects__3213E83F124EA0C5");
+            entity.HasKey(e => e.Id).HasName("PK__subjects__3213E83FDC35D085");
 
             entity.ToTable("subjects", "content");
 
@@ -375,7 +373,7 @@ public partial class RevisaDbContext : DbContext
 
         modelBuilder.Entity<User>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__users__3213E83FA2E99F5C");
+            entity.HasKey(e => e.Id).HasName("PK__users__3213E83F6759AFC6");
 
             entity.ToTable("users", "content");
 
