@@ -7,7 +7,7 @@ namespace revisa_api.Data;
 public partial class ContentDetail
 {
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    public Int32 Id { get; set; }
+    public int Id { get; set; }
 
     public int ClientId { get; set; }
 

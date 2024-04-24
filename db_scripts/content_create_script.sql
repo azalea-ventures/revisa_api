@@ -66,7 +66,7 @@ CREATE TABLE content.content_details
     grade_id INT REFERENCES content.grades(id)NOT NULL,
     subject_id INT REFERENCES content.subjects(id)NOT NULL,
     delivery_date DATE NOT NULL,
-    original_filename NVARCHAR(255) UNIQUE NOT NULL,
+    original_filename NVARCHAR(255) NOT NULL,
     -- Added unique constraint
     owner_id INT REFERENCES content.users(id) NOT NULL,
     -- Added owner_id column

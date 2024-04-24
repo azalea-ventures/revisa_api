@@ -19,24 +19,23 @@ public class ContentService : IContentService
 
         ContentDetail cd =
             context.ContentDetails.FirstOrDefault(c =>
-                c.Client.ClientName == request.Info.Client && c.Grade.Grade1 == request.Info.Grade 
-                && c.Subject.Subject1 == request.Info.;
-            );
+                c.Client.ClientName == request.Info.Client 
+                && c.Grade.Grade1 == request.Info.Grade 
+                && c.Subject.Subject1 == request.Info.Subject 
+                && c.DeliveryDate == DateOnly.Parse(request.Info.DeliveryDate))
+                ?? new ContentDetail();
 
         _ = context.Add<ContentDetail>(cd);
 
         cd.Client = client;
-        // code smell, I know but this will never be null because the db table is static and readonly
-#pragma warning disable CS8602 // Dereference of a possibly null reference.
         cd.GradeId = context.Grades.FirstOrDefault(g => g.Grade1 == request.Info.Grade).Id;
-#pragma warning restore CS8602 // Dereference of a possibly null reference.
         cd.Subject = subject;
         cd.Owner = new revisa_api.Data.User
         {
             Username = request.Info.UpdatedBy.Username,
             Email = request.Info.UpdatedBy.Email
         };
-        // TODO: filename blocked by app script
+        // TODO: filename blocked - app script dev needed
         cd.OriginalFilename = "";
         cd.DeliveryDate = DateOnly.Parse(request.Info.DeliveryDate);
         cd.CreatedAt = DateTime.Parse(request.Info.CreatedAt);
