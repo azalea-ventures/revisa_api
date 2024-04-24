@@ -6,6 +6,9 @@ public class ContentService : IContentService
     public int PostContent(PostContentRequest request)
     {
         using var context = new RevisaDbContext();
+        using var transaction = context.Database.BeginTransaction();
+
+        //prepare meta data
         Client client =
             context.Clients.FirstOrDefault(c => c.ClientName == request.Info.Client)
             ?? new Client { ClientName = request.Info.Client };
@@ -16,30 +19,35 @@ public class ContentService : IContentService
 
         ContentDetail cd =
             context.ContentDetails.FirstOrDefault(c =>
-                c.Client.ClientName == request.Info.Client && c.ContentVersions != null
-            ) ?? new ContentDetail();
+                c.Client.ClientName == request.Info.Client && c.Grade.Grade1 == request.Info.Grade 
+                && c.Subject.Subject1 == request.Info.;
+            );
 
         _ = context.Add<ContentDetail>(cd);
 
         cd.Client = client;
+        // code smell, I know but this will never be null because the db table is static and readonly
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
         cd.GradeId = context.Grades.FirstOrDefault(g => g.Grade1 == request.Info.Grade).Id;
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
         cd.Subject = subject;
         cd.Owner = new revisa_api.Data.User
         {
             Username = request.Info.UpdatedBy.Username,
             Email = request.Info.UpdatedBy.Email
         };
-        //.TODO: filename blocked by app script
+        // TODO: filename blocked by app script
         cd.OriginalFilename = "";
         cd.DeliveryDate = DateOnly.Parse(request.Info.DeliveryDate);
         cd.CreatedAt = DateTime.Parse(request.Info.CreatedAt);
         cd.UpdatedAt = DateTime.Now;
 
         context.SaveChanges();
-
+        // prepare content data
         ContentVersion? contentVersion = context
             .ContentVersions.Include(v => v.ContentGroups)
-            .FirstOrDefault(cv => cv.ContentDetailsId == cd.Id && cv.IsLatest == 1);
+            .FirstOrDefault(cv => cv.ContentDetailsId == cd.Id && cv.IsLatest == 1) 
+            ?? new ContentVersion{ContentDetailsId = cd.Id};
 
         foreach (var slide in request.Content)
         {
@@ -57,7 +65,7 @@ public class ContentService : IContentService
             }
         }
         context.SaveChanges();
-
+        transaction.Commit();
         return cd.Id;
     }
 
