@@ -33,7 +33,7 @@ public class PostContentRequest
 public class GetContentResponse{
 
     // Specifically for using with mapping entity objects to responses
-    public GetContentResponse(revisa_api.Data.ContentDetail entity)
+    public GetContentResponse(revisa_api.Data.content.ContentDetail entity)
     {
         Info.Client = entity.Client.ClientName;
         Info.Grade = entity.Grade.Grade1;

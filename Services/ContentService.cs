@@ -1,11 +1,16 @@
 using Microsoft.EntityFrameworkCore;
-using revisa_api.Data;
+using revisa_api.Data.content;
 
 public class ContentService : IContentService
 {
+    private readonly ContentContext _dbContext;
+
+    public ContentService(ContentContext dbContext){
+        _dbContext = dbContext;
+    }
     public int PostContent(PostContentRequest request)
     {
-        using var context = new RevisaDbContext();
+        using var context = _dbContext;
         using var transaction = context.Database.BeginTransaction();
 
         //prepare meta data
@@ -30,7 +35,7 @@ public class ContentService : IContentService
         cd.Client = client;
         cd.GradeId = context.Grades.FirstOrDefault(g => g.Grade1 == request.Info.Grade).Id;
         cd.Subject = subject;
-        cd.Owner = new revisa_api.Data.User
+        cd.Owner = new revisa_api.Data.content.User
         {
             Username = request.Info.UpdatedBy.Username,
             Email = request.Info.UpdatedBy.Email
@@ -70,7 +75,7 @@ public class ContentService : IContentService
 
     public GetContentResponse GetContent(int contentId)
     {
-        using var context = new RevisaDbContext();
+        using var context = _dbContext;
         ContentDetail? entity = GetContentDetail(contentId);
 
         if (entity == null)
@@ -85,7 +90,7 @@ public class ContentService : IContentService
 
     private ContentDetail? GetContentDetail(int contentId)
     {
-        using var context = new RevisaDbContext();
+        using var context = _dbContext;
         return context
             .ContentDetails.Include(c => c.Client)
             .Include(c => c.Grade)
