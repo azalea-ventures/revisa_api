@@ -210,10 +210,9 @@ public class TeksService : ITeksService
             );
         });
         tasks.Add(prepItemsTask);
-        
+
         Console.WriteLine("\n\n\n****RUNNING TEKS DB TASKS****\n\n\n");
-        var finishTask = Task.WhenAll([.. tasks]);
-        await finishTask;
+        await Task.WhenAll([.. tasks]);
     }
 
     private async Task<TEKSResponse?> OnGet(string endnpoint)
