@@ -48,6 +48,7 @@ public class TeksService : ITeksService
                     await context.TeksSubjects.AddAsync(subject);
                 }
                 await context.SaveChangesAsync();
+                await context.DisposeAsync();
             }
             catch (SqlException e)
             {
@@ -84,6 +85,7 @@ public class TeksService : ITeksService
                         }
 
                         await context.SaveChangesAsync();
+                        await context.DisposeAsync();
                     })
                 );
             }
@@ -131,6 +133,7 @@ public class TeksService : ITeksService
                 await context.Teks.AddAsync(tek);
             }
             await context.SaveChangesAsync();
+            await context.DisposeAsync();
         });
         tasks.Add(prepTekTask);
 
@@ -195,6 +198,7 @@ public class TeksService : ITeksService
                             await context.AddAsync(item);
                         }
                         await context.SaveChangesAsync();
+                        await context.DisposeAsync();
                     }
                     catch (SqlException e)
                     {
