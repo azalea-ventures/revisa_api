@@ -1,24 +1,29 @@
 using System.Text.Json;
+using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Net.Http.Headers;
 using revisa_api.Data.teks;
 
 public class TeksService : ITeksService
 {
-    private readonly TeksContext _dbContext;
+    private readonly IDbContextFactory<TeksContext> _dbContextFactory;
     private readonly IHttpClientFactory _httpClientFactory;
 
-    public TeksService(TeksContext dbContext, IHttpClientFactory httpClientFactory)
+    public TeksService(
+        IDbContextFactory<TeksContext> dbContextFactory,
+        IHttpClientFactory httpClientFactory
+    )
     {
-        _dbContext = dbContext;
+        _dbContextFactory = dbContextFactory;
         _httpClientFactory = httpClientFactory;
     }
 
     public async Task GetTEKS(string endpoint)
     {
-        using var context = _dbContext;
-        using var transaction = context.Database.BeginTransaction();
+        List<Task> tasks = new List<Task>();
+        TEKSResponse? response = await OnGet(endpoint);
 
-        Func<TEKSResponse, Task> prepSubject = async (TEKSResponse response) =>
+        Task prepSubjecTask = Task.Run(async () =>
         {
             TeksSubject subject =
                 new()
@@ -26,24 +31,32 @@ public class TeksService : ITeksService
                     Id = Guid.Parse(response.CFDocument.subjectURI.FirstOrDefault().identifier),
                     Title = response.CFDocument.subjectURI.FirstOrDefault().title
                 };
-
-            TeksSubject? subEntity = context.TeksSubjects.Find(subject.Id);
-
-            if (subEntity != null)
+            try
             {
-                subEntity.Title = subject.Title;
-                context.TeksSubjects.Update(subject);
+                using var context = _dbContextFactory.CreateDbContext();
+
+                TeksSubject? subEntity = await context.TeksSubjects.SingleOrDefaultAsync(s =>
+                    s.Id.Equals(subject.Id)
+                );
+
+                if (subEntity != null)
+                {
+                    subEntity.Title = subject.Title;
+                }
+                else
+                {
+                    await context.TeksSubjects.AddAsync(subject);
+                }
+                await context.SaveChangesAsync();
             }
-            else
+            catch (SqlException e)
             {
-                context.TeksSubjects.Add(subject);
+                throw;
             }
+        });
+        tasks.Add(prepSubjecTask);
 
-            // await context.SaveChangesAsync();
-
-        };
-
-      Func<TEKSResponse, Task> taskItemTypePrep = async (TEKSResponse response) =>
+        Task prepItemTypeTask = Task.Run(async () =>
         {
             List<TeksItemType> teksItemTypes = response
                 .CFDefinitions.CFItemTypes.Select(typ => new TeksItemType
@@ -53,26 +66,41 @@ public class TeksService : ITeksService
                 })
                 .ToList();
 
-            teksItemTypes.ForEach(it =>
+            try
             {
-                TeksItemType? entity = context.TeksItemTypes.Find(it.Id);
-                if (entity != null)
-                {
-                    entity.Title = it.Title;
-                    context.TeksItemTypes.Update(entity);
-                }
-                else
-                {
-                    context.TeksItemTypes.Add(it);
-                }
-            });
+                await Task.WhenAll(
+                    teksItemTypes.Select(async it =>
+                    {
+                        using var context = _dbContextFactory.CreateDbContext();
 
-            // await context.SaveChangesAsync();
-        };
+                        TeksItemType? entity = await context.TeksItemTypes.FindAsync(it.Id);
+                        if (entity != null)
+                        {
+                            entity.Title = it.Title;
+                        }
+                        else
+                        {
+                            await context.TeksItemTypes.AddAsync(it);
+                        }
 
-      Func<TEKSResponse, Task> prepTek = async (TEKSResponse response) =>
+                        await context.SaveChangesAsync();
+                    })
+                );
+            }
+            catch (SqlException e)
+            {
+                throw;
+            }
+        });
+        tasks.Add(prepItemTypeTask);
+
+        Task prepTekTask = Task.Run(async () =>
         {
-            Tek? tekEntity = context.Teks.Find(Guid.Parse(response.CFDocument.identifier));
+            using var context = _dbContextFactory.CreateDbContext();
+
+            Tek? tekEntity = await context.Teks.FindAsync(
+                Guid.Parse(response.CFDocument.identifier)
+            );
             Tek tek =
                 new()
                 {
@@ -97,16 +125,16 @@ public class TeksService : ITeksService
                 tekEntity.Notes = response.CFDocument.notes;
                 tekEntity.OfficialSourceUrl = response.CFDocument.officialSourceURL;
                 tekEntity.Language = response.CFDocument.language;
-                context.Teks.Update(tekEntity);
             }
             else
             {
-                context.Teks.Add(tek);
+                await context.Teks.AddAsync(tek);
             }
-            // await context.SaveChangesAsync();
-        };
+            await context.SaveChangesAsync();
+        });
+        tasks.Add(prepTekTask);
 
-      Func<TEKSResponse, Task> prepItems = async (TEKSResponse response) =>
+        Task prepItemsTask = Task.Run(async () =>
         {
             List<CFAssociation> cfAssociations = response.CFAssociations;
             List<CFItem> noID = response.CFItems.ToList();
@@ -114,78 +142,77 @@ public class TeksService : ITeksService
 
             response.CFItems.ForEach(item =>
             {
-                try
+                int listEnum = 0;
+                TeksItem teksItem = new TeksItem()
                 {
-                    TeksItem teksItem = new TeksItem()
+                    Id = Guid.Parse(item.identifier),
+                    ParentId = null,
+                    ListEnumeration = int.TryParse(item.listEnumeration, out listEnum) ? listEnum : 0,
+                    ItemTypeId =
+                        item.CFItemTypeURI != null
+                            ? Guid.Parse(item.CFItemTypeURI.identifier)
+                            : null,
+                    HumanCodingScheme = item.humanCodingScheme ?? null,
+                    FullStatement = item.fullStatement ?? null,
+                    Language = item.language,
+                    LastChangeTea = item.lastChangeDateTime,
+                    UploadedAt = DateTime.Now
+                };
+                items.Add(teksItem);
+            });
+
+            await Task.WhenAll(
+                items.Select(async item =>
+                {
+                    try
                     {
-                        Id = Guid.Parse(item.identifier),
-                        ParentId = null,
-                        ListEnumeration = item.listEnumeration ?? null,
-                        ItemTypeId =
-                            item.CFItemTypeURI != null
-                                ? Guid.Parse(item.CFItemTypeURI.identifier)
-                                : null,
-                        HumanCodingScheme = item.humanCodingScheme ?? null,
-                        FullStatement = item.fullStatement ?? null,
-                        Language = item.language,
-                        LastChangeTea = item.lastChangeDateTime,
-                        UploadedAt = DateTime.Now
-                    };
-                    items.Add(teksItem);
-                }
-                catch (NullReferenceException e)
-                {
-                    Console.WriteLine("", e.Message);
-                }
-            });
+                        using var context = _dbContextFactory.CreateDbContext();
 
-            items.ForEach(item =>
-            {
-                TeksItem? tekItemEntity = context.TeksItems.Find(item.Id);
+                        TeksItem? tekItemEntity = await context.TeksItems.FindAsync(item.Id);
 
-                Guid parentId;
+                        Guid parentId;
 
-                bool hasParent = Guid.TryParse(
-                    cfAssociations
-                        .SingleOrDefault(a => a.originNodeURI.identifier.Equals(item.Id))
-                        ?.destinationNodeURI.identifier,
-                    out parentId
-                );
+                        bool hasParent = Guid.TryParse(
+                            cfAssociations
+                                .SingleOrDefault(a => a.originNodeURI.identifier.Equals(item.Id))
+                                ?.destinationNodeURI.identifier,
+                            out parentId
+                        );
 
-                if (tekItemEntity != null)
-                {
-                    tekItemEntity.ParentId = hasParent ? parentId : null;
-                    tekItemEntity.ListEnumeration = item.ListEnumeration;
-                    tekItemEntity.ItemTypeId = item.ItemTypeId;
-                    tekItemEntity.HumanCodingScheme = item.HumanCodingScheme;
-                    tekItemEntity.FullStatement = item.FullStatement;
-                    tekItemEntity.Language = item.Language;
-                    tekItemEntity.LastChangeTea = item.LastChangeTea;
-                    tekItemEntity.UploadedAt = DateTime.Now;
-                    context.TeksItems.Update(tekItemEntity);
-                }
-                else
-                {
-                    context.Add(item);
-                }
-            });
+                        if (tekItemEntity != null)
+                        {
+                            tekItemEntity.ParentId = hasParent ? parentId : null;
+                            tekItemEntity.ListEnumeration = item.ListEnumeration;
+                            tekItemEntity.ItemTypeId = item.ItemTypeId;
+                            tekItemEntity.HumanCodingScheme = item.HumanCodingScheme;
+                            tekItemEntity.FullStatement = item.FullStatement;
+                            tekItemEntity.Language = item.Language;
+                            tekItemEntity.LastChangeTea = item.LastChangeTea;
+                            tekItemEntity.UploadedAt = DateTime.Now;
+                        }
+                        else
+                        {
+                            await context.AddAsync(item);
+                        }
+                        await context.SaveChangesAsync();
+                    }
+                    catch (SqlException e)
+                    {
+                        Console.WriteLine(e.Message);
+                    }
+                    catch (Microsoft.EntityFrameworkCore.DbUpdateException e){
+                        Console.WriteLine(e.Message);
+                    }
+                })
+            );
+        });
+        tasks.Add(prepItemsTask);
 
-            // await context.SaveChangesAsync();
-        };
-
-        await OnGet(endpoint)
-            .ContinueWith(async tr =>
-            {
-                var result = tr.Result;
-                await prepSubject(result);
-                await taskItemTypePrep(result);
-                await prepTek(result);
-                await prepItems(result);
-            })
-            .ContinueWith(async (t) => await transaction.CommitAsync());
+        var finishTask = Task.WhenAll([.. tasks]);
+        await finishTask;
     }
 
-    private async Task<TEKSResponse> OnGet(string endnpoint)
+    private async Task<TEKSResponse?> OnGet(string endnpoint)
     {
         var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, endnpoint)
         {
@@ -198,15 +225,15 @@ public class TeksService : ITeksService
 
         var httpClient = _httpClientFactory.CreateClient();
 
-        Func<HttpResponseMessage, TEKSResponse> getTeksResponse = (
-            HttpResponseMessage responseTask
-        ) =>
-        {
-            return JsonSerializer.Deserialize<TEKSResponse>(responseTask.Content.ReadAsStream());
-        };
-
         return await httpClient
             .SendAsync(httpRequestMessage)
-            .ContinueWith(httpRes => getTeksResponse(httpRes.Result));
+            .ContinueWith(
+                (res) =>
+                {
+                    return JsonSerializer.Deserialize<TEKSResponse>(
+                        res.Result.Content.ReadAsStream()
+                    );
+                }
+            );
     }
 }

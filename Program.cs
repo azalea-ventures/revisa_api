@@ -8,9 +8,10 @@ builder.Services.AddSwaggerGen();
 string connectionString = Environment.GetEnvironmentVariable("REVISA_DB") ?? builder.Configuration.GetConnectionString("REVISA_DB");
 Action<DbContextOptionsBuilder> dbConfig = (opt) => {
     opt.UseSqlServer(connectionString);
+    opt.EnableSensitiveDataLogging(true);
 };
 builder.Services.AddDbContext<ContentContext>(dbConfig);
-builder.Services.AddDbContext<TeksContext>(dbConfig);
+builder.Services.AddDbContextFactory<TeksContext>(dbConfig);
 builder.Services.AddScoped<IContentService, ContentService>();
 builder.Services.AddScoped<ITeksService, TeksService>();
 builder.Services.AddHttpClient();
@@ -41,11 +42,10 @@ app.MapGet(
 
 app.MapPost(
         "teks",
-        async (string endpoint, ITeksService teksConsumerService) =>
+        async Task (string endpoint, ITeksService teksConsumerService) =>
         {
             await teksConsumerService.GetTEKS(endpoint);
         }
-    )
-    .WithOpenApi();
+    ).WithOpenApi();
 
 app.Run();

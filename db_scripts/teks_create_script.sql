@@ -21,7 +21,7 @@ CREATE TABLE teks.teks_subjects (
 CREATE TABLE teks.teks_items (
     id UNIQUEIDENTIFIER PRIMARY KEY NOT NULL,
     parent_id UNIQUEIDENTIFIER,
-    list_enumeration NVARCHAR(MAX),
+    list_enumeration INT,
     item_type_id UNIQUEIDENTIFIER,
     human_coding_scheme NVARCHAR(MAX),
     full_statement NVARCHAR(MAX),
