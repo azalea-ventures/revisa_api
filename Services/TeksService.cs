@@ -167,10 +167,9 @@ public class TeksService : ITeksService
             await Task.WhenAll(
                 items.Select(async item =>
                 {
+                    using var context = _dbContextFactory.CreateDbContext();
                     try
                     {
-                        using var context = _dbContextFactory.CreateDbContext();
-
                         TeksItem? tekItemEntity = await context.TeksItems.FindAsync(item.Id);
 
                         Guid parentId;
@@ -202,16 +201,17 @@ public class TeksService : ITeksService
                     }
                     catch (SqlException e)
                     {
-                        Console.WriteLine(e.Message);
+                        await context.DisposeAsync();
                     }
                     catch (Microsoft.EntityFrameworkCore.DbUpdateException e){
-                        Console.WriteLine(e.Message);
+                        await context.DisposeAsync();
                     }
                 })
             );
         });
         tasks.Add(prepItemsTask);
-
+        
+        Console.WriteLine("\n\n\n****RUNNING TEKS DB TASKS****\n\n\n");
         var finishTask = Task.WhenAll([.. tasks]);
         await finishTask;
     }
