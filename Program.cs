@@ -11,7 +11,7 @@ Action<DbContextOptionsBuilder> dbConfig = (opt) => {
     opt.EnableSensitiveDataLogging(true);
 };
 builder.Services.AddDbContext<ContentContext>(dbConfig);
-builder.Services.AddDbContextFactory<TeksContext>(dbConfig);
+builder.Services.AddPooledDbContextFactory<TeksContext>(dbConfig, 2000);
 builder.Services.AddScoped<IContentService, ContentService>();
 builder.Services.AddScoped<ITeksService, TeksService>();
 builder.Services.AddHttpClient();
