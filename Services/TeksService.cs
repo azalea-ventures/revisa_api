@@ -31,10 +31,10 @@ public class TeksService : ITeksService
                     Id = Guid.Parse(response.CFDocument.subjectURI.FirstOrDefault().identifier),
                     Title = response.CFDocument.subjectURI.FirstOrDefault().title
                 };
+            using var context = _dbContextFactory.CreateDbContext();
+
             try
             {
-                using var context = _dbContextFactory.CreateDbContext();
-
                 TeksSubject? subEntity = await context.TeksSubjects.SingleOrDefaultAsync(s =>
                     s.Id.Equals(subject.Id)
                 );
@@ -48,12 +48,9 @@ public class TeksService : ITeksService
                     await context.TeksSubjects.AddAsync(subject);
                 }
                 await context.SaveChangesAsync();
-                await context.DisposeAsync();
             }
-            catch (SqlException e)
-            {
-                throw;
-            }
+            catch (Exception e) { }
+            await context.DisposeAsync();
         });
         tasks.Add(prepSubjecTask);
 
@@ -67,13 +64,13 @@ public class TeksService : ITeksService
                 })
                 .ToList();
 
-            try
-            {
-                await Task.WhenAll(
-                    teksItemTypes.Select(async it =>
-                    {
-                        using var context = _dbContextFactory.CreateDbContext();
+            await Task.WhenAll(
+                teksItemTypes.Select(async it =>
+                {
+                    var context = _dbContextFactory.CreateDbContext();
 
+                    try
+                    {
                         TeksItemType? entity = await context.TeksItemTypes.FindAsync(it.Id);
                         if (entity != null)
                         {
@@ -85,54 +82,57 @@ public class TeksService : ITeksService
                         }
 
                         await context.SaveChangesAsync();
-                        await context.DisposeAsync();
-                    })
-                );
-            }
-            catch (SqlException e)
-            {
-                throw;
-            }
+                    }
+                    catch (SqlException e) { }
+                    await context.DisposeAsync();
+                })
+            );
         });
         tasks.Add(prepItemTypeTask);
 
         Task prepTekTask = Task.Run(async () =>
         {
-            using var context = _dbContextFactory.CreateDbContext();
+            var context = _dbContextFactory.CreateDbContext();
 
-            Tek? tekEntity = await context.Teks.FindAsync(
-                Guid.Parse(response.CFDocument.identifier)
-            );
-            Tek tek =
-                new()
+            try
+            {
+                Tek? tekEntity = await context.Teks.FindAsync(
+                    Guid.Parse(response.CFDocument.identifier)
+                );
+
+                if (tekEntity != null)
                 {
-                    Id = Guid.Parse(response.CFDocument.identifier),
-                    SubjectId = Guid.Parse(response.CFDocument.subjectURI.First().identifier),
-                    Title = response.CFDocument.title,
-                    Description = response.CFDocument.description,
-                    AdoptionStatus = response.CFDocument.adoptionStatus,
-                    EffectiveYear = null,
-                    Notes = response.CFDocument.notes,
-                    OfficialSourceUrl = response.CFDocument.officialSourceURL,
-                    Language = response.CFDocument.language
-                };
+                    Tek tek =
+                        new()
+                        {
+                            Id = Guid.Parse(response.CFDocument.identifier),
+                            SubjectId = Guid.Parse(
+                                response.CFDocument.subjectURI.First().identifier
+                            ),
+                            Title = response.CFDocument.title,
+                            Description = response.CFDocument.description,
+                            AdoptionStatus = response.CFDocument.adoptionStatus,
+                            EffectiveYear = null,
+                            Notes = response.CFDocument.notes,
+                            OfficialSourceUrl = response.CFDocument.officialSourceURL,
+                            Language = response.CFDocument.language
+                        };
 
-            if (tekEntity != null)
-            {
-                tekEntity.SubjectId = Guid.Parse(response.CFDocument.subjectURI.First().identifier);
-                tekEntity.Title = response.CFDocument.title;
-                tekEntity.Description = response.CFDocument.description;
-                tekEntity.AdoptionStatus = response.CFDocument.adoptionStatus;
-                tekEntity.EffectiveYear = null;
-                tekEntity.Notes = response.CFDocument.notes;
-                tekEntity.OfficialSourceUrl = response.CFDocument.officialSourceURL;
-                tekEntity.Language = response.CFDocument.language;
+                    tekEntity.SubjectId = Guid.Parse(
+                        response.CFDocument.subjectURI.First().identifier
+                    );
+                    tekEntity.Title = response.CFDocument.title;
+                    tekEntity.Description = response.CFDocument.description;
+                    tekEntity.AdoptionStatus = response.CFDocument.adoptionStatus;
+                    tekEntity.EffectiveYear = null;
+                    tekEntity.Notes = response.CFDocument.notes;
+                    tekEntity.OfficialSourceUrl = response.CFDocument.officialSourceURL;
+                    tekEntity.Language = response.CFDocument.language;
+                    await context.Teks.AddAsync(tek);
+                    await context.SaveChangesAsync();
+                }
             }
-            else
-            {
-                await context.Teks.AddAsync(tek);
-            }
-            await context.SaveChangesAsync();
+            catch (Exception e) { }
             await context.DisposeAsync();
         });
         tasks.Add(prepTekTask);
@@ -150,7 +150,9 @@ public class TeksService : ITeksService
                 {
                     Id = Guid.Parse(item.identifier),
                     ParentId = null,
-                    ListEnumeration = int.TryParse(item.listEnumeration, out listEnum) ? listEnum : 0,
+                    ListEnumeration = int.TryParse(item.listEnumeration, out listEnum)
+                        ? listEnum
+                        : 0,
                     ItemTypeId =
                         item.CFItemTypeURI != null
                             ? Guid.Parse(item.CFItemTypeURI.identifier)
@@ -167,7 +169,7 @@ public class TeksService : ITeksService
             await Task.WhenAll(
                 items.Select(async item =>
                 {
-                    using var context = _dbContextFactory.CreateDbContext();
+                    var context = _dbContextFactory.CreateDbContext();
                     try
                     {
                         TeksItem? tekItemEntity = await context.TeksItems.FindAsync(item.Id);
@@ -197,15 +199,10 @@ public class TeksService : ITeksService
                             await context.AddAsync(item);
                         }
                         await context.SaveChangesAsync();
-                        await context.DisposeAsync();
                     }
-                    catch (SqlException e)
-                    {
-                        await context.DisposeAsync();
-                    }
-                    catch (Microsoft.EntityFrameworkCore.DbUpdateException e){
-                        await context.DisposeAsync();
-                    }
+                    catch (SqlException e) { }
+                    catch (Microsoft.EntityFrameworkCore.DbUpdateException e) { }
+                    await context.DisposeAsync();
                 })
             );
         });

@@ -9,7 +9,7 @@ public partial class TeksItem
 
     public Guid? ParentId { get; set; }
 
-    public int ListEnumeration { get; set; }
+    public int? ListEnumeration { get; set; }
 
     public Guid? ItemTypeId { get; set; }
 
