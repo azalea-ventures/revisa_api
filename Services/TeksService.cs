@@ -171,7 +171,10 @@ public class TeksService : ITeksService
                     try
                     {
                         TeksItem? tekItemEntity = await context.TeksItems.FindAsync(item.Id);
-
+                        var parentFromDb = await context.TeksItems.FindAsync(item.ParentId);
+                        
+                        // final check for parent as record in db - if not, we simply need to resubmit the record to add parent id
+                        item.ParentId = parentFromDb != null ? parentFromDb.Id : null;
                         
                         if (tekItemEntity != null)
                         {
