@@ -117,17 +117,6 @@ public class TeksService : ITeksService
                             OfficialSourceUrl = response.CFDocument.officialSourceURL,
                             Language = response.CFDocument.language
                         };
-
-                    tekEntity.SubjectId = Guid.Parse(
-                        response.CFDocument.subjectURI.First().identifier
-                    );
-                    tekEntity.Title = response.CFDocument.title;
-                    tekEntity.Description = response.CFDocument.description;
-                    tekEntity.AdoptionStatus = response.CFDocument.adoptionStatus;
-                    tekEntity.EffectiveYear = null;
-                    tekEntity.Notes = response.CFDocument.notes;
-                    tekEntity.OfficialSourceUrl = response.CFDocument.officialSourceURL;
-                    tekEntity.Language = response.CFDocument.language;
                     await context.Teks.AddAsync(tek);
                     await context.SaveChangesAsync();
                 }
