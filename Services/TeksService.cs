@@ -135,10 +135,19 @@ public class TeksService : ITeksService
             response.CFItems.ForEach(item =>
             {
                 int listEnum = 0;
+
+                var parentNode = cfAssociations
+                        .Where(a => a.originNodeURI.identifier.Equals(item.identifier
+                        .ToString()))
+                        .FirstOrDefault();
+
+                Guid parentId;
+                bool hasParent = Guid.TryParse(parentNode?.destinationNodeURI.identifier, out parentId);
+
                 TeksItem teksItem = new TeksItem()
                 {
                     Id = Guid.Parse(item.identifier),
-                    ParentId = null,
+                    ParentId = hasParent ? parentId : null,
                     ListEnumeration = int.TryParse(item.listEnumeration, out listEnum)
                         ? listEnum
                         : 0,
@@ -163,18 +172,10 @@ public class TeksService : ITeksService
                     {
                         TeksItem? tekItemEntity = await context.TeksItems.FindAsync(item.Id);
 
-                        Guid parentId;
-
-                        bool hasParent = Guid.TryParse(
-                            cfAssociations
-                                .SingleOrDefault(a => a.originNodeURI.identifier.Equals(item.Id))
-                                ?.destinationNodeURI.identifier,
-                            out parentId
-                        );
-
+                        
                         if (tekItemEntity != null)
                         {
-                            tekItemEntity.ParentId = hasParent ? parentId : null;
+                            tekItemEntity.ParentId = item.ParentId;
                             tekItemEntity.ListEnumeration = item.ListEnumeration;
                             tekItemEntity.ItemTypeId = item.ItemTypeId;
                             tekItemEntity.HumanCodingScheme = item.HumanCodingScheme;
