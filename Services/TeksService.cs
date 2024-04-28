@@ -100,7 +100,7 @@ public class TeksService : ITeksService
                     Guid.Parse(response.CFDocument.identifier)
                 );
 
-                if (tekEntity != null)
+                if (tekEntity == null)
                 {
                     Tek tek =
                         new()
