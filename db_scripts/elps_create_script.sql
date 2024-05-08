@@ -3,6 +3,7 @@ GO
 
 
 -- Create schema
+
 CREATE SCHEMA elps;
 GO
 
@@ -13,7 +14,15 @@ BEGIN TRANSACTION
 CREATE TABLE elps.learning_strategies (
     id INT IDENTITY(1,1) PRIMARY KEY,
     label VARCHAR(1),
-    objective NVARCHAR(MAX)
+    strategy NVARCHAR(MAX)
+);
+
+-- Learning Strategies Modifications
+CREATE TABLE elps.learning_strategies_mods (
+    id INT IDENTITY(1,1) PRIMARY KEY,
+    learning_strategy_id INT NOT NULL,
+    strategy NVARCHAR(MAX),
+    FOREIGN KEY (learning_strategy_id) REFERENCES elps.learning_strategies(id)
 );
 
 -- Domains
@@ -31,6 +40,7 @@ CREATE TABLE elps.domain_objectives (
     objective NVARCHAR(MAX),
     FOREIGN KEY (domain_id) REFERENCES elps.domains (id)
 );
+
 
 -- Levels
 CREATE TABLE elps.levels (
@@ -80,11 +90,21 @@ CREATE TABLE elps.domain_lvl_attr_item (
     FOREIGN KEY (domain_lvl_attr_id) REFERENCES elps.domain_lvl_attr (id)
 );
 
+CREATE TABLE elps.strategies_objectives (
+    id INT IDENTITY(1,1) PRIMARY KEY,
+    strategy_mod_id INT NOT NULL,
+    domain_objective_id INT NOT NULL,
+    FOREIGN KEY (strategy_mod_id) REFERENCES elps.learning_strategies_mods(id),
+    FOREIGN KEY (domain_objective_id) REFERENCES elps.domain_objectives(id)
+);
+
 
 -- **WIPE AND RESTART elps schema** 
 
 -- USE revisa_db;
 -- GO
+-- DROP TABLE elps.strategies_objectives;
+-- DROP TABLE elps.learning_strategies_mods;
 -- DROP TABLE elps.learning_strategies;
 -- DROP TABLE elps.domain_lvl_attr_item;
 -- DROP TABLE elps.domain_lvl_attr;

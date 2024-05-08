@@ -4,7 +4,7 @@ GO
 BEGIN TRANSACTION
 -- Insert data into Learning Strategies table
 INSERT INTO elps.learning_strategies
-    (label, objective)
+    (label, strategy)
 VALUES
     ('A', 'use prior knowledge and experiences to understand meanings in English'),
     ('B', 'monitor oral and written language production and employ self-corrective techniques or other resources'),
@@ -14,6 +14,34 @@ VALUES
     ('F', 'use accessible language and learn new and essential language in the process'),
     ('G', 'demonstrate an increasing ability to distinguish between formal and informal English and an increasing knowledge of when to use each one commensurate with grade-level learning expectations'),
     ('H', 'develop and expand repertoire of learning strategies such as reasoning inductively or deductively, looking for patterns in language, and analyzing sayings and expressions commensurate with grade-level learning expectations');
+
+INSERT INTO elps.learning_strategies_mods
+(learning_strategy_id, strategy)
+VALUES 
+(1, 'use prior knowledge and experiences to understand meanings in English'),
+(2, 'monitor oral language production and employ self-corrective techniques or other resources'),
+(2, 'monitor written language production and employ self-corrective techniques or other resources'),
+(3, 'use strategic learning techniques such as concept mapping to acquire basic and grade-level vocabulary'),
+(3, 'use strategic learning techniques such as drawing to acquire basic and grade-level vocabulary'),
+(3, 'use strategic learning techniques such as comparing and contrasting to acquire basic and grade-level vocabulary'),
+(3, 'use strategic learning techniques such as reviewing to acquire basic and grade-level vocabulary'),
+(4, 'speak using learning strategies such as requesting assistance when exact English words are not known'),
+(4, 'speak using learning strategies such as employing non-verbal cues when exact English words are not known'),
+(4, 'speak using learning strategies such as using synonyms when exact English words are not known'),
+(4, 'speak using learning strategies such as circumlocution (conveying ideas by defining or describing) when exact English words are not known'),
+(5, 'internalize new basic and academic language by using and reusing it in meaningful ways in speaking activities that build concept and language attainment'),
+(5, 'internalize new basic and academic language by using and reusing it in meaningful ways in writing activities that build concept and language attainment'),
+(6, 'use accessible language and learn new and essential language in the process'),
+(7, 'demonstrate an increasing ability to distinguish between formal and informal English and an increasing knowledge of when to use each one commensurate with grade-level learning expectations'),
+(8, 'develop and expand repertoire of learning strategies such as reasoning inductively commensurate with grade-level learning expectations'),
+(8, 'develop and expand repertoire of learning strategies such as reasoning deductively commensurate with grade-level learning expectations'),
+(8, 'develop and expand repertoire of learning strategies such as looking for patterns in language commensurate with grade-level learning expectations'),
+(8, 'develop and expand repertoire of learning strategies such as analyzing sayings and expressions commensurate with grade-level learning expectations');
+
+
+COMMIT;
+
+BEGIN TRANSACTION
 -- Insert data into Domains table
 INSERT INTO elps.domains
     (domain, label)
@@ -71,6 +99,173 @@ VALUES
     (4, 'F', 'write using a variety of grade-appropriate sentence lengths, patterns, and connecting words to combine phrases, clauses, and sentences in increasingly accurate ways as more English is acquired'),
     (4, 'G', 'narrate, describe, and explain with increasing specificity and detail to fulfill content area writing needs as more English is acquired')
 
+COMMIT;
+
+BEGIN TRANSACTION
+-- Insert data into strategies_objectives table
+INSERT INTO elps.strategies_objectives
+(strategy_mod_id, domain_objective_id)
+VALUES
+(1,1),
+(2,10),
+(3,20),
+(4,31),
+(5,2),
+(6,11),
+(7,32),
+(8,3),
+(9,12),
+(10,22),
+(11,33),
+(12,4),
+(13,13),
+(14,23),
+(15,34),
+(16,5),
+(17,14),
+(18,24),
+(19,35),
+(1,6),
+(2,15),
+(3,25),
+(4,36),
+(5,7),
+(6,16),
+(7,26),
+(8,37),
+(9,8),
+(10,17),
+(11,27),
+(12,9),
+(13,18),
+(14,28),
+(15,10),
+(16,19),
+(17,30),
+(18,21),
+(19,1),
+(1,10),
+(2,20),
+(3,31),
+(4,2),
+(5,11),
+(6,32),
+(7,3),
+(8,12),
+(9,22),
+(10,33),
+(11,4),
+(12,13),
+(13,34),
+(14,5),
+(15,14),
+(16,24),
+(17,35),
+(18,6),
+(19,15),
+(1,25),
+(2,36),
+(3,7),
+(4,16),
+(5,26),
+(6,37),
+(7,8),
+(8,17),
+(9,27),
+(10,9),
+(11,18),
+(12,28),
+(13,10),
+(14,19),
+(15,30),
+(16,21),
+(17,1),
+(18,10),
+(19,20),
+(1,31),
+(2,2),
+(3,11),
+(4,32),
+(5,3),
+(6,12),
+(7,22),
+(8,33),
+(9,4),
+(10,13),
+(11,23),
+(12,34),
+(13,5),
+(14,14),
+(15,24),
+(16,35),
+(17,6),
+(18,15),
+(19,25),
+(1,36),
+(2,7),
+(3,16),
+(4,26),
+(5,37),
+(6,8),
+(7,17),
+(8,27),
+(9,9),
+(10,18),
+(11,28),
+(12,10),
+(13,19),
+(14,30),
+(15,21),
+(16,1),
+(17,10),
+(18,20),
+(19,31),
+(1,2),
+(2,11),
+(3,32),
+(4,3),
+(5,12),
+(6,12),
+(7,22),
+(8,33),
+(9,4),
+(10,13),
+(11,34),
+(12,5),
+(13,14),
+(14,24),
+(15,35),
+(16,6),
+(17,15),
+(18,25),
+(19,36),
+(1,7),
+(2,16),
+(3,26),
+(4,37),
+(5,8),
+(6,17),
+(7,27),
+(8,9),
+(9,18),
+(10,28),
+(11,10),
+(12,19),
+(13,30),
+(14,21),
+(15,1),
+(16,10),
+(17,20),
+(18,31),
+(19,32),
+(1,3),
+(2,12),
+(3,22),
+(4,33),
+(5,4),
+(6,13),
+(7,23),
+(8,34)
 COMMIT;
 
 BEGIN TRANSACTION
@@ -289,7 +484,6 @@ VALUES
 COMMIT;
 
 
-
 BEGIN TRANSACTION
 INSERT INTO elps.domain_lvl_attr_item
     (domain_lvl_attr_id, item)
@@ -359,3 +553,10 @@ VALUES
     (96, 'errors associated with second language acquisition are minor and usually limited to low-frequency words and structures; errors rarely interfere with communication');
 
 COMMIT;
+
+-- BEGIN TRANSACTION
+-- INSERT INTO elps.strategies_objectives 
+-- (strategy_mod_id, domain_objective_id)
+-- VALUES 
+-- ()
+-- COMMIT;
