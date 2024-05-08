@@ -139,6 +139,7 @@ VALUES
 COMMIT;
 GO
 
+
 -- Trigger to insert into content_versions
 CREATE OR ALTER TRIGGER trg_insert_content_version
 ON content.content_details

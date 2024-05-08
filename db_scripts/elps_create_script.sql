@@ -91,7 +91,7 @@ CREATE TABLE elps.domain_lvl_attr_item (
 );
 
 CREATE TABLE elps.strategies_objectives (
-    id INT IDENTITY(1,1) PRIMARY KEY,
+    id INT IDENTITY(1,1) PRIMARY KEY NOT NULL,
     strategy_mod_id INT NOT NULL,
     domain_objective_id INT NOT NULL,
     FOREIGN KEY (strategy_mod_id) REFERENCES elps.learning_strategies_mods(id),
