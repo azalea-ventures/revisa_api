@@ -18,6 +18,7 @@ GO
 -- Create new schema
 CREATE SCHEMA language_supports;
 GO
+
 CREATE TABLE language_supports.iclos
 (
     id INT PRIMARY KEY IDENTITY(1,1),

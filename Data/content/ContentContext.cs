@@ -1,11 +1,16 @@
-﻿
+﻿using System;
+using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 
 namespace revisa_api.Data.content;
 
-public partial class ContentContext : DbContext
+public partial class RevisaDbContext : DbContext
 {
-    public ContentContext(DbContextOptions<ContentContext> options)
+    public RevisaDbContext()
+    {
+    }
+
+    public RevisaDbContext(DbContextOptions<RevisaDbContext> options)
         : base(options)
     {
     }
@@ -15,6 +20,8 @@ public partial class ContentContext : DbContext
     public virtual DbSet<ContentDetail> ContentDetails { get; set; }
 
     public virtual DbSet<ContentGroup> ContentGroups { get; set; }
+
+    public virtual DbSet<ContentTek> ContentTeks { get; set; }
 
     public virtual DbSet<ContentTxt> ContentTxts { get; set; }
 
@@ -28,15 +35,19 @@ public partial class ContentContext : DbContext
 
     public virtual DbSet<User> Users { get; set; }
 
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
+        => optionsBuilder.UseSqlServer("Data Source=tcp:revisa-db.database.windows.net,1433;Initial Catalog=revisa_db;Persist Security Info=False;User ID=revisa_admin;Password=EeR8kMiFf@y5SCb;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30");
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Client>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__clients__3213E83F2E677153");
+            entity.HasKey(e => e.Id).HasName("PK__clients__3213E83F99ECF343");
 
             entity.ToTable("clients", "content", tb => tb.HasTrigger("trg_upper_client_name"));
 
-            entity.HasIndex(e => e.ClientName, "UQ__clients__9ADC3B74C6852588").IsUnique();
+            entity.HasIndex(e => e.ClientName, "UQ__clients__9ADC3B74ADFDD228").IsUnique();
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.ClientName)
@@ -46,7 +57,7 @@ public partial class ContentContext : DbContext
 
         modelBuilder.Entity<ContentDetail>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__content___3213E83F912332DE");
+            entity.HasKey(e => e.Id).HasName("PK__content___3213E83FD5B946B5");
 
             entity.ToTable("content_details", "content", tb => tb.HasTrigger("trg_insert_content_version"));
 
@@ -71,27 +82,27 @@ public partial class ContentContext : DbContext
             entity.HasOne(d => d.Client).WithMany(p => p.ContentDetails)
                 .HasForeignKey(d => d.ClientId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__content_d__clien__7CE47361");
+                .HasConstraintName("FK__content_d__clien__31432D07");
 
             entity.HasOne(d => d.Grade).WithMany(p => p.ContentDetails)
                 .HasForeignKey(d => d.GradeId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__content_d__grade__7DD8979A");
+                .HasConstraintName("FK__content_d__grade__32375140");
 
             entity.HasOne(d => d.Owner).WithMany(p => p.ContentDetails)
                 .HasForeignKey(d => d.OwnerId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__content_d__owner__7FC0E00C");
+                .HasConstraintName("FK__content_d__owner__341F99B2");
 
             entity.HasOne(d => d.Subject).WithMany(p => p.ContentDetails)
                 .HasForeignKey(d => d.SubjectId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__content_d__subje__7ECCBBD3");
+                .HasConstraintName("FK__content_d__subje__332B7579");
         });
 
         modelBuilder.Entity<ContentGroup>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__content___3213E83F694E3803");
+            entity.HasKey(e => e.Id).HasName("PK__content___3213E83FD4F75830");
 
             entity.ToTable("content_group", "content");
 
@@ -101,12 +112,27 @@ public partial class ContentContext : DbContext
             entity.HasOne(d => d.ContentVersion).WithMany(p => p.ContentGroups)
                 .HasForeignKey(d => d.ContentVersionId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__content_g__conte__0E0EFF63");
+                .HasConstraintName("FK__content_g__conte__454A25B4");
+        });
+
+        modelBuilder.Entity<ContentTek>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToTable("content_teks", "content");
+
+            entity.Property(e => e.ContentVersionId).HasColumnName("content_version_id");
+            entity.Property(e => e.TekItemId).HasColumnName("tek_item_id");
+
+            entity.HasOne(d => d.ContentVersion).WithMany()
+                .HasForeignKey(d => d.ContentVersionId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__content_t__conte__417994D0");
         });
 
         modelBuilder.Entity<ContentTxt>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__content___3213E83F2A8E2045");
+            entity.HasKey(e => e.Id).HasName("PK__content___3213E83F2E2BCD82");
 
             entity.ToTable("content_txt", "content");
 
@@ -123,12 +149,12 @@ public partial class ContentContext : DbContext
             entity.HasOne(d => d.ContentGroup).WithMany(p => p.ContentTxts)
                 .HasForeignKey(d => d.ContentGroupId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__content_t__conte__10EB6C0E");
+                .HasConstraintName("FK__content_t__conte__4826925F");
         });
 
         modelBuilder.Entity<ContentType>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__content___3213E83FA4E9E056");
+            entity.HasKey(e => e.Id).HasName("PK__content___3213E83FD88A4F11");
 
             entity.ToTable("content_type", "content");
 
@@ -140,7 +166,7 @@ public partial class ContentContext : DbContext
 
         modelBuilder.Entity<ContentVersion>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__content___3213E83F3717AB54");
+            entity.HasKey(e => e.Id).HasName("PK__content___3213E83F4C0F251E");
 
             entity.ToTable("content_versions", "content");
 
@@ -163,21 +189,21 @@ public partial class ContentContext : DbContext
             entity.HasOne(d => d.ContentDetails).WithMany(p => p.ContentVersions)
                 .HasForeignKey(d => d.ContentDetailsId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__content_v__conte__076201D4");
+                .HasConstraintName("FK__content_v__conte__3BC0BB7A");
 
             entity.HasOne(d => d.Owner).WithMany(p => p.ContentVersions)
                 .HasForeignKey(d => d.OwnerId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__content_v__owner__066DDD9B");
+                .HasConstraintName("FK__content_v__owner__3ACC9741");
         });
 
         modelBuilder.Entity<Grade>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__grades__3213E83FC920337B");
+            entity.HasKey(e => e.Id).HasName("PK__grades__3213E83FB55E4571");
 
             entity.ToTable("grades", "content");
 
-            entity.HasIndex(e => e.Grade1, "UQ__grades__28A83176D8A5B5B1").IsUnique();
+            entity.HasIndex(e => e.Grade1, "UQ__grades__28A8317604FE4043").IsUnique();
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.Grade1)
@@ -187,7 +213,7 @@ public partial class ContentContext : DbContext
 
         modelBuilder.Entity<Subject>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__subjects__3213E83F147F371E");
+            entity.HasKey(e => e.Id).HasName("PK__subjects__3213E83F17C8DB2D");
 
             entity.ToTable("subjects", "content");
 
@@ -199,7 +225,7 @@ public partial class ContentContext : DbContext
 
         modelBuilder.Entity<User>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__users__3213E83F6D21DE32");
+            entity.HasKey(e => e.Id).HasName("PK__users__3213E83FEE8C1181");
 
             entity.ToTable("users", "content");
 
