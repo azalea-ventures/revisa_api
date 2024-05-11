@@ -4,13 +4,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace revisa_api.Data.elps;
 
-public partial class RevisaDbContext : DbContext
+public partial class ElpsContext : DbContext
 {
-    public RevisaDbContext()
+    public ElpsContext()
     {
     }
 
-    public RevisaDbContext(DbContextOptions<RevisaDbContext> options)
+    public ElpsContext(DbContextOptions<ElpsContext> options)
         : base(options)
     {
     }
