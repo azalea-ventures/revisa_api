@@ -18,6 +18,14 @@ public class TeksService : ITeksService
         _httpClientFactory = httpClientFactory;
     }
 
+    public List<TeksItem> GetTeksItems(List<Guid> ids)
+    {
+        return _dbContextFactory
+            .CreateDbContext()
+            .TeksItems.Where(t => ids.Contains(t.Id))
+            .ToList();
+    }
+
     public async Task GetTEKS(string endpoint)
     {
         List<Task> tasks = new List<Task>();
@@ -137,12 +145,14 @@ public class TeksService : ITeksService
                 int listEnum = 0;
 
                 var parentNode = cfAssociations
-                        .Where(a => a.originNodeURI.identifier.Equals(item.identifier
-                        .ToString()))
-                        .FirstOrDefault();
+                    .Where(a => a.originNodeURI.identifier.Equals(item.identifier.ToString()))
+                    .FirstOrDefault();
 
                 Guid parentId;
-                bool hasParent = Guid.TryParse(parentNode?.destinationNodeURI.identifier, out parentId);
+                bool hasParent = Guid.TryParse(
+                    parentNode?.destinationNodeURI.identifier,
+                    out parentId
+                );
 
                 TeksItem teksItem = new TeksItem()
                 {
@@ -172,10 +182,10 @@ public class TeksService : ITeksService
                     {
                         TeksItem? tekItemEntity = await context.TeksItems.FindAsync(item.Id);
                         var parentFromDb = await context.TeksItems.FindAsync(item.ParentId);
-                        
+
                         // final check for parent as record in db - if not, we simply need to resubmit the record to add parent id
                         item.ParentId = parentFromDb != null ? parentFromDb.Id : null;
-                        
+
                         if (tekItemEntity != null)
                         {
                             tekItemEntity.ParentId = item.ParentId;

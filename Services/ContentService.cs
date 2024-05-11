@@ -4,10 +4,12 @@ using revisa_api.Data.content;
 public class ContentService : IContentService
 {
     private readonly ContentContext _dbContext;
+    private readonly ITeksService _teksService;
 
-    public ContentService(ContentContext dbContext)
+    public ContentService(ContentContext dbContext, ITeksService teksService)
     {
         _dbContext = dbContext;
+        _teksService = teksService;
     }
 
     public int PostContent(PostContentRequest request)
@@ -37,20 +39,35 @@ public class ContentService : IContentService
             context.Add(cd);
             MapContentDetails(cd, request, client, subject, context);
         }
-        else{
+        else
+        {
             context.Update(cd);
             MapContentDetails(cd, request, client, subject, context);
         }
 
-
         context.SaveChanges();
-        // prepare content data
+        // prepare content version
         ContentVersion? contentVersion =
             context
                 .ContentVersions.Include(v => v.ContentGroups)
                 .FirstOrDefault(cv => cv.ContentDetailsId == cd.Id && cv.IsLatest == 1)
             ?? new ContentVersion { ContentDetailsId = cd.Id };
 
+        // teks and iclo
+        List<ContentTek> teks =
+        [
+            .. context.ContentTeks.Where(t => t.ContentVersionId == contentVersion.Id)
+        ];
+
+        if (request.Info.Teks.Count > 0)
+        {
+            var teksItems = _teksService.GetTeksItems(
+                request.Info.Teks.Select(t => Guid.Parse(t)).ToList()
+            );
+            Console.WriteLine(teksItems);
+        }
+
+        // map slide content
         foreach (var slide in request.Content)
         {
             ContentGroup slideElements = new();
@@ -82,7 +99,6 @@ public class ContentService : IContentService
         cd.Client = client;
         cd.GradeId = context.Grades.FirstOrDefault(g => g.Grade1 == request.Info.Grade).Id;
         cd.Subject = subject;
-        // cd.TekItemId = 
         cd.Owner = new revisa_api.Data.content.User
         {
             Username = request.Info.UpdatedBy.Username,

@@ -1,6 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using revisa_api.Data.teks;
 
 namespace revisa_api.Data.content;
 
@@ -33,11 +32,9 @@ public partial class ContentContext : DbContext
 
     public virtual DbSet<Subject> Subjects { get; set; }
 
-    public virtual DbSet<User> Users { get; set; }
+    public virtual DbSet<TeksItem> TeksItems { get; set; }
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Data Source=tcp:revisa-db.database.windows.net,1433;Initial Catalog=revisa_db;Persist Security Info=False;User ID=revisa_admin;Password=EeR8kMiFf@y5SCb;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30");
+    public virtual DbSet<User> Users { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -128,6 +125,11 @@ public partial class ContentContext : DbContext
                 .HasForeignKey(d => d.ContentVersionId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__content_t__conte__417994D0");
+
+            entity.HasOne(d => d.TekItem).WithMany()
+                .HasForeignKey(d => d.TekItemId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__content_t__tek_i__426DB909");
         });
 
         modelBuilder.Entity<ContentTxt>(entity =>
@@ -221,6 +223,33 @@ public partial class ContentContext : DbContext
             entity.Property(e => e.Subject1)
                 .HasMaxLength(100)
                 .HasColumnName("subject");
+        });
+
+        modelBuilder.Entity<TeksItem>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__teks_ite__3213E83F80BCBD75");
+
+            entity.ToTable("teks_items", "teks");
+
+            entity.Property(e => e.Id)
+                .ValueGeneratedNever()
+                .HasColumnName("id");
+            entity.Property(e => e.FullStatement).HasColumnName("full_statement");
+            entity.Property(e => e.HumanCodingScheme).HasColumnName("human_coding_scheme");
+            entity.Property(e => e.ItemTypeId).HasColumnName("item_type_id");
+            entity.Property(e => e.Language).HasColumnName("language");
+            entity.Property(e => e.LastChangeTea)
+                .HasColumnType("datetime")
+                .HasColumnName("last_change_tea");
+            entity.Property(e => e.ListEnumeration).HasColumnName("list_enumeration");
+            entity.Property(e => e.ParentId).HasColumnName("parent_id");
+            entity.Property(e => e.UploadedAt)
+                .HasColumnType("datetime")
+                .HasColumnName("uploaded_at");
+
+            entity.HasOne(d => d.Parent).WithMany(p => p.InverseParent)
+                .HasForeignKey(d => d.ParentId)
+                .HasConstraintName("FK__teks_item__paren__5C0D8F7B");
         });
 
         modelBuilder.Entity<User>(entity =>
