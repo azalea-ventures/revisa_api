@@ -8,6 +8,7 @@ public class Info
     public string Grade { get; set; }
     public string Subject { get; set; }
     [JsonPropertyName("delivery_date")]
+    public List<string> Teks {get; set;}
     public string DeliveryDate { get; set; }
     [JsonPropertyName("updated_by")]
     public User UpdatedBy { get; set; } = new();

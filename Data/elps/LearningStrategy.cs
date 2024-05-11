@@ -9,5 +9,7 @@ public partial class LearningStrategy
 
     public string? Label { get; set; }
 
-    public string? Objective { get; set; }
+    public string? Strategy { get; set; }
+
+    public virtual ICollection<LearningStrategiesMod> LearningStrategiesMods { get; set; } = new List<LearningStrategiesMod>();
 }

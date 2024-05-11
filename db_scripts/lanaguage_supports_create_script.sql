@@ -23,8 +23,7 @@ CREATE TABLE language_supports.iclos
     id INT PRIMARY KEY IDENTITY(1,1),
     iclo TEXT NOT NULL,
     strategy_objective_id INT REFERENCES elps.strategies_objectives(id) NOT NULL,
-    teks_item_id UNIQUEIDENTIFIER REFERENCES teks.teks_items(id) NOT NULL,
-    content_txt_id INT REFERENCES content.content_txt(id)
+    teks_item_id UNIQUEIDENTIFIER REFERENCES teks.teks_items(id) NOT NULL
 );
 GO
 

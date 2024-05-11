@@ -1,14 +1,20 @@
-﻿
+﻿using System;
+using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 
 namespace revisa_api.Data.teks;
 
 public partial class TeksContext : DbContext
 {
+    public TeksContext()
+    {
+    }
+
     public TeksContext(DbContextOptions<TeksContext> options)
         : base(options)
     {
     }
+
     public virtual DbSet<Tek> Teks { get; set; }
 
     public virtual DbSet<TeksItem> TeksItems { get; set; }
@@ -17,13 +23,15 @@ public partial class TeksContext : DbContext
 
     public virtual DbSet<TeksSubject> TeksSubjects { get; set; }
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder){}
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
+        => optionsBuilder.UseSqlServer("Data Source=tcp:revisa-db.database.windows.net,1433;Initial Catalog=revisa_db;Persist Security Info=False;User ID=revisa_admin;Password=EeR8kMiFf@y5SCb;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Tek>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__teks__3213E83F5692239F");
+            entity.HasKey(e => e.Id).HasName("PK__teks__3213E83F095A5906");
 
             entity.ToTable("teks", "teks");
 
@@ -41,12 +49,12 @@ public partial class TeksContext : DbContext
 
             entity.HasOne(d => d.Subject).WithMany(p => p.Teks)
                 .HasForeignKey(d => d.SubjectId)
-                .HasConstraintName("FK__teks__subject_id__6D6D25A7");
+                .HasConstraintName("FK__teks__subject_id__5FDE205F");
         });
 
         modelBuilder.Entity<TeksItem>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__teks_ite__3213E83F4313200F");
+            entity.HasKey(e => e.Id).HasName("PK__teks_ite__3213E83F80BCBD75");
 
             entity.ToTable("teks_items", "teks");
 
@@ -68,16 +76,16 @@ public partial class TeksContext : DbContext
 
             entity.HasOne(d => d.ItemType).WithMany(p => p.TeksItems)
                 .HasForeignKey(d => d.ItemTypeId)
-                .HasConstraintName("FK__teks_item__item___6A90B8FC");
+                .HasConstraintName("FK__teks_item__item___5D01B3B4");
 
             entity.HasOne(d => d.Parent).WithMany(p => p.InverseParent)
                 .HasForeignKey(d => d.ParentId)
-                .HasConstraintName("FK__teks_item__paren__699C94C3");
+                .HasConstraintName("FK__teks_item__paren__5C0D8F7B");
         });
 
         modelBuilder.Entity<TeksItemType>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__teks_ite__3213E83FE4D7045D");
+            entity.HasKey(e => e.Id).HasName("PK__teks_ite__3213E83F6085634D");
 
             entity.ToTable("teks_item_types", "teks");
 
@@ -89,7 +97,7 @@ public partial class TeksContext : DbContext
 
         modelBuilder.Entity<TeksSubject>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__teks_sub__3213E83F9EEBD234");
+            entity.HasKey(e => e.Id).HasName("PK__teks_sub__3213E83FF01291B0");
 
             entity.ToTable("teks_subjects", "teks");
 
