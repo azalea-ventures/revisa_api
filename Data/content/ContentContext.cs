@@ -4,13 +4,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace revisa_api.Data.content;
 
-public partial class RevisaDbContext : DbContext
+public partial class ContentContext : DbContext
 {
-    public RevisaDbContext()
+    public ContentContext()
     {
     }
 
-    public RevisaDbContext(DbContextOptions<RevisaDbContext> options)
+    public ContentContext(DbContextOptions<ContentContext> options)
         : base(options)
     {
     }
