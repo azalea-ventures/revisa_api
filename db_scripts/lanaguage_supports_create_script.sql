@@ -28,6 +28,16 @@ CREATE TABLE language_supports.iclos
 );
 GO
 
+-- maps content subjects to teks subjects
+-- we don't always know a client's subject mapping so this
+-- should be done at the db level for flexibility
+CREATE TABLE language_supports.content_teks_subjects(
+    content_subject_id INT REFERENCES content.subjects(id) NOT NULL,
+    teks_subject_id UNIQUEIDENTIFIER REFERENCES teks.teks_subjects(id) NOT NULL,
+);
+GO
+
+
 CREATE TABLE language_supports.languages
 (
     id INT PRIMARY KEY IDENTITY(1,1),

@@ -15,7 +15,8 @@ CREATE TABLE teks.teks_item_types (
 
 CREATE TABLE teks.teks_subjects (
     id UNIQUEIDENTIFIER PRIMARY KEY NOT NULL,
-    title NVARCHAR(MAX)
+    title NVARCHAR(MAX),
+    human_coding_scheme VARCHAR(3) NOT NULL
 );
 
 CREATE TABLE teks.teks_items (

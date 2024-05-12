@@ -1,3 +1,4 @@
+using System.Runtime.InteropServices.Marshalling;
 using System.Text.Json;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
@@ -18,12 +19,19 @@ public class TeksService : ITeksService
         _httpClientFactory = httpClientFactory;
     }
 
-    public List<TeksItem> GetTeksItems(List<Guid> ids)
+    public List<TeksItem> GetTeksItems(List<string> teksLabels)
     {
-        return _dbContextFactory
+        //need to get full teks label from grade/subject
+        var context = _dbContextFactory
+            .CreateDbContext();
+
+        // var subjectTeks = context.Teks.Where(t => t.Subject.)
+        var teksItems = _dbContextFactory
             .CreateDbContext()
-            .TeksItems.Where(t => ids.Contains(t.Id))
+            .TeksItems.Where(t => teksLabels.Contains(t.HumanCodingScheme))
             .ToList();
+
+        return teksItems;
     }
 
     public async Task GetTEKS(string endpoint)

@@ -100,6 +100,10 @@ public partial class TeksContext : DbContext
             entity.Property(e => e.Id)
                 .ValueGeneratedNever()
                 .HasColumnName("id");
+            entity.Property(e => e.TacChapter)
+                .HasMaxLength(3)
+                .IsUnicode(false)
+                .HasColumnName("tac_chapter");
             entity.Property(e => e.Title).HasColumnName("title");
         });
 

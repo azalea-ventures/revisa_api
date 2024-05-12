@@ -9,5 +9,7 @@ public partial class TeksSubject
 
     public string? Title { get; set; }
 
+    public string? TacChapter { get; set; }
+
     public virtual ICollection<Tek> Teks { get; set; } = new List<Tek>();
 }

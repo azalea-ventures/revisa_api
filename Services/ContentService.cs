@@ -46,6 +46,7 @@ public class ContentService : IContentService
         }
 
         context.SaveChanges();
+        
         // prepare content version
         ContentVersion? contentVersion =
             context
@@ -62,7 +63,7 @@ public class ContentService : IContentService
         if (request.Info.Teks.Count > 0)
         {
             var teksItems = _teksService.GetTeksItems(
-                request.Info.Teks.Select(t => Guid.Parse(t)).ToList()
+                request.Info.Teks
             );
             Console.WriteLine(teksItems);
         }
