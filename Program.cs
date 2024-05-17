@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using revisa_api.Data.content;
+using revisa_api.Data.language_supports;
 using revisa_api.Data.teks;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,9 +12,11 @@ Action<DbContextOptionsBuilder> dbConfig = (opt) => {
     opt.EnableSensitiveDataLogging(true);
 };
 builder.Services.AddDbContext<ContentContext>(dbConfig);
+builder.Services.AddDbContext<LanguageSupportContext>(dbConfig);
 builder.Services.AddPooledDbContextFactory<TeksContext>(dbConfig, 3000);
 builder.Services.AddScoped<IContentService, ContentService>();
 builder.Services.AddScoped<ITeksService, TeksService>();
+builder.Services.AddScoped<ILanguageSupportService, LanguageSupportService>();
 builder.Services.AddHttpClient();
 
 var app = builder.Build();
@@ -47,5 +50,12 @@ app.MapPost(
             await teksConsumerService.GetTEKS(endpoint);
         }
     ).WithOpenApi();
+
+app.MapGet("/language_supports/iclo",
+        (string delivery_date, ILanguageSupportService languageSupportService) => {
+            ElpsSupportResponse response = languageSupportService.GetElpsSupports(delivery_date);
+            return Results.Ok(response);
+        }
+).WithOpenApi();
 
 app.Run();

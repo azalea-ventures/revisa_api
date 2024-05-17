@@ -10,4 +10,6 @@ public partial class LessonSchedule
     public DateOnly DeliveryDate { get; set; }
 
     public int LessonOrder { get; set; }
+
+    public virtual ICollection<Iclo> Iclos { get; set; } = new List<Iclo>();
 }

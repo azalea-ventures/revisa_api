@@ -2,7 +2,44 @@
 // using System.Text.Json;
 // using Microsoft.Net.Http.Headers;
 
-// public class LanguageSupportService{
+using Azure;
+using revisa_api.Data.language_supports;
+
+public class LanguageSupportService : ILanguageSupportService{
+
+    private readonly LanguageSupportContext _dbContext;
+
+    public LanguageSupportService(LanguageSupportContext dbContext){
+        _dbContext = dbContext;
+    }
+
+    public ElpsSupportResponse GetElpsSupports(string delivery_date){
+        using var dbContext = _dbContext;
+        var lesson_schedule = dbContext.LessonSchedules.FirstOrDefault(s => s.DeliveryDate == DateOnly.Parse(delivery_date));
+
+        if (lesson_schedule == null){
+            return new();
+        }
+
+        //TODO: this is sloppy, refactor
+        var iclo = dbContext.Iclos.Where(i => i.LessonScheduleId == lesson_schedule.Id).ToList()[0];
+        var strategy_objective = dbContext.StrategiesObjectives.FirstOrDefault(d => d.Id == iclo.StrategyObjectiveId);
+        var strategy = dbContext.LearningStrategiesMods.FirstOrDefault(s => s.Id == strategy_objective.StrategyModId);
+        var domain_objective = dbContext.DomainObjectives.FirstOrDefault(d => d.Id == strategy_objective.DomainObjectiveId);
+
+        var teks_item = dbContext.TeksItems.FirstOrDefault(t => t.Id == iclo.TeksItemId);
+
+        var response = new ElpsSupportResponse
+        {
+            ElpsStrategy = strategy.Strategy,
+            ElpsDomainObjective = $"({domain_objective.Label}) " + domain_objective.Objective,
+            ElpsStrategyIconId = strategy.ImageFileId,
+            Teks = $"({teks_item.HumanCodingScheme}) " + teks_item.FullStatement,
+        };
+
+        return response;
+    }
+}
 
 //     // private readonly ContentContext _dbContext;
 //     private readonly IHttpClientFactory _httpClientFactory;

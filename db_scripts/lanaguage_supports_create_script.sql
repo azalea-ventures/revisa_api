@@ -19,12 +19,20 @@ GO
 CREATE SCHEMA language_supports;
 GO
 
+CREATE TABLE language_supports.lesson_schedule(
+    id INT PRIMARY KEY IDENTITY(1,1),
+    delivery_date DATE NOT NULL,
+    lesson_order INT NOT NULL
+);
+GO
+
 CREATE TABLE language_supports.iclos
 (
     id INT PRIMARY KEY IDENTITY(1,1),
     iclo TEXT NOT NULL,
     strategy_objective_id INT REFERENCES elps.strategies_objectives(id) NOT NULL,
-    teks_item_id UNIQUEIDENTIFIER REFERENCES teks.teks_items(id) NOT NULL
+    teks_item_id UNIQUEIDENTIFIER REFERENCES teks.teks_items(id) NOT NULL,
+    lesson_schedule_id INT REFERENCES language_supports.lesson_schedule(id) NOT NULL,
 );
 GO
 
@@ -58,20 +66,14 @@ CREATE TABLE language_supports.cognates
 );
 GO
 
-CREATE TABLE language_supports.lesson_schedule(
-    id INT PRIMARY KEY IDENTITY(1,1),
-    delivery_date DATE NOT NULL,
-    lesson_order INT NOT NULL
-);
-GO
-
 --sample data for testing
 BEGIN TRANSACTION
 INSERT INTO language_supports.lesson_schedule
 (delivery_date, lesson_order)
 VALUES (Parse('2024-03-18' as date), 117);
 
+BEGIN TRANSACTION
 INSERT INTO language_supports.iclos
-(iclo, strategy_objective_id, teks_item_id)
-VALUES ('', 117, 'd3202c19-11b9-58a3-9c42-173e5c8d135f')
+(iclo, strategy_objective_id, teks_item_id, lesson_schedule_id)
+VALUES ('', 117, 'd3202c19-11b9-58a3-9c42-173e5c8d135f', 2)
 COMMIT;

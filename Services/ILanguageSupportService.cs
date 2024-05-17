@@ -1,3 +1,3 @@
-// public interface ILanguageSupportService{
-
-// }
+public interface ILanguageSupportService{
+    ElpsSupportResponse GetElpsSupports(string delivery_date);
+}
