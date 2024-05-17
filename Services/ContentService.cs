@@ -46,7 +46,7 @@ public class ContentService : IContentService
         }
 
         context.SaveChanges();
-        
+
         // prepare content version
         ContentVersion? contentVersion =
             context
@@ -54,7 +54,7 @@ public class ContentService : IContentService
                 .FirstOrDefault(cv => cv.ContentDetailsId == cd.Id && cv.IsLatest == 1)
             ?? new ContentVersion { ContentDetailsId = cd.Id };
 
-        // teks and iclo
+        // teks
         List<ContentTek> teks =
         [
             .. context.ContentTeks.Where(t => t.ContentVersionId == contentVersion.Id)
@@ -65,7 +65,6 @@ public class ContentService : IContentService
             var teksItems = _teksService.GetTeksItems(
                 request.Info.Teks
             );
-            Console.WriteLine(teksItems);
         }
 
         // map slide content

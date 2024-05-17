@@ -22,6 +22,7 @@ CREATE TABLE elps.learning_strategies_mods (
     id INT IDENTITY(1,1) PRIMARY KEY,
     learning_strategy_id INT NOT NULL,
     strategy NVARCHAR(MAX),
+    image_file_id VARCHAR(255),
     FOREIGN KEY (learning_strategy_id) REFERENCES elps.learning_strategies(id)
 );
 

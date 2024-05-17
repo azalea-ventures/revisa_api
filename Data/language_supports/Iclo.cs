@@ -12,5 +12,4 @@ public partial class Iclo
     public int StrategyObjectiveId { get; set; }
 
     public Guid TeksItemId { get; set; }
-
 }

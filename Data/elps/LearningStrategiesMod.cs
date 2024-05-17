@@ -11,6 +11,8 @@ public partial class LearningStrategiesMod
 
     public string? Strategy { get; set; }
 
+    public string? ImageFileId { get; set; }
+
     public virtual LearningStrategy LearningStrategy { get; set; } = null!;
 
     public virtual ICollection<StrategiesObjective> StrategiesObjectives { get; set; } = new List<StrategiesObjective>();

@@ -22,13 +22,13 @@ public class TeksService : ITeksService
     public List<TeksItem> GetTeksItems(List<string> teksLabels)
     {
         //need to get full teks label from grade/subject
-        var context = _dbContextFactory
-            .CreateDbContext();
+        var context = _dbContextFactory.CreateDbContext();
 
         // var subjectTeks = context.Teks.Where(t => t.Subject.)
         var teksItems = _dbContextFactory
             .CreateDbContext()
             .TeksItems.Where(t => teksLabels.Contains(t.HumanCodingScheme))
+            //Need to either create full mapping of the subject teks set or break teks labels up
             .ToList();
 
         return teksItems;
@@ -55,12 +55,21 @@ public class TeksService : ITeksService
                     s.Id.Equals(subject.Id)
                 );
 
+                var tacChapter = new string(
+                        response
+                            .CFDocument.title.SkipWhile(c => !char.IsDigit(c))
+                            .TakeWhile(c => char.IsDigit(c))
+                            .ToArray()
+                    );
+
                 if (subEntity != null)
                 {
                     subEntity.Title = subject.Title;
+                    subEntity.TacChapter = tacChapter;
                 }
                 else
                 {
+                    subject.TacChapter = tacChapter;
                     await context.TeksSubjects.AddAsync(subject);
                 }
                 await context.SaveChangesAsync();

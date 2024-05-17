@@ -57,3 +57,21 @@ CREATE TABLE language_supports.cognates
     content_txt_id INT REFERENCES content.content_txt(id)
 );
 GO
+
+CREATE TABLE language_supports.lesson_schedule(
+    id INT PRIMARY KEY IDENTITY(1,1),
+    delivery_date DATE NOT NULL,
+    lesson_order INT NOT NULL
+);
+GO
+
+--sample data for testing
+BEGIN TRANSACTION
+INSERT INTO language_supports.lesson_schedule
+(delivery_date, lesson_order)
+VALUES (Parse('2024-03-18' as date), 117);
+
+INSERT INTO language_supports.iclos
+(iclo, strategy_objective_id, teks_item_id)
+VALUES ('', 117, 'd3202c19-11b9-58a3-9c42-173e5c8d135f')
+COMMIT;

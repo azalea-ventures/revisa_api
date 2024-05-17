@@ -16,28 +16,29 @@ VALUES
     ('H', 'develop and expand repertoire of learning strategies such as reasoning inductively or deductively, looking for patterns in language, and analyzing sayings and expressions commensurate with grade-level learning expectations');
 
 INSERT INTO elps.learning_strategies_mods
-(learning_strategy_id, strategy)
+(learning_strategy_id, strategy, image_url)
 VALUES 
-(1, 'use prior knowledge and experiences to understand meanings in English'),
-(2, 'monitor oral language production and employ self-corrective techniques or other resources'),
-(2, 'monitor written language production and employ self-corrective techniques or other resources'),
-(3, 'use strategic learning techniques such as concept mapping to acquire basic and grade-level vocabulary'),
-(3, 'use strategic learning techniques such as drawing to acquire basic and grade-level vocabulary'),
-(3, 'use strategic learning techniques such as comparing and contrasting to acquire basic and grade-level vocabulary'),
-(3, 'use strategic learning techniques such as reviewing to acquire basic and grade-level vocabulary'),
-(4, 'speak using learning strategies such as requesting assistance when exact English words are not known'),
-(4, 'speak using learning strategies such as employing non-verbal cues when exact English words are not known'),
-(4, 'speak using learning strategies such as using synonyms when exact English words are not known'),
-(4, 'speak using learning strategies such as circumlocution (conveying ideas by defining or describing) when exact English words are not known'),
-(5, 'internalize new basic and academic language by using and reusing it in meaningful ways in speaking activities that build concept and language attainment'),
-(5, 'internalize new basic and academic language by using and reusing it in meaningful ways in writing activities that build concept and language attainment'),
-(6, 'use accessible language and learn new and essential language in the process'),
-(7, 'demonstrate an increasing ability to distinguish between formal and informal English and an increasing knowledge of when to use each one commensurate with grade-level learning expectations'),
-(8, 'develop and expand repertoire of learning strategies such as reasoning inductively commensurate with grade-level learning expectations'),
-(8, 'develop and expand repertoire of learning strategies such as reasoning deductively commensurate with grade-level learning expectations'),
-(8, 'develop and expand repertoire of learning strategies such as looking for patterns in language commensurate with grade-level learning expectations'),
-(8, 'develop and expand repertoire of learning strategies such as analyzing sayings and expressions commensurate with grade-level learning expectations');
+(1, 'use prior knowledge and experiences to understand meanings in English', '1pDqnoeFh2SKxYr5SjWq-A0Lm1X_-84He'),
+(2, 'monitor oral language production and employ self-corrective techniques or other resources', '1KYclczZP-Vwrz5aSAEP8fu_3kNpqojZ7'),
+(2, 'monitor written language production and employ self-corrective techniques or other resources', '1Vo35Lwqm3eCQTl2Au0P4XNMGZBgsQZ4'),
+(3, 'use strategic learning techniques such as concept mapping to acquire basic and grade-level vocabulary', '1lnhU4MPeYXsUpHF8Gcq8e5Iukz5E-pTv'),
+(3, 'use strategic learning techniques such as drawing to acquire basic and grade-level vocabulary', '1KwkPVKPSxazeA5lE6QxwqZUw5rOnHHI9'),
+(3, 'use strategic learning techniques such as comparing and contrasting to acquire basic and grade-level vocabulary', '1iKxhbs0zsheuX7tbDb3DOulHZHBLorC2'),
+(3, 'use strategic learning techniques such as reviewing to acquire basic and grade-level vocabulary', '1Cwb28HRDI7L2MhnYC-T4tb85n9YFbLkr'),
+(4, 'speak using learning strategies such as requesting assistance when exact English words are not known', '1j4b3BLw2oXkA7ng_EImnVSr1gfacBbvV'),
+(4, 'speak using learning strategies such as employing non-verbal cues when exact English words are not known', '12wBbnq9ye7GrECtcjD9EYEtSl36Gedym'),
+(4, 'speak using learning strategies such as using synonyms when exact English words are not known', '1I1Wh6qULymtGWq33AaBET0754YoYHyaM'),
+(4, 'speak using learning strategies such as circumlocution (conveying ideas by defining or describing) when exact English words are not known', '1h_3PBysne2n0VCSYozEMAlO-BJ8qSuwa'),
+(5, 'internalize new basic and academic language by using and reusing it in meaningful ways in speaking activities that build concept and language attainment', '1GpbISNZaLGKh64qaFPBjGFMeiLJQtWZb'),
+(5, 'internalize new basic and academic language by using and reusing it in meaningful ways in writing activities that build concept and language attainment', '1wRf6q6UQGMMII-thAE3j3vC3lVMxivnG'),
+(6, 'use accessible language and learn new and essential language in the process', '1czr0oc8DIHMrQDKpDtC99wGVWlHBWs9J'),
+(7, 'demonstrate an increasing ability to distinguish between formal and informal English and an increasing knowledge of when to use each one commensurate with grade-level learning expectations', '1igtMz5nvo-3WDk4Dw6ACipoaPmTmI6tx'),
+(8, 'develop and expand repertoire of learning strategies such as reasoning inductively commensurate with grade-level learning expectations', '1gSRga51RHPcauZBc6BVq3Xn754hd5eqo'),
+(8, 'develop and expand repertoire of learning strategies such as reasoning deductively commensurate with grade-level learning expectations', '155EOwTXGes9yyvwH7dWU2kQr2pJ7NpWx'),
+(8, 'develop and expand repertoire of learning strategies such as looking for patterns in language commensurate with grade-level learning expectations', '1bFvrwb-Sv_Td2kwXNwZt85LF9PI_ccDo'),
+(8, 'develop and expand repertoire of learning strategies such as analyzing sayings and expressions commensurate with grade-level learning expectations', '15UN-zIukgD1Uozny55uTE7IPjmO3uQrv');
 
+DELETE FROM elps.learning_strategies_mods
 
 COMMIT;
 
