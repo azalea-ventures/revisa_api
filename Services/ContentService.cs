@@ -1,15 +1,27 @@
 using Microsoft.EntityFrameworkCore;
 using revisa_api.Data.content;
+using revisa_api.Data.elps;
+using revisa_api.Data.language_supports;
+using revisa_api.Data.teks;
 
 public class ContentService : IContentService
 {
     private readonly ContentContext _dbContext;
     private readonly ITeksService _teksService;
+    private readonly ILanguageSupportService _languageSupportService;
+    private readonly IElpsService _elpsService;
 
-    public ContentService(ContentContext dbContext, ITeksService teksService)
+    public ContentService(
+        ContentContext dbContext,
+        ITeksService teksService,
+        ILanguageSupportService languageSupportService,
+        IElpsService elpsService
+    )
     {
         _dbContext = dbContext;
         _teksService = teksService;
+        _languageSupportService = languageSupportService;
+        _elpsService = elpsService;
     }
 
     public int PostContent(PostContentRequest request)
@@ -62,9 +74,15 @@ public class ContentService : IContentService
 
         if (request.Info.Teks.Count > 0)
         {
-            var teksItems = _teksService.GetTeksItems(
-                request.Info.Teks
+            List<TeksItem> teksItems = _teksService.GetTeksItems(request.Info.Teks, cd.Grade.Grade1, cd.Subject);
+            LessonSchedule lessonSchedule = _languageSupportService.GetLessonSchedule(
+                cd.DeliveryDate
             );
+            StrategiesObjective strategy_objective = _elpsService.GetStrategyObjective(
+                lessonSchedule.LessonOrder
+            );
+
+            _languageSupportService.AddIclo(teksItems, lessonSchedule, strategy_objective);
         }
 
         // map slide content

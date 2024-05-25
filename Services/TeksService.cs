@@ -1,37 +1,40 @@
-using System.Runtime.InteropServices.Marshalling;
 using System.Text.Json;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Net.Http.Headers;
+using revisa_api.Data.content;
+using revisa_api.Data.language_supports;
 using revisa_api.Data.teks;
 
 public class TeksService : ITeksService
 {
     private readonly IDbContextFactory<TeksContext> _dbContextFactory;
+    private readonly LanguageSupportContext _languageSupportContext;
     private readonly IHttpClientFactory _httpClientFactory;
 
     public TeksService(
         IDbContextFactory<TeksContext> dbContextFactory,
+        LanguageSupportContext languageSupportContext,
         IHttpClientFactory httpClientFactory
     )
     {
         _dbContextFactory = dbContextFactory;
+        _languageSupportContext = languageSupportContext;
         _httpClientFactory = httpClientFactory;
     }
 
-    public List<TeksItem> GetTeksItems(List<string> teksLabels)
+    public List<TeksItem> GetTeksItems(List<string> teksLabels, string grade, Subject subject)
     {
-        //need to get full teks label from grade/subject
-        var context = _dbContextFactory.CreateDbContext();
 
-        // var subjectTeks = context.Teks.Where(t => t.Subject.)
-        var teksItems = _dbContextFactory
-            .CreateDbContext()
-            .TeksItems.Where(t => teksLabels.Contains(t.HumanCodingScheme))
-            //Need to either create full mapping of the subject teks set or break teks labels up
-            .ToList();
+        var teksSubjectId = _languageSupportContext
+            .ContentTeksSubjects.Where(s => s.ContentSubjectId == subject.Id)
+            .Select(ts => ts.TeksSubjectId).FirstOrDefault();
 
-        return teksItems;
+        var context = _dbContextFactory.CreateDbContext();;
+
+        var tek = context.Teks.FirstOrDefault(t => t.SubjectId == teksSubjectId);
+
+        return null;
     }
 
     public async Task GetTEKS(string endpoint)
@@ -56,11 +59,11 @@ public class TeksService : ITeksService
                 );
 
                 var tacChapter = new string(
-                        response
-                            .CFDocument.title.SkipWhile(c => !char.IsDigit(c))
-                            .TakeWhile(c => char.IsDigit(c))
-                            .ToArray()
-                    );
+                    response
+                        .CFDocument.title.SkipWhile(c => !char.IsDigit(c))
+                        .TakeWhile(c => char.IsDigit(c))
+                        .ToArray()
+                );
 
                 if (subEntity != null)
                 {

@@ -20,7 +20,7 @@ INSERT INTO elps.learning_strategies_mods
 VALUES 
 (1, 'use prior knowledge and experiences to understand meanings in English', '1pDqnoeFh2SKxYr5SjWq-A0Lm1X_-84He'),
 (2, 'monitor oral language production and employ self-corrective techniques or other resources', '1KYclczZP-Vwrz5aSAEP8fu_3kNpqojZ7'),
-(2, 'monitor written language production and employ self-corrective techniques or other resources', '1Vo35Lwqm3eCQTl2Au0P4XNMGZBgsQZ4'),
+(2, 'monitor written language production and employ self-corrective techniques or other resources', '1Vo35Lwqm3eCQTl2Au0P4XNMGZBgsQZ4_'),
 (3, 'use strategic learning techniques such as concept mapping to acquire basic and grade-level vocabulary', '1lnhU4MPeYXsUpHF8Gcq8e5Iukz5E-pTv'),
 (3, 'use strategic learning techniques such as drawing to acquire basic and grade-level vocabulary', '1KwkPVKPSxazeA5lE6QxwqZUw5rOnHHI9'),
 (3, 'use strategic learning techniques such as comparing and contrasting to acquire basic and grade-level vocabulary', '1iKxhbs0zsheuX7tbDb3DOulHZHBLorC2'),

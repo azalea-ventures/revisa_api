@@ -1,33 +1,42 @@
-// using System.Net.Http;
-// using System.Text.Json;
-// using Microsoft.Net.Http.Headers;
-
 using Azure;
+using revisa_api.Data.elps;
 using revisa_api.Data.language_supports;
+using revisa_api.Data.teks;
 
-public class LanguageSupportService : ILanguageSupportService{
-
+public class LanguageSupportService : ILanguageSupportService
+{
     private readonly LanguageSupportContext _dbContext;
 
-    public LanguageSupportService(LanguageSupportContext dbContext){
+    public LanguageSupportService(LanguageSupportContext dbContext)
+    {
         _dbContext = dbContext;
     }
 
-    public ElpsSupportResponse GetElpsSupports(string delivery_date){
+    public ElpsSupportResponse GetElpsSupports(string delivery_date)
+    {
         using var dbContext = _dbContext;
-        var lesson_schedule = dbContext.LessonSchedules.FirstOrDefault(s => s.DeliveryDate == DateOnly.Parse(delivery_date));
+        var lesson_schedule = _dbContext.LessonSchedules.FirstOrDefault(s =>
+            s.DeliveryDate == DateOnly.Parse(delivery_date)
+        );
 
-        if (lesson_schedule == null){
+        if (lesson_schedule == null)
+        {
             return new();
         }
 
         //TODO: this is sloppy, refactor
-        var iclo = dbContext.Iclos.Where(i => i.LessonScheduleId == lesson_schedule.Id).ToList()[0];
-        var strategy_objective = dbContext.StrategiesObjectives.FirstOrDefault(d => d.Id == iclo.StrategyObjectiveId);
-        var strategy = dbContext.LearningStrategiesMods.FirstOrDefault(s => s.Id == strategy_objective.StrategyModId);
-        var domain_objective = dbContext.DomainObjectives.FirstOrDefault(d => d.Id == strategy_objective.DomainObjectiveId);
+        var iclo = _dbContext.Iclos.Where(i => i.LessonScheduleId == lesson_schedule.Id).ToList()[0];
+        var strategy_objective = _dbContext.StrategiesObjectives.FirstOrDefault(d =>
+            d.Id == iclo.StrategyObjectiveId
+        );
+        var strategy = _dbContext.LearningStrategiesMods.FirstOrDefault(s =>
+            s.Id == strategy_objective.StrategyModId
+        );
+        var domain_objective = _dbContext.DomainObjectives.FirstOrDefault(d =>
+            d.Id == strategy_objective.DomainObjectiveId
+        );
 
-        var teks_item = dbContext.TeksItems.FirstOrDefault(t => t.Id == iclo.TeksItemId);
+        var teks_item = _dbContext.TeksItems.FirstOrDefault(t => t.Id == iclo.TeksItemId);
 
         var response = new ElpsSupportResponse
         {
@@ -38,6 +47,28 @@ public class LanguageSupportService : ILanguageSupportService{
         };
 
         return response;
+    }
+
+    public LessonSchedule GetLessonSchedule(DateOnly delivery_date)
+    {
+        var schedules = _dbContext.LessonSchedules.Select(s => s).ToList();
+        return _dbContext.LessonSchedules.FirstOrDefault(s => s.DeliveryDate == delivery_date);
+    }
+
+    public void AddIclo(
+        List<TeksItem> teks,
+        LessonSchedule lessonSchedule,
+        StrategiesObjective strategyObjective
+    )
+    {
+        _dbContext.Iclos.Add(
+            new Iclo
+            {
+                TeksItemId = Guid.Empty,
+                LessonSchedule = lessonSchedule,
+                StrategyObjectiveId = strategyObjective.Id
+            }
+        );
     }
 }
 
