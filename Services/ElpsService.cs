@@ -9,8 +9,8 @@ public class ElpsService : IElpsService {
 
     }
 
-    public StrategiesObjective GetStrategyObjective(int lessonOrder){
+    public StrategyObjective GetStrategyObjective(int lessonOrder){
         using var dbContext = _dbContext;
-        return dbContext.StrategiesObjectives.Where(x => x.Id == lessonOrder).FirstOrDefault();
+        return dbContext.StrategyObjectives.Where(x => x.Id == lessonOrder).FirstOrDefault();
     }
 }

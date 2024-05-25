@@ -5,10 +5,11 @@ using revisa_api.Data.teks;
 public interface ILanguageSupportService
 {
     ElpsSupportResponse GetElpsSupports(string delivery_date);
+    PostContentResponse GetElpsSupportsByIcloId(int icloId);
     LessonSchedule GetLessonSchedule(DateOnly delivery_date);
-    void AddIclo(
+    Iclo GetIclo(
         List<TeksItem> teks,
         LessonSchedule lessonSchedule,
-        StrategiesObjective strategyObjective
+        StrategyObjective strategyObjective
     );
 }

@@ -1,3 +1,4 @@
+using Azure;
 using Microsoft.EntityFrameworkCore;
 using revisa_api.Data.content;
 using revisa_api.Data.elps;
@@ -12,11 +13,13 @@ builder.Services.AddSwaggerGen();
 string connectionString = Environment.GetEnvironmentVariable("REVISA_DB") ?? builder.Configuration.GetConnectionString("REVISA_DB");
 Action<DbContextOptionsBuilder> dbConfig = (opt) => {
     opt.UseSqlServer(connectionString);
-    opt.EnableSensitiveDataLogging(true);
+    // opt.EnableSensitiveDataLogging(true);
 };
 builder.Services.AddDbContext<ContentContext>(dbConfig);
+builder.Services.AddDbContextFactory<LanguageSupportContext>(dbConfig);
 builder.Services.AddDbContext<LanguageSupportContext>(dbConfig);
 builder.Services.AddPooledDbContextFactory<TeksContext>(dbConfig, 3000);
+builder.Services.AddDbContextFactory<ElpsContext>(dbConfig);
 builder.Services.AddDbContext<ElpsContext>(dbConfig);
 
 // service registration
@@ -31,12 +34,16 @@ var app = builder.Build();
 app.UseSwagger();
 app.UseSwaggerUI();
 
+/**
+send content to post, get back initial elps supports
+**/
 app.MapPost(
         "/content",
-        (PostContentRequest request, IContentService contentService) =>
+        (PostContentRequest request, IContentService contentService, ILanguageSupportService languageSupportService) =>
         {
-            contentService.PostContent(request);
-            return Results.Created("/content", request);
+            int icloId = contentService.PostContent(request);
+            PostContentResponse response = languageSupportService.GetElpsSupportsByIcloId(icloId);
+            return Results.Created("/content", response);
         }
     )
     .WithOpenApi();

@@ -15,5 +15,5 @@ public partial class DomainObjective
 
     public virtual Domain? Domain { get; set; }
 
-    public virtual ICollection<StrategiesObjective> StrategiesObjectives { get; set; } = new List<StrategiesObjective>();
+    public virtual ICollection<StrategyObjective> StrategiesObjectives { get; set; } = new List<StrategyObjective>();
 }

@@ -15,5 +15,5 @@ public partial class LearningStrategiesMod
 
     public virtual LearningStrategy LearningStrategy { get; set; } = null!;
 
-    public virtual ICollection<StrategiesObjective> StrategiesObjectives { get; set; } = new List<StrategiesObjective>();
+    public virtual ICollection<StrategyObjective> StrategiesObjectives { get; set; } = new List<StrategyObjective>();
 }

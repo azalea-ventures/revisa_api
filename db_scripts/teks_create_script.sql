@@ -48,6 +48,12 @@ CREATE TABLE teks.teks (
 
 COMMIT;
 
+BEGIN TRANSACTION
+  insert into teks.teks_items (
+    id, human_coding_scheme
+  ) values (NEWID(), 'dummy')
+COMMIT;
+
 
 -- DROP TABLE teks.teks;
 -- DROP TABLE teks.teks_items;

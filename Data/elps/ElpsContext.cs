@@ -35,7 +35,7 @@ public partial class ElpsContext : DbContext
 
     public virtual DbSet<Level> Levels { get; set; }
 
-    public virtual DbSet<StrategiesObjective> StrategiesObjectives { get; set; }
+    public virtual DbSet<StrategyObjective> StrategyObjectives { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -208,7 +208,7 @@ public partial class ElpsContext : DbContext
                 .HasColumnName("lvl");
         });
 
-        modelBuilder.Entity<StrategiesObjective>(entity =>
+        modelBuilder.Entity<StrategyObjective>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK__strategi__3213E83F0EC8FB95");
 

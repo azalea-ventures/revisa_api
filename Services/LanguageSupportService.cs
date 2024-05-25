@@ -1,21 +1,27 @@
-using Azure;
+using Microsoft.EntityFrameworkCore;
 using revisa_api.Data.elps;
 using revisa_api.Data.language_supports;
 using revisa_api.Data.teks;
 
 public class LanguageSupportService : ILanguageSupportService
 {
-    private readonly LanguageSupportContext _dbContext;
+    private readonly IDbContextFactory<LanguageSupportContext> _languageSupportContextFactory;
+    private readonly IDbContextFactory<ElpsContext> _elpsContextFactory;
 
-    public LanguageSupportService(LanguageSupportContext dbContext)
+    public LanguageSupportService(
+        IDbContextFactory<LanguageSupportContext> languageSupportContextFactory,
+        IDbContextFactory<ElpsContext> elpsContextFactory
+    )
     {
-        _dbContext = dbContext;
+        _languageSupportContextFactory = languageSupportContextFactory;
+        _elpsContextFactory = elpsContextFactory;
     }
 
     public ElpsSupportResponse GetElpsSupports(string delivery_date)
     {
-        using var dbContext = _dbContext;
-        var lesson_schedule = _dbContext.LessonSchedules.FirstOrDefault(s =>
+        using var languageSupportContext = _languageSupportContextFactory.CreateDbContext();
+
+        var lesson_schedule = languageSupportContext.LessonSchedules.FirstOrDefault(s =>
             s.DeliveryDate == DateOnly.Parse(delivery_date)
         );
 
@@ -25,54 +31,100 @@ public class LanguageSupportService : ILanguageSupportService
         }
 
         //TODO: this is sloppy, refactor
-        var iclo = _dbContext.Iclos.Where(i => i.LessonScheduleId == lesson_schedule.Id).ToList()[0];
-        var strategy_objective = _dbContext.StrategiesObjectives.FirstOrDefault(d =>
+        var iclos = languageSupportContext
+            .Iclos.Where(i => i.LessonScheduleId == lesson_schedule.Id)
+            .ToList();
+        ElpsSupportResponse response = null;
+        iclos.ForEach(iclo =>
+        {
+            var strategy_objective = languageSupportContext.StrategyObjectives.FirstOrDefault(d =>
+                d.Id == iclo.StrategyObjectiveId
+            );
+            var strategy = languageSupportContext.LearningStrategiesMods.FirstOrDefault(s =>
+                s.Id == strategy_objective.StrategyModId
+            );
+            var domain_objective = languageSupportContext.DomainObjectives.FirstOrDefault(d =>
+                d.Id == strategy_objective.DomainObjectiveId
+            );
+            var teks_item = languageSupportContext.TeksItems.FirstOrDefault(t =>
+                t.Id == iclo.TeksItemId
+            );
+            response = new ElpsSupportResponse
+            {
+                ElpsStrategy = strategy.Strategy,
+                ElpsDomainObjective = $"({domain_objective.Label}) " + domain_objective.Objective,
+                ElpsStrategyIconId = strategy.ImageFileId,
+                Teks = $"({teks_item.HumanCodingScheme}) " + teks_item.FullStatement,
+            };
+        });
+
+        languageSupportContext.Dispose();
+        return response;
+    }
+
+    public PostContentResponse GetElpsSupportsByIcloId(int icloId)
+    {
+        using var languageSupportContext = _languageSupportContextFactory.CreateDbContext();
+
+        var iclo = languageSupportContext.Iclos.FirstOrDefault(i => i.Id == icloId);
+
+        var strategy_objective = languageSupportContext.StrategyObjectives.FirstOrDefault(d =>
             d.Id == iclo.StrategyObjectiveId
         );
-        var strategy = _dbContext.LearningStrategiesMods.FirstOrDefault(s =>
+        var strategy = languageSupportContext.LearningStrategiesMods.FirstOrDefault(s =>
             s.Id == strategy_objective.StrategyModId
         );
-        var domain_objective = _dbContext.DomainObjectives.FirstOrDefault(d =>
+        var domain_objective = languageSupportContext.DomainObjectives.FirstOrDefault(d =>
             d.Id == strategy_objective.DomainObjectiveId
         );
+        var teks_item = languageSupportContext.TeksItems.FirstOrDefault(t =>
+            t.Id == iclo.TeksItemId
+        );
 
-        var teks_item = _dbContext.TeksItems.FirstOrDefault(t => t.Id == iclo.TeksItemId);
-
-        var response = new ElpsSupportResponse
+        languageSupportContext.Dispose();
+        return new()
         {
             ElpsStrategy = strategy.Strategy,
             ElpsDomainObjective = $"({domain_objective.Label}) " + domain_objective.Objective,
             ElpsStrategyIconId = strategy.ImageFileId,
             Teks = $"({teks_item.HumanCodingScheme}) " + teks_item.FullStatement,
         };
-
-        return response;
     }
 
     public LessonSchedule GetLessonSchedule(DateOnly delivery_date)
     {
-        var schedules = _dbContext.LessonSchedules.Select(s => s).ToList();
-        return _dbContext.LessonSchedules.FirstOrDefault(s => s.DeliveryDate == delivery_date);
+        using var languageSupportContext = _languageSupportContextFactory.CreateDbContext( );
+        var schedules = languageSupportContext.LessonSchedules.Select(s => s).ToList();
+        return languageSupportContext.LessonSchedules.FirstOrDefault(s =>
+            s.DeliveryDate == delivery_date
+        );
     }
 
-    public void AddIclo(
+    public Iclo GetIclo(
         List<TeksItem> teks,
         LessonSchedule lessonSchedule,
-        StrategiesObjective strategyObjective
+        StrategyObjective strategyObjective
     )
     {
-        _dbContext.Iclos.Add(
-            new Iclo
+        using var languageSupportContext = _languageSupportContextFactory.CreateDbContext( );
+        Iclo iclo =
+            new()
             {
-                TeksItemId = Guid.Empty,
-                LessonSchedule = lessonSchedule,
+                Iclo1 = "",
+                TeksItemId = new Guid("c014386e-dc8e-43b0-849e-1dbb33ba4bdc"),
+                LessonScheduleId = lessonSchedule.Id,
                 StrategyObjectiveId = strategyObjective.Id
-            }
-        );
+            };
+
+        languageSupportContext.Iclos.Add(iclo);
+
+        languageSupportContext.SaveChanges();
+
+        return iclo;
     }
 }
 
-//     // private readonly ContentContext _dbContext;
+//     // private readonly ContentContext _languageSupportContext;
 //     private readonly IHttpClientFactory _httpClientFactory;
 
 //     public LanguageSupportService(
@@ -80,7 +132,7 @@ public class LanguageSupportService : ILanguageSupportService
 //         IHttpClientFactory httpClientFactory
 //     )
 //     {
-//         // _dbContextFactory = dbContextFactory;
+//         // _languageSupportContextFactory = dbContextFactory;
 //         _httpClientFactory = httpClientFactory;
 //     }
 

@@ -4,7 +4,7 @@ using revisa_api.Data.language_supports;
 
 namespace revisa_api.Data.elps;
 
-public partial class StrategiesObjective
+public partial class StrategyObjective
 {
     public int Id { get; set; }
 
