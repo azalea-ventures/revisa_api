@@ -15,7 +15,6 @@ public partial class ContentDetail
 
     public DateOnly DeliveryDate { get; set; }
 
-    public string OriginalFilename { get; set; } = null!;
 
     public int OwnerId { get; set; }
 

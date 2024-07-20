@@ -65,9 +65,6 @@ public partial class ContentContext : DbContext
                 .HasColumnName("created_at");
             entity.Property(e => e.DeliveryDate).HasColumnName("delivery_date");
             entity.Property(e => e.GradeId).HasColumnName("grade_id");
-            entity.Property(e => e.OriginalFilename)
-                .HasMaxLength(255)
-                .HasColumnName("original_filename");
             entity.Property(e => e.OwnerId).HasColumnName("owner_id");
             entity.Property(e => e.SubjectId).HasColumnName("subject_id");
             entity.Property(e => e.UpdatedAt)
