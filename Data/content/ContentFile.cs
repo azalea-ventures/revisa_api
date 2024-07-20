@@ -9,17 +9,17 @@ public partial class ContentFile
 
     public string? FileName { get; set; }
 
-    public Guid? SourceFileId { get; set; }
+    public DateTime? CreatedAt { get; set; }
+
+    public string? FileId { get; set; }
+
+    public string? SourceFileId { get; set; }
 
     public string? CurrentFolderId { get; set; }
 
-    public Guid? OutbountFileId { get; set; }
+    public string? OutboundFileId { get; set; }
 
-    public Guid? OutboundFolderId { get; set; }
-
-    public string? OutboundPath { get; set; }
-
-    public DateTime? CreatedAt { get; set; }
+    public string? OutboundFolderId { get; set; }
 
     public virtual ICollection<ContentDetail> ContentDetails { get; set; } = new List<ContentDetail>();
 }

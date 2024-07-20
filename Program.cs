@@ -1,5 +1,7 @@
 using Azure;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Net.Http.Headers;
 using revisa_api.Data.content;
 using revisa_api.Data.elps;
 using revisa_api.Data.language_supports;
@@ -10,8 +12,11 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 // db setup and registration
-string connectionString = Environment.GetEnvironmentVariable("REVISA_DB") ?? builder.Configuration.GetConnectionString("REVISA_DB");
-Action<DbContextOptionsBuilder> dbConfig = (opt) => {
+string connectionString =
+    Environment.GetEnvironmentVariable("REVISA_DB")
+    ?? builder.Configuration.GetConnectionString("REVISA_DB");
+Action<DbContextOptionsBuilder> dbConfig = (opt) =>
+{
     opt.UseSqlServer(connectionString);
     // opt.EnableSensitiveDataLogging(true);
 };
@@ -39,15 +44,22 @@ send content to post, get back initial elps supports
 **/
 
 app.MapPost(
-    "/content/info",
-    (PostContentInfoRequest request, IContentService contentService) => {
-        // contentService.PostContentInfo()
-    }
-).WithOpenApi();
+        "/content/info",
+        (PostContentBaseRequest request, IContentService contentService) => 
+        {
+            ContentDetail contentInfo = contentService.PostContentInfo(request);
+            return Results.Created("content/info", new PostContentInfoResponse(){ContentId = contentInfo.Id});
+        }
+    )
+    .WithOpenApi();
 
 app.MapPost(
         "/content",
-        (PostContentRequest request, IContentService contentService, ILanguageSupportService languageSupportService) =>
+        (
+            PostContentRequest request,
+            IContentService contentService,
+            ILanguageSupportService languageSupportService
+        ) =>
         {
             int icloId = contentService.PostContent(request);
             PostContentResponse response = languageSupportService.GetElpsSupportsByIcloId(icloId);
@@ -72,13 +84,17 @@ app.MapPost(
         {
             await teksConsumerService.GetTEKS(endpoint);
         }
-    ).WithOpenApi();
+    )
+    .WithOpenApi();
 
-app.MapGet("/language_supports/iclo",
-        (string delivery_date, ILanguageSupportService languageSupportService) => {
+app.MapGet(
+        "/language_supports/iclo",
+        (string delivery_date, ILanguageSupportService languageSupportService) =>
+        {
             ElpsSupportResponse response = languageSupportService.GetElpsSupports(delivery_date);
             return Results.Ok(response);
         }
-).WithOpenApi();
+    )
+    .WithOpenApi();
 
 app.Run();

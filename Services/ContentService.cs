@@ -25,11 +25,10 @@ public class ContentService : IContentService
         _elpsService = elpsService;
     }
 
-    public int PostContent(PostContentRequest request)
-    {
+    // Inserts content info to the database
+    // returning the id of the newly created or updated entity
+    public ContentDetail PostContentInfo(PostContentBaseRequest request){
         using var context = _dbContext;
-        using var transaction = context.Database.BeginTransaction();
-
         //prepare meta data
         Client client =
             context.Clients.FirstOrDefault(c => c.ClientName == request.Info.Client)
@@ -60,7 +59,16 @@ public class ContentService : IContentService
         }
 
         context.SaveChanges();
+        return cd;
+    }
 
+    public int PostContent(PostContentRequest request)
+    {
+    
+        ContentDetail cd = PostContentInfo(request);
+
+        using var context = _dbContext;
+        using var transaction = context.Database.BeginTransaction();
         // prepare content version
         ContentVersion? contentVersion =
             context
@@ -104,7 +112,7 @@ public class ContentService : IContentService
 
     private void MapContentDetails(
         ContentDetail cd,
-        PostContentRequest request,
+        PostContentBaseRequest request,
         Client client,
         Subject subject,
         ContentContext context
@@ -119,13 +127,13 @@ public class ContentService : IContentService
             Email = request.Info.UpdatedBy.Email
         };
         cd.File = new revisa_api.Data.content.ContentFile{
-            Id = request.Info.File.Id,
+            Id = Guid.NewGuid(),
+            FileId = request.Info.File.FileId,
             FileName = request.Info.File.FileName,
             SourceFileId = request.Info.File.SourceFileId,
             CurrentFolderId = request.Info.File.CurrentFolderId,
-            OutbountFileId = request.Info.File.OutbountFileId,
+            OutboundFileId = request.Info.File.OutboundFileId,
             OutboundFolderId = request.Info.File.OutboundFolderId,
-            OutboundPath = request.Info.File.OutboundPath,
             CreatedAt = request.Info.File.CreatedAt,
         };
         cd.DeliveryDate = DateOnly.Parse(request.Info.DeliveryDate);

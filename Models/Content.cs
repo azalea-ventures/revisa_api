@@ -8,6 +8,7 @@ public class Info
     public string Subject { get; set; }
     public List<string> Teks { get; set; }
     public ContentFile File { get; set; }
+    public string Status { get; set; }
 
     [JsonPropertyName("delivery_date")]
     public string DeliveryDate { get; set; }
@@ -21,19 +22,23 @@ public class Info
 
 public class ContentFile()
 {
-    public Guid Id { get; set; }
+    [JsonPropertyName("file_id")]
+    public string? FileId { get; set; }
 
+    [JsonPropertyName("file_name")]
     public string? FileName { get; set; }
 
-    public Guid? SourceFileId { get; set; }
+    [JsonPropertyName("source_file_id")]
+    public string? SourceFileId { get; set; }
 
+    [JsonPropertyName("current_folder_id")]
     public string? CurrentFolderId { get; set; }
 
-    public Guid? OutbountFileId { get; set; }
+    [JsonPropertyName("outbound_file_id")]
+    public string? OutboundFileId { get; set; }
 
-    public Guid? OutboundFolderId { get; set; }
-
-    public string? OutboundPath { get; set; }
+    [JsonPropertyName("outbound_folder_id")]
+    public string? OutboundFolderId { get; set; }
 
     public DateTime? CreatedAt { get; set; }
 }
@@ -47,14 +52,20 @@ public class Content()
     public string TextContent { get; set; }
 }
 
-public class PostContentRequest
+public class PostContentBaseRequest
 {
     public required Info Info { get; set; }
+}
+
+public class PostContentRequest : PostContentBaseRequest
+{
     public required List<List<Content>> Content { get; set; }
 }
 
-public class PostContentInfoRequest{
-    public required Info Info { get; set;}
+public class PostContentInfoResponse
+{
+    [JsonPropertyName("content_id")]
+    public int ContentId { get; set; }
 }
 
 public class PostContentResponse

@@ -95,7 +95,8 @@ CREATE TABLE content.content_versions
 );
 GO
 
-CREATE TABLE content.content_teks(
+CREATE TABLE content.content_teks
+(
     content_version_id INT REFERENCES content.content_versions(id) NOT NULL,
     tek_item_id UNIQUEIDENTIFIER REFERENCES teks.teks_items(id) NOT NULL
 );
@@ -143,24 +144,46 @@ COMMIT;
 GO
 
 
-CREATE TABLE content.client_file(
-    id UNIQUEIDENTIFIER PRIMARY KEY NOT NULL,    
+CREATE TABLE content.content_file
+(
+    id UNIQUEIDENTIFIER PRIMARY KEY NOT NULL,
     file_name NVARCHAR(MAX),
-    source_file_id UNIQUEIDENTIFIER,
+    file_id NVARCHAR(MAX),
+    source_file_id NVARCHAR(MAX),
     current_folder_id NVARCHAR(MAX),
-    outbount_file_id UNIQUEIDENTIFIER,
-    outbound_folder_id UNIQUEIDENTIFIER,
+    outbound_file_id NVARCHAR(MAX),
+    outbound_folder_id NVARCHAR(MAX),
     outbound_path NVARCHAR(MAX),
     created_at DATETIME
-)
+);
+
 GO;
 
+CREATE TABLE content.content_status
+(
+    id INT PRIMARY KEY NOT NULL,
+    status VARCHAR(12)
+)
+
+INSERT INTO content.content_status
+    (id, status)
+VALUES
+    (0, 'NONE'),
+    (1, 'INBOUND'),
+    (2, 'PROCESSING'),
+    (3, 'OUTBOUND'),
+    (4, 'ARCHIVED');
+COMMIT;
+GO
+
 BEGIN TRANSACTION
-INSERT INTO content.client_file (id)
-VALUES ('00000000-0000-0000-0000-000000000000')
+INSERT INTO content.content_file
+    (id)
+VALUES
+    ('00000000-0000-0000-0000-000000000000')
 
 ALTER TABLE content.content_details
-ADD file_id UNIQUEIDENTIFIER DEFAULT '00000000-0000-0000-0000-000000000000' NULL REFERENCES content.client_file(id);
+ADD file_id UNIQUEIDENTIFIER DEFAULT '00000000-0000-0000-0000-000000000000' NULL REFERENCES content.content_file(id);
 
 UPDATE content.content_details
 SET file_id = '00000000-0000-0000-0000-000000000000';

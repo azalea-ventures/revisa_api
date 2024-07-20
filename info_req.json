@@ -1,0 +1,22 @@
+{
+    "info": {
+      "client": "HOUSTON-ISD",
+      "grade": "2",
+      "subject": "RW",
+      "delivery_date": "2024-08-12",
+      "teks": ["2.8B"],
+      "updated_by": {
+        "name": "Julia B Chapa Leeper",
+        "email": "info@eduspecialistonline.org"
+      },
+      "created_at": "2024-07-18T19:23:27.607Z",
+      "file": {
+        "id": "1DS-2LHSegNjEdSj6IUc8BtFqzbbXuQCyFIPHMBH7ekw",
+        "fileName": "G2RW_SD_08.13_2.8B",
+        "sourceFileId": "16da5oZ1UTqrDchVWhRQ74gjj-EmYsS2ayrRchqql_hY",
+        "currentFolderId": "10eShvnJw8zdPjtdpZeu3f6LdLZhBwMVB",
+        "outboundFolderId": "1IeqaVW7M5AklN_TN_6qaqPSvTbwKlsJ2",
+        "createdAt": "2024-07-20T21:35:39.804Z"
+      }
+    }
+  }
