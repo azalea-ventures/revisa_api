@@ -23,15 +23,19 @@ public partial class ContentDetail
 
     public Guid? FileId { get; set; }
 
+    public int? StatusId { get; set; }
+
     public virtual Client Client { get; set; } = null!;
 
     public virtual ICollection<ContentVersion> ContentVersions { get; set; } = new List<ContentVersion>();
 
-    public virtual ClientFile? File { get; set; }
+    public virtual ContentFile? File { get; set; }
 
     public virtual Grade Grade { get; set; } = null!;
 
     public virtual User Owner { get; set; } = null!;
+
+    public virtual ContentStatus? Status { get; set; }
 
     public virtual Subject Subject { get; set; } = null!;
 }

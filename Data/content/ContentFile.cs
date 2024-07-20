@@ -3,11 +3,13 @@ using System.Collections.Generic;
 
 namespace revisa_api.Data.content;
 
-public partial class ClientFile
+public partial class ContentFile
 {
     public Guid Id { get; set; }
 
     public string? FileName { get; set; }
+
+    public Guid? SourceFileId { get; set; }
 
     public string? CurrentFolderId { get; set; }
 

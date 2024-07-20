@@ -37,6 +37,14 @@ app.UseSwaggerUI();
 /**
 send content to post, get back initial elps supports
 **/
+
+app.MapPost(
+    "/content/info",
+    (PostContentInfoRequest request, IContentService contentService) => {
+        // contentService.PostContentInfo()
+    }
+).WithOpenApi();
+
 app.MapPost(
         "/content",
         (PostContentRequest request, IContentService contentService, ILanguageSupportService languageSupportService) =>

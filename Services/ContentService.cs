@@ -4,6 +4,7 @@ using revisa_api.Data.elps;
 using revisa_api.Data.language_supports;
 using revisa_api.Data.teks;
 
+
 public class ContentService : IContentService
 {
     private readonly ContentContext _dbContext;
@@ -47,6 +48,7 @@ public class ContentService : IContentService
 
         if (cd == null)
         {
+            
             cd = new ContentDetail();
             context.Add(cd);
             MapContentDetails(cd, request, client, subject, context);
@@ -116,11 +118,21 @@ public class ContentService : IContentService
             Username = request.Info.UpdatedBy.Username,
             Email = request.Info.UpdatedBy.Email
         };
-        // TODO: filename blocked - app script dev needed
+        cd.File = new revisa_api.Data.content.ContentFile{
+            Id = request.Info.File.Id,
+            FileName = request.Info.File.FileName,
+            SourceFileId = request.Info.File.SourceFileId,
+            CurrentFolderId = request.Info.File.CurrentFolderId,
+            OutbountFileId = request.Info.File.OutbountFileId,
+            OutboundFolderId = request.Info.File.OutboundFolderId,
+            OutboundPath = request.Info.File.OutboundPath,
+            CreatedAt = request.Info.File.CreatedAt,
+        };
         cd.DeliveryDate = DateOnly.Parse(request.Info.DeliveryDate);
         cd.CreatedAt = DateTime.Parse(request.Info.CreatedAt);
         cd.UpdatedAt = DateTime.Now;
     }
+
 
     public GetContentResponse GetContent(int contentId)
     {
