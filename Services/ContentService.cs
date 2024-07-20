@@ -117,7 +117,6 @@ public class ContentService : IContentService
             Email = request.Info.UpdatedBy.Email
         };
         // TODO: filename blocked - app script dev needed
-        cd.OriginalFilename = "";
         cd.DeliveryDate = DateOnly.Parse(request.Info.DeliveryDate);
         cd.CreatedAt = DateTime.Parse(request.Info.CreatedAt);
         cd.UpdatedAt = DateTime.Now;
