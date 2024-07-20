@@ -146,6 +146,31 @@ COMMIT;
 GO
 
 
+CREATE TABLE content.client_file(
+    id UNIQUEIDENTIFIER PRIMARY KEY NOT NULL,    
+    file_name NVARCHAR(MAX),
+    source_file_id UNIQUEIDENTIFIER,
+    current_folder_id NVARCHAR(MAX),
+    outbount_file_id UNIQUEIDENTIFIER,
+    outbound_folder_id UNIQUEIDENTIFIER,
+    outbound_path NVARCHAR(MAX),
+    created_at DATETIME
+)
+GO;
+
+BEGIN TRANSACTION
+INSERT INTO content.client_file (id)
+VALUES ('00000000-0000-0000-0000-000000000000')
+
+ALTER TABLE content.content_details
+ADD file_id UNIQUEIDENTIFIER DEFAULT '00000000-0000-0000-0000-000000000000' NULL REFERENCES content.client_file(id);
+
+UPDATE content.content_details
+SET file_id = '00000000-0000-0000-0000-000000000000';
+COMMIT;
+GO;
+
+
 -- Trigger to insert into content_versions
 CREATE OR ALTER TRIGGER trg_insert_content_version
 ON content.content_details
