@@ -83,19 +83,41 @@ public class PostContentResponse
     public string Teks { get; set; }
 }
 
-public class GetContentResponse
+public class GetContentBaseResponse
 {
+    public Info Info { get; set; } = new();
+
     // Specifically for using with mapping entity objects to responses
-    public GetContentResponse(revisa_api.Data.content.ContentDetail entity)
+    public GetContentBaseResponse(revisa_api.Data.content.ContentDetail entity)
     {
+        Info.Id = entity.Id;
         Info.Client = entity.Client.ClientName;
         Info.Grade = entity.Grade.Grade1;
         Info.Subject = entity.Subject.Subject1;
         Info.DeliveryDate = entity.DeliveryDate.ToString();
-        Info.CreatedAt = entity.CreatedAt.ToString();
+        Info.File = new (){
+            FileId = entity.File?.FileId,
+            FileName = entity.File?.FileName,
+            SourceFileId = entity.File?.SourceFileId,
+            CurrentFolderId = entity.File?.CurrentFolderId,
+            OutboundFileId = entity.File?.OutboundFileId,
+            OutboundFolderId = entity.File?.OutboundFolderId,
+            CreatedAt = entity.File?.CreatedAt,
+        };
+        Info.Status = entity.Status?.Status;
+        Info.CreatedAt = entity.CreatedAt?.ToString();
         Info.UpdatedBy.Email = entity.Owner.Email;
         Info.UpdatedBy.Username = entity.Owner.Username.ToString();
+    }
+}
 
+public class GetContentResponse : GetContentBaseResponse
+{
+    public List<List<Content>>? Content { get; set; } = new();
+
+    public GetContentResponse(revisa_api.Data.content.ContentDetail entity)
+        : base(entity)
+    {
         foreach (var group in entity.ContentVersions.FirstOrDefault().ContentGroups)
         {
             List<Content> contentList = [];
@@ -106,9 +128,4 @@ public class GetContentResponse
             Content.Add(contentList);
         }
     }
-
-    public GetContentResponse() { }
-
-    public Info Info { get; set; } = new();
-    public List<List<Content>>? Content { get; set; } = new();
 }

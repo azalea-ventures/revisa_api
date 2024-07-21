@@ -44,16 +44,6 @@ send content to post, get back initial elps supports
 **/
 
 app.MapPost(
-        "/content/info",
-        (PostContentBaseRequest request, IContentService contentService) => 
-        {
-            ContentDetail contentInfo = contentService.PostContentInfo(request);
-            return Results.Created("content/info", new PostContentInfoResponse(){ContentId = contentInfo.Id});
-        }
-    )
-    .WithOpenApi();
-
-app.MapPost(
         "/content",
         (
             PostContentRequest request,
@@ -74,6 +64,28 @@ app.MapGet(
         {
             GetContentResponse response = contentService.GetContent(id);
             return Results.Ok(response);
+        }
+    )
+    .WithOpenApi();
+
+app.MapPost(
+        "/content/info",
+        (PostContentBaseRequest request, IContentService contentService) =>
+        {
+            ContentDetail contentInfo = contentService.PostContentInfo(request);
+            return Results.Created(
+                "content/info",
+                new PostContentInfoResponse() { ContentId = contentInfo.Id }
+            );
+        }
+    )
+    .WithOpenApi();
+
+app.MapGet(
+        "/content/info",
+        (int id, IContentService contentService) =>
+        {
+            return Results.Ok(contentService.GetContentInfo(id));
         }
     )
     .WithOpenApi();
