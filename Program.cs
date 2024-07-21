@@ -1,4 +1,5 @@
 using Azure;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Net.Http.Headers;
@@ -83,9 +84,20 @@ app.MapPost(
 
 app.MapGet(
         "/content/info",
-        (int id, IContentService contentService) =>
+        (
+            [FromQuery(Name = "id")] int? id,
+            [FromQuery(Name = "subject")] string? subject,
+            IContentService contentService
+        ) =>
         {
-            return Results.Ok(contentService.GetContentInfo(id));
+            if (subject != null && !subject.Equals(""))
+            {
+                return Results.Ok(contentService.GetContentInfoBySubject(subject));
+            }
+            else
+            {
+                return Results.Ok(contentService.GetContentInfo((int)id));
+            }
         }
     )
     .WithOpenApi();
