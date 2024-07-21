@@ -66,10 +66,7 @@ CREATE TABLE content.content_details
     grade_id INT REFERENCES content.grades(id)NOT NULL,
     subject_id INT REFERENCES content.subjects(id)NOT NULL,
     delivery_date DATE NOT NULL,
-    original_filename NVARCHAR(255) NOT NULL,
-    -- Added unique constraint
     owner_id INT REFERENCES content.users(id) NOT NULL,
-    -- Added owner_id column
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
 );
@@ -98,7 +95,8 @@ CREATE TABLE content.content_versions
 );
 GO
 
-CREATE TABLE content.content_teks(
+CREATE TABLE content.content_teks
+(
     content_version_id INT REFERENCES content.content_versions(id) NOT NULL,
     tek_item_id UNIQUEIDENTIFIER REFERENCES teks.teks_items(id) NOT NULL
 );
@@ -144,6 +142,53 @@ VALUES
     ('all');
 COMMIT;
 GO
+
+
+CREATE TABLE content.content_file
+(
+    id UNIQUEIDENTIFIER PRIMARY KEY NOT NULL,
+    file_name NVARCHAR(MAX),
+    file_id NVARCHAR(MAX),
+    source_file_id NVARCHAR(MAX),
+    current_folder_id NVARCHAR(MAX),
+    outbound_file_id NVARCHAR(MAX),
+    outbound_folder_id NVARCHAR(MAX),
+    outbound_path NVARCHAR(MAX),
+    created_at DATETIME
+);
+
+GO;
+
+CREATE TABLE content.content_status
+(
+    id INT PRIMARY KEY NOT NULL,
+    status VARCHAR(12)
+)
+
+INSERT INTO content.content_status
+    (id, status)
+VALUES
+    (0, 'NONE'),
+    (1, 'INBOUND'),
+    (2, 'PROCESSING'),
+    (3, 'OUTBOUND'),
+    (4, 'ARCHIVED');
+COMMIT;
+GO
+
+BEGIN TRANSACTION
+INSERT INTO content.content_file
+    (id)
+VALUES
+    ('00000000-0000-0000-0000-000000000000')
+
+ALTER TABLE content.content_details
+ADD file_id UNIQUEIDENTIFIER DEFAULT '00000000-0000-0000-0000-000000000000' NULL REFERENCES content.content_file(id);
+
+UPDATE content.content_details
+SET file_id = '00000000-0000-0000-0000-000000000000';
+COMMIT;
+GO;
 
 
 -- Trigger to insert into content_versions

@@ -19,7 +19,11 @@ public partial class ContentContext : DbContext
 
     public virtual DbSet<ContentDetail> ContentDetails { get; set; }
 
+    public virtual DbSet<ContentFile> ContentFiles { get; set; }
+
     public virtual DbSet<ContentGroup> ContentGroups { get; set; }
+
+    public virtual DbSet<ContentStatus> ContentStatuses { get; set; }
 
     public virtual DbSet<ContentTek> ContentTeks { get; set; }
 
@@ -64,11 +68,14 @@ public partial class ContentContext : DbContext
                 .HasColumnType("datetime")
                 .HasColumnName("created_at");
             entity.Property(e => e.DeliveryDate).HasColumnName("delivery_date");
+            entity.Property(e => e.FileId)
+                .HasDefaultValue(new Guid("00000000-0000-0000-0000-000000000000"))
+                .HasColumnName("file_id");
             entity.Property(e => e.GradeId).HasColumnName("grade_id");
-            entity.Property(e => e.OriginalFilename)
-                .HasMaxLength(255)
-                .HasColumnName("original_filename");
             entity.Property(e => e.OwnerId).HasColumnName("owner_id");
+            entity.Property(e => e.StatusId)
+                .HasDefaultValue(0)
+                .HasColumnName("status_id");
             entity.Property(e => e.SubjectId).HasColumnName("subject_id");
             entity.Property(e => e.UpdatedAt)
                 .HasDefaultValueSql("(getdate())")
@@ -80,6 +87,10 @@ public partial class ContentContext : DbContext
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__content_d__clien__31432D07");
 
+            entity.HasOne(d => d.File).WithMany(p => p.ContentDetails)
+                .HasForeignKey(d => d.FileId)
+                .HasConstraintName("FK_content_d_file");
+
             entity.HasOne(d => d.Grade).WithMany(p => p.ContentDetails)
                 .HasForeignKey(d => d.GradeId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
@@ -90,10 +101,34 @@ public partial class ContentContext : DbContext
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__content_d__owner__341F99B2");
 
+            entity.HasOne(d => d.Status).WithMany(p => p.ContentDetails)
+                .HasForeignKey(d => d.StatusId)
+                .HasConstraintName("FK__content_d__statu__61B15A38");
+
             entity.HasOne(d => d.Subject).WithMany(p => p.ContentDetails)
                 .HasForeignKey(d => d.SubjectId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__content_d__subje__332B7579");
+        });
+
+        modelBuilder.Entity<ContentFile>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__content___3213E83FCBA7AA5F");
+
+            entity.ToTable("content_file", "content");
+
+            entity.Property(e => e.Id)
+                .ValueGeneratedNever()
+                .HasColumnName("id");
+            entity.Property(e => e.CreatedAt)
+                .HasColumnType("datetime")
+                .HasColumnName("created_at");
+            entity.Property(e => e.CurrentFolderId).HasColumnName("current_folder_id");
+            entity.Property(e => e.FileId).HasColumnName("file_id");
+            entity.Property(e => e.FileName).HasColumnName("file_name");
+            entity.Property(e => e.OutboundFolderId).HasColumnName("outbound_folder_id");
+            entity.Property(e => e.OutboundFileId).HasColumnName("outbound_file_id");
+            entity.Property(e => e.SourceFileId).HasColumnName("source_file_id");
         });
 
         modelBuilder.Entity<ContentGroup>(entity =>
@@ -111,6 +146,21 @@ public partial class ContentContext : DbContext
                 .HasConstraintName("FK__content_g__conte__454A25B4");
         });
 
+        modelBuilder.Entity<ContentStatus>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__content___3213E83F0639AA97");
+
+            entity.ToTable("content_status", "content");
+
+            entity.Property(e => e.Id)
+                .ValueGeneratedNever()
+                .HasColumnName("id");
+            entity.Property(e => e.Status)
+                .HasMaxLength(12)
+                .IsUnicode(false)
+                .HasColumnName("status");
+        });
+
         modelBuilder.Entity<ContentTek>(entity =>
         {
             entity
@@ -124,13 +174,14 @@ public partial class ContentContext : DbContext
                 .HasForeignKey(d => d.ContentVersionId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__content_t__conte__417994D0");
-
-            entity.HasOne(d => d.TekItem).WithMany()
-            .HasForeignKey(d => d.TekItemId)
-            .OnDelete(DeleteBehavior.ClientSetNull)
-            .HasConstraintName("FK__content_t__tek_i__426DB909");
+                
+                entity
+                .HasOne(d => d.TekItem)
+                .WithMany()
+                .HasForeignKey(d => d.TekItemId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__content_t__tek_i__426DB909");
         });
-
 
         modelBuilder.Entity<ContentTxt>(entity =>
         {
