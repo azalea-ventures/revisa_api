@@ -47,7 +47,8 @@ public class ContentService : IContentService
 
         revisa_api.Data.content.ContentFile file =
             _dbContext.ContentFiles.FirstOrDefault(f => f.FileId == request.Info.File.FileId)
-            ?? new revisa_api.Data.content.ContentFile {
+            ?? new revisa_api.Data.content.ContentFile
+            {
                 Id = Guid.NewGuid(),
                 FileId = request.Info.File.FileId,
                 FileName = request.Info.File.FileName,
@@ -56,7 +57,7 @@ public class ContentService : IContentService
                 OutboundFileId = request.Info.File.OutboundFileId,
                 OutboundFolderId = request.Info.File.OutboundFolderId,
                 CreatedAt = request.Info.File.CreatedAt,
-                };
+            };
 
         if (cd == null)
         {
@@ -76,7 +77,6 @@ public class ContentService : IContentService
 
     public int PostContent(PostContentRequest request)
     {
-
         // using var context = _dbContext;
 
         ContentDetail cd = PostContentInfo(request);
@@ -168,6 +168,27 @@ public class ContentService : IContentService
         return new(entity);
     }
 
+    public List<GetContentBaseResponse> GetContentInfoBySubject(string subject)
+    {
+        List<GetContentBaseResponse> contentInfoList = new();
+
+        using var context = _dbContext;
+        List<ContentDetail> contentDetailList = _dbContext
+                .ContentDetails.Include(c => c.Client)
+                .Include(c => c.Grade)
+                .Include(c => c.Subject)
+                .Include(c => c.Owner)
+                .Include(c => c.File)
+                .Include(c => c.Status)
+                .Where(c => c.Subject.Subject1 == subject.ToUpper())
+                .ToList();
+
+        contentDetailList.ForEach(c => contentInfoList.Add(new(entity: c)));
+
+        return contentInfoList;
+
+    }
+
     private ContentDetail? GetContentDetail(int contentId)
     {
         using var context = _dbContext;
@@ -181,6 +202,6 @@ public class ContentService : IContentService
             .ThenInclude(v => v.ContentGroups)
             .ThenInclude(g => g.ContentTxts)
             .Include(c => c.Status)
-            .FirstOrDefault();
+            .FirstOrDefault(c => c.Id == contentId);
     }
 }
