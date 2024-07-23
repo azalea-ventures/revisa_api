@@ -9,6 +9,10 @@ public class ElpsSupportResponse{
     public string ElpsStrategyIconId {get; set; }
     [JsonPropertyName("elps_domain_objective")]
     public string ElpsDomainObjective { get; set; }
+    [JsonPropertyName("elps_strategy_id")]
+    public int ElpsStrategyId { get; set; }
+    [JsonPropertyName("elps_strategy_label")]
+    public string ElpsStrategyLabel { get; set; }
     [JsonPropertyName("teks")]
     public string Teks{ get; set; }
 }
