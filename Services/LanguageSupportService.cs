@@ -89,6 +89,8 @@ public class LanguageSupportService : ILanguageSupportService
             ElpsStrategy = strategy.Strategy,
             ElpsDomainObjective = $"({domain_objective.Label}) " + domain_objective.Objective,
             ElpsStrategyIconId = strategy.ImageFileId,
+            ElpsStrategyId = strategy_objective.StrategyModId,
+            ElpsStrategyLabel = strategy.LearningStrategy.Label,
             Teks = $"({teks_item.HumanCodingScheme}) " + teks_item.FullStatement,
         };
     }
