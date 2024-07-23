@@ -55,7 +55,6 @@ public class LanguageSupportService : ILanguageSupportService
                 ElpsDomainObjective = $"({domain_objective.Label}) " + domain_objective.Objective,
                 ElpsStrategyIconId = strategy.ImageFileId,
                 ElpsStrategyId = strategy_objective.StrategyModId,
-                ElpsStrategyLabel = strategy.LearningStrategy.Label,
                 Teks = $"({teks_item.HumanCodingScheme}) " + teks_item.FullStatement,
             };
         });
@@ -90,7 +89,6 @@ public class LanguageSupportService : ILanguageSupportService
             ElpsDomainObjective = $"({domain_objective.Label}) " + domain_objective.Objective,
             ElpsStrategyIconId = strategy.ImageFileId,
             ElpsStrategyId = strategy_objective.StrategyModId,
-            ElpsStrategyLabel = strategy.LearningStrategy.Label,
             Teks = $"({teks_item.HumanCodingScheme}) " + teks_item.FullStatement,
         };
     }
