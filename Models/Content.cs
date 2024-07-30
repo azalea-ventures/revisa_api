@@ -75,6 +75,8 @@ public class PostContentResponse
 
     [JsonPropertyName("elps_strategy_icon_id")]
     public string ElpsStrategyIconId { get; set; }
+    [JsonPropertyName("elps_strategy_file_id")]
+    public string ElpsStrategyFileId { get; set; }
 
     [JsonPropertyName("elps_domain_objective")]
     public string ElpsDomainObjective { get; set; }

@@ -6,14 +6,10 @@ namespace revisa_api.Data.elps;
 
 public partial class ElpsContext : DbContext
 {
-    public ElpsContext()
-    {
-    }
+    public ElpsContext() { }
 
     public ElpsContext(DbContextOptions<ElpsContext> options)
-        : base(options)
-    {
-    }
+        : base(options) { }
 
     public virtual DbSet<AttrType> AttrTypes { get; set; }
 
@@ -56,13 +52,8 @@ public partial class ElpsContext : DbContext
             entity.ToTable("domains", "elps");
 
             entity.Property(e => e.Id).HasColumnName("id");
-            entity.Property(e => e.Domain1)
-                .IsUnicode(false)
-                .HasColumnName("domain");
-            entity.Property(e => e.Label)
-                .HasMaxLength(1)
-                .IsUnicode(false)
-                .HasColumnName("label");
+            entity.Property(e => e.Domain1).IsUnicode(false).HasColumnName("domain");
+            entity.Property(e => e.Label).HasMaxLength(1).IsUnicode(false).HasColumnName("label");
         });
 
         modelBuilder.Entity<DomainLevel>(entity =>
@@ -76,11 +67,15 @@ public partial class ElpsContext : DbContext
             entity.Property(e => e.DomainId).HasColumnName("domain_id");
             entity.Property(e => e.LevelId).HasColumnName("level_id");
 
-            entity.HasOne(d => d.Domain).WithMany(p => p.DomainLevels)
+            entity
+                .HasOne(d => d.Domain)
+                .WithMany(p => p.DomainLevels)
                 .HasForeignKey(d => d.DomainId)
                 .HasConstraintName("FK__domain_le__domai__29D71569");
 
-            entity.HasOne(d => d.Level).WithMany(p => p.DomainLevels)
+            entity
+                .HasOne(d => d.Level)
+                .WithMany(p => p.DomainLevels)
                 .HasForeignKey(d => d.LevelId)
                 .HasConstraintName("FK__domain_le__level__2ACB39A2");
         });
@@ -92,22 +87,26 @@ public partial class ElpsContext : DbContext
             entity.ToTable("domain_lvl_attr", "elps");
 
             entity.Property(e => e.Id).HasColumnName("id");
-            entity.Property(e => e.Attr)
-                .IsUnicode(false)
-                .HasColumnName("attr");
+            entity.Property(e => e.Attr).IsUnicode(false).HasColumnName("attr");
             entity.Property(e => e.AttrTypeId).HasColumnName("attr_type_id");
             entity.Property(e => e.DomainLevelId).HasColumnName("domain_level_id");
             entity.Property(e => e.GradeId).HasColumnName("grade_id");
 
-            entity.HasOne(d => d.AttrType).WithMany(p => p.DomainLvlAttrs)
+            entity
+                .HasOne(d => d.AttrType)
+                .WithMany(p => p.DomainLvlAttrs)
                 .HasForeignKey(d => d.AttrTypeId)
                 .HasConstraintName("FK__domain_lv__attr___31783731");
 
-            entity.HasOne(d => d.DomainLevel).WithMany(p => p.DomainLvlAttrs)
+            entity
+                .HasOne(d => d.DomainLevel)
+                .WithMany(p => p.DomainLvlAttrs)
                 .HasForeignKey(d => d.DomainLevelId)
                 .HasConstraintName("FK__domain_lv__domai__2F8FEEBF");
 
-            entity.HasOne(d => d.Grade).WithMany(p => p.DomainLvlAttrs)
+            entity
+                .HasOne(d => d.Grade)
+                .WithMany(p => p.DomainLvlAttrs)
                 .HasForeignKey(d => d.GradeId)
                 .HasConstraintName("FK__domain_lv__grade__308412F8");
         });
@@ -120,11 +119,11 @@ public partial class ElpsContext : DbContext
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.DomainLvlAttrId).HasColumnName("domain_lvl_attr_id");
-            entity.Property(e => e.Item)
-                .IsUnicode(false)
-                .HasColumnName("item");
+            entity.Property(e => e.Item).IsUnicode(false).HasColumnName("item");
 
-            entity.HasOne(d => d.DomainLvlAttr).WithMany(p => p.DomainLvlAttrItems)
+            entity
+                .HasOne(d => d.DomainLvlAttr)
+                .WithMany(p => p.DomainLvlAttrItems)
                 .HasForeignKey(d => d.DomainLvlAttrId)
                 .HasConstraintName("FK__domain_lv__domai__3454A3DC");
         });
@@ -137,13 +136,12 @@ public partial class ElpsContext : DbContext
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.DomainId).HasColumnName("domain_id");
-            entity.Property(e => e.Label)
-                .HasMaxLength(1)
-                .IsUnicode(false)
-                .HasColumnName("label");
+            entity.Property(e => e.Label).HasMaxLength(1).IsUnicode(false).HasColumnName("label");
             entity.Property(e => e.Objective).HasColumnName("objective");
 
-            entity.HasOne(d => d.Domain).WithMany(p => p.DomainObjectives)
+            entity
+                .HasOne(d => d.Domain)
+                .WithMany(p => p.DomainObjectives)
                 .HasForeignKey(d => d.DomainId)
                 .HasConstraintName("FK__domain_ob__domai__232A17DA");
         });
@@ -155,10 +153,7 @@ public partial class ElpsContext : DbContext
             entity.ToTable("grades", "elps");
 
             entity.Property(e => e.Id).HasColumnName("id");
-            entity.Property(e => e.Grade1)
-                .HasMaxLength(12)
-                .IsUnicode(false)
-                .HasColumnName("grade");
+            entity.Property(e => e.Grade1).HasMaxLength(12).IsUnicode(false).HasColumnName("grade");
         });
 
         modelBuilder.Entity<LearningStrategiesMod>(entity =>
@@ -168,14 +163,22 @@ public partial class ElpsContext : DbContext
             entity.ToTable("learning_strategies_mods", "elps");
 
             entity.Property(e => e.Id).HasColumnName("id");
-            entity.Property(e => e.ImageFileId)
+            entity
+                .Property(e => e.ImageFileId)
                 .HasMaxLength(255)
                 .IsUnicode(false)
                 .HasColumnName("image_file_id");
+            entity
+                .Property(e => e.StrategyFileId)
+                .HasMaxLength(255)
+                .IsUnicode(false)
+                .HasColumnName("strategy_file_id");
             entity.Property(e => e.LearningStrategyId).HasColumnName("learning_strategy_id");
             entity.Property(e => e.Strategy).HasColumnName("strategy");
 
-            entity.HasOne(d => d.LearningStrategy).WithMany(p => p.LearningStrategiesMods)
+            entity
+                .HasOne(d => d.LearningStrategy)
+                .WithMany(p => p.LearningStrategiesMods)
                 .HasForeignKey(d => d.LearningStrategyId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__learning___learn__1E6562BD");
@@ -188,10 +191,7 @@ public partial class ElpsContext : DbContext
             entity.ToTable("learning_strategies", "elps");
 
             entity.Property(e => e.Id).HasColumnName("id");
-            entity.Property(e => e.Label)
-                .HasMaxLength(1)
-                .IsUnicode(false)
-                .HasColumnName("label");
+            entity.Property(e => e.Label).HasMaxLength(1).IsUnicode(false).HasColumnName("label");
             entity.Property(e => e.Strategy).HasColumnName("strategy");
         });
 
@@ -202,10 +202,7 @@ public partial class ElpsContext : DbContext
             entity.ToTable("levels", "elps");
 
             entity.Property(e => e.Id).HasColumnName("id");
-            entity.Property(e => e.Lvl)
-                .HasMaxLength(32)
-                .IsUnicode(false)
-                .HasColumnName("lvl");
+            entity.Property(e => e.Lvl).HasMaxLength(32).IsUnicode(false).HasColumnName("lvl");
         });
 
         modelBuilder.Entity<StrategyObjective>(entity =>
@@ -218,12 +215,16 @@ public partial class ElpsContext : DbContext
             entity.Property(e => e.DomainObjectiveId).HasColumnName("domain_objective_id");
             entity.Property(e => e.StrategyModId).HasColumnName("strategy_mod_id");
 
-            entity.HasOne(d => d.DomainObjective).WithMany(p => p.StrategiesObjectives)
+            entity
+                .HasOne(d => d.DomainObjective)
+                .WithMany(p => p.StrategiesObjectives)
                 .HasForeignKey(d => d.DomainObjectiveId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__strategie__domai__382534C0");
 
-            entity.HasOne(d => d.StrategyMod).WithMany(p => p.StrategiesObjectives)
+            entity
+                .HasOne(d => d.StrategyMod)
+                .WithMany(p => p.StrategiesObjectives)
                 .HasForeignKey(d => d.StrategyModId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__strategie__strat__37311087");

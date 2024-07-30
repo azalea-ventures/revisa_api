@@ -36,7 +36,8 @@ VALUES
 (8, 'develop and expand repertoire of learning strategies such as reasoning inductively commensurate with grade-level learning expectations', '1gSRga51RHPcauZBc6BVq3Xn754hd5eqo'),
 (8, 'develop and expand repertoire of learning strategies such as reasoning deductively commensurate with grade-level learning expectations', '155EOwTXGes9yyvwH7dWU2kQr2pJ7NpWx'),
 (8, 'develop and expand repertoire of learning strategies such as looking for patterns in language commensurate with grade-level learning expectations', '1bFvrwb-Sv_Td2kwXNwZt85LF9PI_ccDo'),
-(8, 'develop and expand repertoire of learning strategies such as analyzing sayings and expressions commensurate with grade-level learning expectations', '15UN-zIukgD1Uozny55uTE7IPjmO3uQrv');
+(8, 'develop and expand repertoire of learning strategies such as analyzing sayings and expressions commensurate with grade-level learning expectations', '15UN-zIukgD1Uozny55uTE7IPjmO3uQrv'),
+(3, 'use strategic learning techniques such as memorizing to acquire basic and grade-level vocabulary', '');
 
 DELETE FROM elps.learning_strategies_mods
 
