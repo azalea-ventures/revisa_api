@@ -78,15 +78,17 @@ public class LanguageSupportService : ILanguageSupportService
         var domain_objective = languageSupportContext.DomainObjectives.FirstOrDefault(d =>
             d.Id == strategy_objective.DomainObjectiveId
         );
+        var domain = languageSupportContext.Domains.FirstOrDefault(d => d.Id == domain_objective.DomainId);
         var teks_item = languageSupportContext.TeksItems.FirstOrDefault(t =>
             t.Id == iclo.TeksItemId
         );
+
 
         languageSupportContext.Dispose();
         return new()
         {
             ElpsStrategy = strategy.Strategy,
-            ElpsDomainObjective =  domain_objective.Domain.Domain1 + $" ({domain_objective.Label}) " + domain_objective.Objective,
+            ElpsDomainObjective =  domain.Domain1 + $" ({domain.Label}) " + domain_objective.Objective,
             ElpsStrategyIconId = strategy.ImageFileId,
             ElpsStrategyFileId = strategy.StrategyFileId,
             ElpsStrategyId = strategy_objective.StrategyModId,
