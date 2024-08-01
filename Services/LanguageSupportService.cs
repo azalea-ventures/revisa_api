@@ -86,7 +86,7 @@ public class LanguageSupportService : ILanguageSupportService
         return new()
         {
             ElpsStrategy = strategy.Strategy,
-            ElpsDomainObjective = $"({domain_objective.Label}) " + domain_objective.Objective,
+            ElpsDomainObjective =  domain_objective.Domain.Domain1 + $" ({domain_objective.Label}) " + domain_objective.Objective,
             ElpsStrategyIconId = strategy.ImageFileId,
             ElpsStrategyFileId = strategy.StrategyFileId,
             ElpsStrategyId = strategy_objective.StrategyModId,
