@@ -24,6 +24,7 @@ public partial class LanguageSupportContext : DbContext
     public virtual DbSet<StrategyObjective> StrategyObjectives { get; set; }
 
     public virtual DbSet<LearningStrategiesMod> LearningStrategiesMods { get; set; }
+    public virtual DbSet<Domain> Domains { get; set; }
     public virtual DbSet<DomainObjective> DomainObjectives { get; set; }
     public virtual DbSet<TeksItem> TeksItems { get; set; }
 
@@ -99,6 +100,17 @@ public partial class LanguageSupportContext : DbContext
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.DeliveryDate).HasColumnName("delivery_date");
             entity.Property(e => e.LessonOrder).HasColumnName("lesson_order");
+        });
+
+        modelBuilder.Entity<Domain>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__domains__3213E83F40239699");
+
+            entity.ToTable("domains", "elps");
+
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.Domain1).IsUnicode(false).HasColumnName("domain");
+            entity.Property(e => e.Label).HasMaxLength(1).IsUnicode(false).HasColumnName("label");
         });
 
         modelBuilder.Entity<DomainObjective>(entity =>

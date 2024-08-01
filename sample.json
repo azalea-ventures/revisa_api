@@ -1,0 +1,32 @@
+{
+  "info": {
+    "client": "HOUSTON-ISD",
+    "grade": "G1",
+    "subject": "Math",
+    "delivery_date": "08.12",
+    "teks": ["1.3D", "S"],
+    "file": {
+      "file_id": "1GYihA0pDp9m_sRW9SsGFiUQti52-q3biDEpEZU8j2AY",
+      "file_name": "G1MTH_SD_08.12_1.3D_S",
+      "source_file_id": "1zfoKz1KzwiH8YfcHtsk8o6k3kAHHj56umZQuYmaW83I",
+      "current_folder_id": "10eShvnJw8zdPjtdpZeu3f6LdLZhBwMVB",
+      "outbound_folder_id": "1zy7rSnl9dr5jSYH28QxlCtvwnvRJDGul",
+      "created_at": "2024-07-25T13:32:48.434Z"
+    },
+    "status": "INBOUND",
+    "updated_by": { "name": "Revisa", "email": "ling@eduspecialistonline.org" },
+    "created_at": "2024-07-25T13:32:55.301Z",
+    "teks_texts": [
+      "TEKS: 1.3(D) apply basic fact strategies to add and subtract within 20, including making 10 and decomposing a number leading to a 10 \n"
+    ],
+    "edu_slide_ids": [
+      "SLIDES_API945162481_0",
+      "SLIDES_API945162481_6",
+      "SLIDES_API945162481_13",
+      "SLIDES_API945162481_24",
+      "SLIDES_API945162481_31",
+      "SLIDES_API945162481_45"
+    ],
+    "sa_guide_url": "https://docs.google.com/document/d/1-oDkXFlkBuqvottxOz3NWUUCYkbNGjWU4_eoXrFFo9g/edit?usp=drivesdk"
+  }
+}
