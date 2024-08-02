@@ -13,6 +13,10 @@ public class ElpsSupportResponse{
     public int ElpsStrategyId { get; set; }
     [JsonPropertyName("elps_strategy_label")]
     public string ElpsStrategyLabel { get; set; }
+    [JsonPropertyName("elps_strategy_file_id")]
+    public string ElpsStrategyFileId { get; set; }
+    [JsonPropertyName("elps_domain_name")]
+    public string ElpsDomainName {get; set; }
     [JsonPropertyName("teks")]
     public string Teks{ get; set; }
 }

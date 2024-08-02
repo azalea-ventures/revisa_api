@@ -80,6 +80,8 @@ public class PostContentResponse
 
     [JsonPropertyName("elps_domain_objective")]
     public string ElpsDomainObjective { get; set; }
+    [JsonPropertyName("elps_domain_name")]
+    public string ElpsDomainName { get; set; }
     public int ElpsStrategyId { get; set; }
     [JsonPropertyName("elps_strategy_label")]
     public string ElpsStrategyLabel { get; set; }
