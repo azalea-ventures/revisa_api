@@ -46,16 +46,24 @@ public class LanguageSupportService : ILanguageSupportService
             var domain_objective = languageSupportContext.DomainObjectives.FirstOrDefault(d =>
                 d.Id == strategy_objective.DomainObjectiveId
             );
+
+             var domain = languageSupportContext.Domains.FirstOrDefault(d =>
+            d.Id == domain_objective.DomainId
+        );
             var teks_item = languageSupportContext.TeksItems.FirstOrDefault(t =>
                 t.Id == iclo.TeksItemId
             );
             response = new ElpsSupportResponse
             {
                 ElpsStrategy = strategy.Strategy,
-                ElpsDomainObjective = $"({domain_objective.Label}) " + domain_objective.Objective,
+                ElpsDomainObjective =
+                    domain.Domain1 + $" ({domain.Label}) " + domain_objective.Objective,
                 ElpsStrategyIconId = strategy.ImageFileId,
+                ElpsStrategyFileId = strategy.StrategyFileId,
                 ElpsStrategyId = strategy_objective.StrategyModId,
-                Teks = $"({teks_item.HumanCodingScheme}) " + teks_item.FullStatement,
+                ElpsDomainName = domain.Domain1,
+                ElpsStrategyLabel = domain_objective.Label,
+                Teks = $"({teks_item.HumanCodingScheme}) " + teks_item.FullStatement
             };
         });
 
@@ -78,20 +86,23 @@ public class LanguageSupportService : ILanguageSupportService
         var domain_objective = languageSupportContext.DomainObjectives.FirstOrDefault(d =>
             d.Id == strategy_objective.DomainObjectiveId
         );
-        var domain = languageSupportContext.Domains.FirstOrDefault(d => d.Id == domain_objective.DomainId);
+        var domain = languageSupportContext.Domains.FirstOrDefault(d =>
+            d.Id == domain_objective.DomainId
+        );
         var teks_item = languageSupportContext.TeksItems.FirstOrDefault(t =>
             t.Id == iclo.TeksItemId
         );
-
 
         languageSupportContext.Dispose();
         return new()
         {
             ElpsStrategy = strategy.Strategy,
-            ElpsDomainObjective =  domain.Domain1 + $" ({domain.Label}) " + domain_objective.Objective,
+            ElpsDomainObjective =
+                domain.Domain1 + $" ({domain.Label}) " + domain_objective.Objective,
             ElpsStrategyIconId = strategy.ImageFileId,
             ElpsStrategyFileId = strategy.StrategyFileId,
             ElpsStrategyId = strategy_objective.StrategyModId,
+            ElpsDomainName = domain.Domain1,
             ElpsStrategyLabel = domain_objective.Label,
             Teks = $"({teks_item.HumanCodingScheme}) " + teks_item.FullStatement,
         };
@@ -99,7 +110,7 @@ public class LanguageSupportService : ILanguageSupportService
 
     public LessonSchedule GetLessonSchedule(DateOnly delivery_date)
     {
-        using var languageSupportContext = _languageSupportContextFactory.CreateDbContext( );
+        using var languageSupportContext = _languageSupportContextFactory.CreateDbContext();
         var schedules = languageSupportContext.LessonSchedules.Select(s => s).ToList();
         return languageSupportContext.LessonSchedules.FirstOrDefault(s =>
             s.DeliveryDate == delivery_date
@@ -112,7 +123,7 @@ public class LanguageSupportService : ILanguageSupportService
         StrategyObjective strategyObjective
     )
     {
-        using var languageSupportContext = _languageSupportContextFactory.CreateDbContext( );
+        using var languageSupportContext = _languageSupportContextFactory.CreateDbContext();
         Iclo iclo =
             new()
             {
