@@ -6,6 +6,7 @@ public class Info
     public string Client { get; set; }
     public string Grade { get; set; }
     public string Subject { get; set; }
+    public string Language { get; set; }
     public List<string> Teks { get; set; }
     public ContentFile File { get; set; }
     public string Status { get; set; }
