@@ -29,6 +29,8 @@ public class File()
     [JsonPropertyName("file_name")]
     public string? FileName { get; set; }
 
+    [JsonPropertyName("source_file_id")]
+    public string? SourceFileId { get; set; }
     public DateTime? CreatedAt { get; set; }
 }
 

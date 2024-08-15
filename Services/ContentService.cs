@@ -42,11 +42,16 @@ public class ContentService : IContentService
 
         cd.Language =
             _dbContext.ContentLanguages.FirstOrDefault(l =>
-                l.Language == request.Info.Language.ToUpper()
-            ) ?? new ContentLanguage { Language = request.Info.Language };
+                l.Abbreviation == request.Info.Language.ToUpper()
+            ) ?? new ContentLanguage { Abbreviation = request.Info.Language };
 
         cd.Owner =
-            _dbContext.Users.FirstOrDefault(u => u.Email == request.Info.UpdatedBy.Email) ?? new();
+            _dbContext.Users.FirstOrDefault(u => u.Email == request.Info.UpdatedBy.Email)
+            ?? new revisa_api.Data.content.User
+            {
+                Username = request.Info.UpdatedBy.Username,
+                Email = request.Info.UpdatedBy.Email
+            };
 
         cd.Status =
             _dbContext.ContentStatuses.FirstOrDefault(s => s.Status == request.Info.Status)
@@ -58,54 +63,25 @@ public class ContentService : IContentService
             {
                 FileId = request.Info.File.FileId,
                 FileName = request.Info.File.FileName,
+                SourceFileId = request.Info.File.SourceFileId,
                 CreatedAt = request.Info.File.CreatedAt,
             };
 
+        cd.DeliveryDate = DateOnly.Parse(request.Info.DeliveryDate);
         _dbContext.SaveChanges();
 
         ContentTranslation translation = _dbContext.ContentTranslations.FirstOrDefault(t =>
-            t.ContentLanguage.Language == request.Info.Language.ToUpper()
+            t.ContentLanguage.Abbreviation.ToUpper() == request.Info.Language.ToUpper()
             && t.ContentSubject.Subject1.ToUpper() == request.Info.Subject.ToUpper()
             && t.ContentGrade.Grade1.ToUpper() == request.Info.Grade.ToUpper()
         );
 
-        if (translation != null)
-
-        return new PostContentInfoResponse {ContentId = cd.Id, NeedsTranslation = translation != null ? true : false, Status = cd.Status.Status};
-
-        // ContentDetail cd =
-        //     _dbContext.ContentDetails.FirstOrDefault(c =>
-        //         c.Client.ClientName == request.Info.Client
-        //         && c.Grade.Grade1 == request.Info.Grade
-        //         && c.Subject.Subject1 == request.Info.Subject
-        //         && c.DeliveryDate == DateOnly.Parse(request.Info.DeliveryDate)
-        //     )
-        //     ?? new ContentDetail
-        //     {
-        //         Client = client,
-        //         Grade = grade,
-        //         Subject = subject,
-        //         Owner = owner,
-        //         File = file,
-        //         Status = status,
-        //         DeliveryDate = DateOnly.Parse(request.Info.DeliveryDate),
-        //         CreatedAt = DateTime.Parse(request.Info.CreatedAt),
-        //         UpdatedAt = DateTime.Now
-        //     };
-        // if (cd.Id == 0) { }
-        // MapContentDetails(cd, request, client, subject, file, _dbContext);
-
-        // if (cd == null)
-        // {
-        //     cd = new ContentDetail();
-        //     _dbContext.Add(cd);
-        //     MapContentDetails(cd, request, client, subject, file, _dbContext);
-        // }
-        // else
-        // {
-        //     _dbContext.Update(cd);
-        // MapContentDetails(cd, request, client, subject, file, _dbContext);
-        // }
+        return new PostContentInfoResponse
+        {
+            ContentId = cd.Id,
+            NeedsTranslation = translation != null ? true : false,
+            Status = cd.Status.Status
+        };
     }
 
     public int PostContent(PostContentRequest request)
@@ -114,7 +90,7 @@ public class ContentService : IContentService
 
         // ContentDetail cd = PostContentInfo(request);
 
-        ContentDetail cd = new ();
+        ContentDetail cd = new();
 
         // prepare content version
         ContentVersion? contentVersion =
@@ -122,19 +98,6 @@ public class ContentService : IContentService
                 .ContentVersions.Include(v => v.ContentGroups)
                 .FirstOrDefault(cv => cv.ContentDetailsId == cd.Id && cv.IsLatest == 1)
             ?? new ContentVersion { ContentDetailsId = cd.Id };
-
-        // // add language supports and standards
-        // List<TeksItem> teksItems = _teksService.GetTeksItems(
-        //     request.Info.Teks,
-        //     cd.Grade.Grade1,
-        //     cd.Subject
-        // );
-        // LessonSchedule lessonSchedule = _languageSupportService.GetLessonSchedule(cd.DeliveryDate);
-        // StrategyObjective strategy_objective = _elpsService.GetStrategyObjective(
-        //     lessonSchedule.LessonOrder
-        // );
-
-        // Iclo iclo = _languageSupportService.GetIclo(teksItems, lessonSchedule, strategy_objective);
 
         // map slide content
         foreach (var slide in request.Content)
@@ -155,30 +118,6 @@ public class ContentService : IContentService
         _dbContext.SaveChanges();
         return cd.Id;
     }
-
-    // private void MapContentDetails(
-    //     ContentDetail cd,
-    //     PostContentBaseRequest request,
-    //     Client client,
-    //     Subject subject,
-    //     revisa_api.Data.content.ContentFile file,
-    //     ContentContext context
-    // )
-    // {
-    //     cd.Client = client;
-    //     cd.GradeId = context.Grades.FirstOrDefault(g => g.Grade1 == request.Info.Grade).Id;
-    //     cd.Subject = subject;
-    //     cd.Owner = new revisa_api.Data.content.User
-    //     {
-    //         Username = request.Info.UpdatedBy.Username,
-    //         Email = request.Info.UpdatedBy.Email
-    //     };
-    //     cd.File = file;
-    //     cd.Status = context.ContentStatuses.FirstOrDefault(s => s.Status == request.Info.Status);
-    //     cd.DeliveryDate = DateOnly.Parse(request.Info.DeliveryDate);
-    //     cd.CreatedAt = DateTime.Parse(request.Info.CreatedAt);
-    //     cd.UpdatedAt = DateTime.Now;
-    // }
 
     public GetContentResponse GetContent(int contentId)
     {
