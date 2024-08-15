@@ -15,18 +15,14 @@ public class ContentService : IContentService
     // returning the id of the newly created or updated entity
     public PostContentInfoResponse PostContentInfo(PostContentBaseRequest request)
     {
-        // using var context = _dbContext;
-        //prepare meta data
-
         ContentDetail cd =
             _dbContext.ContentDetails.FirstOrDefault(c =>
-                c.Client.ClientName == request.Info.Client
-                && c.Grade.Grade1 == request.Info.Grade
+                c.Grade.Grade1 == request.Info.Grade
                 && c.Subject.Subject1 == request.Info.Subject
                 && c.DeliveryDate == DateOnly.Parse(request.Info.DeliveryDate)
             ) ?? new();
 
-        _dbContext.Add(cd);
+        _dbContext.Update(cd);
 
         cd.Client =
             _dbContext.Clients.FirstOrDefault(c => c.ClientName == request.Info.Client)
@@ -68,6 +64,7 @@ public class ContentService : IContentService
             };
 
         cd.DeliveryDate = DateOnly.Parse(request.Info.DeliveryDate);
+
         _dbContext.SaveChanges();
 
         ContentTranslation translation = _dbContext.ContentTranslations.FirstOrDefault(t =>
@@ -80,7 +77,7 @@ public class ContentService : IContentService
         {
             ContentId = cd.Id,
             NeedsTranslation = translation != null ? true : false,
-            Status = cd.Status.Status
+            Status = cd.Status.Status,
         };
     }
 

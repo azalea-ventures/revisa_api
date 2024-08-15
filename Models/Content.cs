@@ -61,6 +61,7 @@ public class PostContentInfoResponse
     [JsonPropertyName("needs_translation")]
     public bool NeedsTranslation { get; set; }
     public string Status { get; set; }
+    
 }
 
 public class PostContentResponse
