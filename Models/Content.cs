@@ -2,7 +2,7 @@ using System.Text.Json.Serialization;
 
 public class Info
 {
-    public int Id { get; set; } = 0;
+    public int Id { get; set; }
     public string Client { get; set; }
     public string Grade { get; set; }
     public string Subject { get; set; }

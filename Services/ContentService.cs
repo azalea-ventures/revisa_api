@@ -83,18 +83,24 @@ public class ContentService : IContentService
 
     public int PostContent(PostContentRequest request)
     {
-        // using var context = _dbContext;
-
-        // ContentDetail cd = PostContentInfo(request);
-
-        ContentDetail cd = new();
-
         // prepare content version
         ContentVersion? contentVersion =
             _dbContext
                 .ContentVersions.Include(v => v.ContentGroups)
-                .FirstOrDefault(cv => cv.ContentDetailsId == cd.Id && cv.IsLatest == 1)
-            ?? new ContentVersion { ContentDetailsId = cd.Id };
+                .FirstOrDefault(cv => cv.ContentDetailsId == request.Info.Id && cv.IsLatest == 1)
+            ?? new ContentVersion { ContentDetailsId = request.Info.Id };
+
+        if (contentVersion != null)
+        {
+            contentVersion.IsLatest = 0;
+            _dbContext.SaveChanges();
+            contentVersion = new ContentVersion { ContentDetailsId = request.Info.Id };
+            _dbContext.Add(contentVersion);
+        }
+
+        contentVersion.Owner = _dbContext.Users.FirstOrDefault(u =>
+            u.Email.ToUpper().Equals(request.Info.UpdatedBy.Email)
+        );
 
         // map slide content
         foreach (var slide in request.Content)
@@ -113,7 +119,7 @@ public class ContentService : IContentService
             }
         }
         _dbContext.SaveChanges();
-        return cd.Id;
+        return contentVersion.Id;
     }
 
     public GetContentResponse GetContent(int contentId)
@@ -161,8 +167,7 @@ public class ContentService : IContentService
 
     private ContentDetail? GetContentDetail(int contentId)
     {
-        using var context = _dbContext;
-        return context
+        return _dbContext
             .ContentDetails.Include(c => c.Client)
             .Include(c => c.Grade)
             .Include(c => c.Subject)
