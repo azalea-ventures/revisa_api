@@ -25,6 +25,8 @@ public partial class ContentDetail
 
     public int? StatusId { get; set; }
 
+    public int LanguageId { get; set; }
+
     public virtual Client Client { get; set; } = null!;
 
     public virtual ICollection<ContentVersion> ContentVersions { get; set; } = new List<ContentVersion>();
@@ -32,6 +34,8 @@ public partial class ContentDetail
     public virtual ContentFile? File { get; set; }
 
     public virtual Grade Grade { get; set; } = null!;
+
+    public virtual ContentLanguage Language { get; set; } = null!;
 
     public virtual User Owner { get; set; } = null!;
 

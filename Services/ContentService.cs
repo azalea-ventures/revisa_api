@@ -84,18 +84,18 @@ public class ContentService : IContentService
                 .FirstOrDefault(cv => cv.ContentDetailsId == cd.Id && cv.IsLatest == 1)
             ?? new ContentVersion { ContentDetailsId = cd.Id };
 
-        // add language supports and standards
-        List<TeksItem> teksItems = _teksService.GetTeksItems(
-            request.Info.Teks,
-            cd.Grade.Grade1,
-            cd.Subject
-        );
-        LessonSchedule lessonSchedule = _languageSupportService.GetLessonSchedule(cd.DeliveryDate);
-        StrategyObjective strategy_objective = _elpsService.GetStrategyObjective(
-            lessonSchedule.LessonOrder
-        );
+        // // add language supports and standards
+        // List<TeksItem> teksItems = _teksService.GetTeksItems(
+        //     request.Info.Teks,
+        //     cd.Grade.Grade1,
+        //     cd.Subject
+        // );
+        // LessonSchedule lessonSchedule = _languageSupportService.GetLessonSchedule(cd.DeliveryDate);
+        // StrategyObjective strategy_objective = _elpsService.GetStrategyObjective(
+        //     lessonSchedule.LessonOrder
+        // );
 
-        Iclo iclo = _languageSupportService.GetIclo(teksItems, lessonSchedule, strategy_objective);
+        // Iclo iclo = _languageSupportService.GetIclo(teksItems, lessonSchedule, strategy_objective);
 
         // map slide content
         foreach (var slide in request.Content)
@@ -114,7 +114,7 @@ public class ContentService : IContentService
             }
         }
         _dbContext.SaveChanges();
-        return iclo.Id;
+        return cd.Id;
     }
 
     private void MapContentDetails(

@@ -52,9 +52,8 @@ app.MapPost(
             ILanguageSupportService languageSupportService
         ) =>
         {
-            int icloId = contentService.PostContent(request);
-            PostContentResponse response = languageSupportService.GetElpsSupportsByIcloId(icloId);
-            return Results.Created("/content", response);
+            int contentId = contentService.PostContent(request);
+            return Results.Created("/content", contentId);
         }
     )
     .WithOpenApi();

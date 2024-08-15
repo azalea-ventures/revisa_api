@@ -23,6 +23,8 @@ public partial class ContentContext : DbContext
 
     public virtual DbSet<ContentGroup> ContentGroups { get; set; }
 
+    public virtual DbSet<ContentLanguage> ContentLanguages { get; set; }
+
     public virtual DbSet<ContentStatus> ContentStatuses { get; set; }
 
     public virtual DbSet<ContentTxt> ContentTxts { get; set; }
@@ -36,6 +38,10 @@ public partial class ContentContext : DbContext
     public virtual DbSet<Subject> Subjects { get; set; }
 
     public virtual DbSet<User> Users { get; set; }
+
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
+        => optionsBuilder.UseSqlServer("Data Source=tcp:revisa-db.database.windows.net,1433;Initial Catalog=revisa_db;Persist Security Info=False;User ID=revisa_admin;Password=EeR8kMiFf@y5SCb;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -70,6 +76,9 @@ public partial class ContentContext : DbContext
                 .HasDefaultValue(new Guid("00000000-0000-0000-0000-000000000000"))
                 .HasColumnName("file_id");
             entity.Property(e => e.GradeId).HasColumnName("grade_id");
+            entity.Property(e => e.LanguageId)
+                .HasDefaultValue(1)
+                .HasColumnName("language_id");
             entity.Property(e => e.OwnerId).HasColumnName("owner_id");
             entity.Property(e => e.StatusId)
                 .HasDefaultValue(0)
@@ -94,6 +103,11 @@ public partial class ContentContext : DbContext
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__content_d__grade__32375140");
 
+            entity.HasOne(d => d.Language).WithMany(p => p.ContentDetails)
+                .HasForeignKey(d => d.LanguageId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_content_d_lang");
+
             entity.HasOne(d => d.Owner).WithMany(p => p.ContentDetails)
                 .HasForeignKey(d => d.OwnerId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
@@ -111,18 +125,19 @@ public partial class ContentContext : DbContext
 
         modelBuilder.Entity<ContentFile>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__content___3213E83FCBA7AA5F");
+            entity.HasKey(e => e.Id).HasName("PK__content___3213E83F6D69A64E");
 
             entity.ToTable("content_file", "content");
 
             entity.Property(e => e.Id)
-                .ValueGeneratedNever()
+                .HasDefaultValueSql("(newid())")
                 .HasColumnName("id");
             entity.Property(e => e.CreatedAt)
                 .HasColumnType("datetime")
                 .HasColumnName("created_at");
             entity.Property(e => e.FileId).HasColumnName("file_id");
             entity.Property(e => e.FileName).HasColumnName("file_name");
+            entity.Property(e => e.SourceFileId).HasColumnName("source_file_id");
         });
 
         modelBuilder.Entity<ContentGroup>(entity =>
@@ -140,6 +155,25 @@ public partial class ContentContext : DbContext
                 .HasConstraintName("FK__content_g__conte__454A25B4");
         });
 
+        modelBuilder.Entity<ContentLanguage>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__content___3213E83FB4472063");
+
+            entity.ToTable("content_language", "content");
+
+            entity.Property(e => e.Id)
+                .ValueGeneratedNever()
+                .HasColumnName("id");
+            entity.Property(e => e.Abbreviation)
+                .HasMaxLength(4)
+                .IsUnicode(false)
+                .HasColumnName("abbreviation");
+            entity.Property(e => e.Language)
+                .HasMaxLength(32)
+                .IsUnicode(false)
+                .HasColumnName("language");
+        });
+
         modelBuilder.Entity<ContentStatus>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK__content___3213E83F0639AA97");
@@ -155,7 +189,6 @@ public partial class ContentContext : DbContext
                 .HasColumnName("status");
         });
 
-    
         modelBuilder.Entity<ContentTxt>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK__content___3213E83F2E2BCD82");
