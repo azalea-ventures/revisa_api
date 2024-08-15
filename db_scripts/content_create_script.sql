@@ -234,6 +234,11 @@ ADD CONSTRAINT FK_content_d_lang
 FOREIGN KEY (language_id) REFERENCES content.content_language(id);
 GO;
 
+
+INSERT INTO content.content_status (id, status)
+VALUES (5, 'TRANSLATED'), (6, 'ERROR');
+GO;
+
 -- Trigger to insert into content_versions
 CREATE OR ALTER TRIGGER trg_insert_content_version
 ON content.content_details

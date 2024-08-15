@@ -1,8 +1,5 @@
-using Azure;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Net.Http.Headers;
 using revisa_api.Data.content;
 using revisa_api.Data.elps;
 using revisa_api.Data.language_supports;
@@ -60,23 +57,20 @@ app.MapPost(
 
 app.MapGet(
         "/content",
-        (int id, IContentService contentService) =>
+        GetContentResponse (int id, IContentService contentService) =>
         {
             GetContentResponse response = contentService.GetContent(id);
-            return Results.Ok(response);
+            return response;
         }
     )
     .WithOpenApi();
 
 app.MapPost(
         "/content/info",
-        (PostContentBaseRequest request, IContentService contentService) =>
+        PostContentInfoResponse (PostContentBaseRequest request, IContentService contentService) =>
         {
-            ContentDetail contentInfo = contentService.PostContentInfo(request);
-            return Results.Created(
-                "content/info",
-                new PostContentInfoResponse() { ContentId = contentInfo.Id }
-            );
+            PostContentInfoResponse response = contentService.PostContentInfo(request);
+            return response;
         }
     )
     .WithOpenApi();
@@ -112,10 +106,10 @@ app.MapPost(
 
 app.MapGet(
         "/language_supports/iclo",
-        (string delivery_date, ILanguageSupportService languageSupportService) =>
+        ElpsSupportResponse (string delivery_date, ILanguageSupportService languageSupportService) =>
         {
             ElpsSupportResponse response = languageSupportService.GetElpsSupports(delivery_date);
-            return Results.Ok(response);
+            return response;
         }
     )
     .WithOpenApi();
