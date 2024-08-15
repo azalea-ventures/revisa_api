@@ -45,8 +45,7 @@ app.MapPost(
         "/content",
         (
             PostContentRequest request,
-            IContentService contentService,
-            ILanguageSupportService languageSupportService
+            IContentService contentService
         ) =>
         {
             int contentId = contentService.PostContent(request);
