@@ -181,6 +181,36 @@ VALUES
     (2, 'SPANISH', 'ESP')
 GO
 
+
+CREATE TABLE content.content_translations(
+    id INT PRIMARY KEY IDENTITY(1,1),
+    target_language_id INT NOT NULL,
+    content_language_id INT NOT NULL,
+    content_subject_id INT NOT NULL,
+    content_grade_id INT NOT NULL
+)
+GO
+
+ALTER TABLE content.content_translations
+ADD CONSTRAINT FK_content_d_tlang
+FOREIGN KEY (target_language_id) REFERENCES content.content_language(id)
+GO
+
+ALTER TABLE content.content_translations
+ADD CONSTRAINT FK_content_d_clang
+FOREIGN KEY (content_language_id) REFERENCES content.content_language(id)
+GO
+
+ALTER TABLE content.content_translations
+ADD CONSTRAINT FK_content_d_subj
+FOREIGN KEY (content_subject_id) REFERENCES content.subjects(id)
+GO
+
+ALTER TABLE content.content_translations
+ADD CONSTRAINT FK_content_d_grade
+FOREIGN KEY (content_grade_id) REFERENCES content.grades(id)
+GO;
+
 BEGIN TRANSACTION
 INSERT INTO content.content_file
     (id)
