@@ -195,6 +195,14 @@ SET file_id = '00000000-0000-0000-0000-000000000000';
 COMMIT;
 GO;
 
+ALTER TABLE content.content_details
+ADD language_id INT NOT NULL DEFAULT 1;
+GO;
+
+ALTER TABLE content.content_details
+ADD CONSTRAINT FK_content_d_lang
+FOREIGN KEY (language_id) REFERENCES content.content_language(id);
+GO;
 
 -- Trigger to insert into content_versions
 CREATE OR ALTER TRIGGER trg_insert_content_version
