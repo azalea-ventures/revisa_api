@@ -29,18 +29,6 @@ public class ContentFile()
     [JsonPropertyName("file_name")]
     public string? FileName { get; set; }
 
-    [JsonPropertyName("source_file_id")]
-    public string? SourceFileId { get; set; }
-
-    [JsonPropertyName("current_folder_id")]
-    public string? CurrentFolderId { get; set; }
-
-    [JsonPropertyName("outbound_file_id")]
-    public string? OutboundFileId { get; set; }
-
-    [JsonPropertyName("outbound_folder_id")]
-    public string? OutboundFolderId { get; set; }
-
     public DateTime? CreatedAt { get; set; }
 }
 
@@ -106,10 +94,6 @@ public class GetContentBaseResponse
         Info.File = new (){
             FileId = entity.File?.FileId,
             FileName = entity.File?.FileName,
-            SourceFileId = entity.File?.SourceFileId,
-            CurrentFolderId = entity.File?.CurrentFolderId,
-            OutboundFileId = entity.File?.OutboundFileId,
-            OutboundFolderId = entity.File?.OutboundFolderId,
             CreatedAt = entity.File?.CreatedAt,
         };
         Info.Status = entity.Status?.Status;

@@ -95,12 +95,6 @@ CREATE TABLE content.content_versions
 );
 GO
 
-CREATE TABLE content.content_teks
-(
-    content_version_id INT REFERENCES content.content_versions(id) NOT NULL,
-    tek_item_id UNIQUEIDENTIFIER REFERENCES teks.teks_items(id) NOT NULL
-);
-GO
 
 -- Create content_group table
 CREATE TABLE content.content_group

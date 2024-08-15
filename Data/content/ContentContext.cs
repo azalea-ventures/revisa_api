@@ -25,8 +25,6 @@ public partial class ContentContext : DbContext
 
     public virtual DbSet<ContentStatus> ContentStatuses { get; set; }
 
-    public virtual DbSet<ContentTek> ContentTeks { get; set; }
-
     public virtual DbSet<ContentTxt> ContentTxts { get; set; }
 
     public virtual DbSet<ContentType> ContentTypes { get; set; }
@@ -123,12 +121,8 @@ public partial class ContentContext : DbContext
             entity.Property(e => e.CreatedAt)
                 .HasColumnType("datetime")
                 .HasColumnName("created_at");
-            entity.Property(e => e.CurrentFolderId).HasColumnName("current_folder_id");
             entity.Property(e => e.FileId).HasColumnName("file_id");
             entity.Property(e => e.FileName).HasColumnName("file_name");
-            entity.Property(e => e.OutboundFolderId).HasColumnName("outbound_folder_id");
-            entity.Property(e => e.OutboundFileId).HasColumnName("outbound_file_id");
-            entity.Property(e => e.SourceFileId).HasColumnName("source_file_id");
         });
 
         modelBuilder.Entity<ContentGroup>(entity =>
@@ -161,28 +155,7 @@ public partial class ContentContext : DbContext
                 .HasColumnName("status");
         });
 
-        modelBuilder.Entity<ContentTek>(entity =>
-        {
-            entity
-                .HasNoKey()
-                .ToTable("content_teks", "content");
-
-            entity.Property(e => e.ContentVersionId).HasColumnName("content_version_id");
-            entity.Property(e => e.TekItemId).HasColumnName("tek_item_id");
-
-            entity.HasOne(d => d.ContentVersion).WithMany()
-                .HasForeignKey(d => d.ContentVersionId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__content_t__conte__417994D0");
-                
-                entity
-                .HasOne(d => d.TekItem)
-                .WithMany()
-                .HasForeignKey(d => d.TekItemId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__content_t__tek_i__426DB909");
-        });
-
+    
         modelBuilder.Entity<ContentTxt>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK__content___3213E83F2E2BCD82");

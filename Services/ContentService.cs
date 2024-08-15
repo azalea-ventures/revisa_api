@@ -52,10 +52,6 @@ public class ContentService : IContentService
                 Id = Guid.NewGuid(),
                 FileId = request.Info.File.FileId,
                 FileName = request.Info.File.FileName,
-                SourceFileId = request.Info.File.SourceFileId,
-                CurrentFolderId = request.Info.File.CurrentFolderId,
-                OutboundFileId = request.Info.File.OutboundFileId,
-                OutboundFolderId = request.Info.File.OutboundFolderId,
                 CreatedAt = request.Info.File.CreatedAt,
             };
 

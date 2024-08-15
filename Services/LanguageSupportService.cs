@@ -34,7 +34,7 @@ public class LanguageSupportService : ILanguageSupportService
         var iclos = languageSupportContext
             .Iclos.Where(i => i.LessonScheduleId == lesson_schedule.Id)
             .ToList();
-        ElpsSupportResponse response = null;
+        ElpsSupportResponse? response = null;
         iclos.ForEach(iclo =>
         {
             var strategy_objective = languageSupportContext.StrategyObjectives.FirstOrDefault(d =>
