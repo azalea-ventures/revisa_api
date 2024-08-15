@@ -8,7 +8,7 @@ public class Info
     public string Subject { get; set; }
     public string Language { get; set; }
     public List<string> Teks { get; set; }
-    public ContentFile File { get; set; }
+    public File File { get; set; }
     public string Status { get; set; }
 
     [JsonPropertyName("delivery_date")]
@@ -21,7 +21,7 @@ public class Info
     public string CreatedAt { get; set; }
 }
 
-public class ContentFile()
+public class File()
 {
     [JsonPropertyName("file_id")]
     public string? FileId { get; set; }
@@ -31,16 +31,6 @@ public class ContentFile()
 
     [JsonPropertyName("source_file_id")]
     public string? SourceFileId { get; set; }
-
-    [JsonPropertyName("current_folder_id")]
-    public string? CurrentFolderId { get; set; }
-
-    [JsonPropertyName("outbound_file_id")]
-    public string? OutboundFileId { get; set; }
-
-    [JsonPropertyName("outbound_folder_id")]
-    public string? OutboundFolderId { get; set; }
-
     public DateTime? CreatedAt { get; set; }
 }
 
@@ -67,6 +57,10 @@ public class PostContentInfoResponse
 {
     [JsonPropertyName("content_id")]
     public int ContentId { get; set; }
+
+    [JsonPropertyName("needs_translation")]
+    public bool NeedsTranslation { get; set; }
+    public string Status { get; set; }
 }
 
 public class PostContentResponse
@@ -76,14 +70,17 @@ public class PostContentResponse
 
     [JsonPropertyName("elps_strategy_icon_id")]
     public string ElpsStrategyIconId { get; set; }
+
     [JsonPropertyName("elps_strategy_file_id")]
     public string ElpsStrategyFileId { get; set; }
 
     [JsonPropertyName("elps_domain_objective")]
     public string ElpsDomainObjective { get; set; }
+
     [JsonPropertyName("elps_domain_name")]
     public string ElpsDomainName { get; set; }
     public int ElpsStrategyId { get; set; }
+
     [JsonPropertyName("elps_strategy_label")]
     public string ElpsStrategyLabel { get; set; }
 
@@ -103,13 +100,10 @@ public class GetContentBaseResponse
         Info.Grade = entity.Grade.Grade1;
         Info.Subject = entity.Subject.Subject1;
         Info.DeliveryDate = entity.DeliveryDate.ToString();
-        Info.File = new (){
+        Info.File = new()
+        {
             FileId = entity.File?.FileId,
             FileName = entity.File?.FileName,
-            SourceFileId = entity.File?.SourceFileId,
-            CurrentFolderId = entity.File?.CurrentFolderId,
-            OutboundFileId = entity.File?.OutboundFileId,
-            OutboundFolderId = entity.File?.OutboundFolderId,
             CreatedAt = entity.File?.CreatedAt,
         };
         Info.Status = entity.Status?.Status;

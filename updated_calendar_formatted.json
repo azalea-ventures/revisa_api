@@ -1,0 +1,1677 @@
+[
+    {
+        "cycle": 1,
+        "start_date": "08-12-2024",
+        "end_date": "08-20-2024",
+        "weeks": [
+            {
+                "week_number": 1,
+                "days": [
+                    {
+                        "date": "08-12-2024",
+                        "day_of_week": "Monday",
+                        "week": 1,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "08-13-2024",
+                        "day_of_week": "Tuesday",
+                        "week": 1,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "08-14-2024",
+                        "day_of_week": "Wednesday",
+                        "week": 1,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "08-15-2024",
+                        "day_of_week": "Thursday",
+                        "week": 1,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "08-16-2024",
+                        "day_of_week": "Friday",
+                        "week": 1,
+                        "assessment_day": false,
+                        "school": true
+                    }
+                ]
+            },
+            {
+                "week_number": 2,
+                "days": [
+                    {
+                        "date": "08-19-2024",
+                        "day_of_week": "Monday",
+                        "week": 2,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "08-20-2024",
+                        "day_of_week": "Tuesday",
+                        "week": 2,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "08-21-2024",
+                        "day_of_week": "Wednesday",
+                        "week": 2,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "08-22-2024",
+                        "day_of_week": "Thursday",
+                        "week": 2,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "08-23-2024",
+                        "day_of_week": "Friday",
+                        "week": 2,
+                        "assessment_day": false,
+                        "school": true
+                    }
+                ]
+            },
+            {
+                "week_number": 3,
+                "days": [
+                    {
+                        "date": "08-26-2024",
+                        "day_of_week": "Monday",
+                        "week": 3,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "08-27-2024",
+                        "day_of_week": "Tuesday",
+                        "week": 3,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "08-28-2024",
+                        "day_of_week": "Wednesday",
+                        "week": 3,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "08-29-2024",
+                        "day_of_week": "Thursday",
+                        "week": 3,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "08-30-2024",
+                        "day_of_week": "Friday",
+                        "week": 3,
+                        "assessment_day": false,
+                        "school": true
+                    }
+                ]
+            },
+            {
+                "week_number": 4,
+                "days": [
+                    {
+                        "date": "09-02-2024",
+                        "day_of_week": "Monday",
+                        "week": 4,
+                        "assessment_day": false,
+                        "school": false,
+                        "reason": "Holiday"
+                    },
+                    {
+                        "date": "09-03-2024",
+                        "day_of_week": "Tuesday",
+                        "week": 4,
+                        "assessment_day": false,
+                        "school": false,
+                        "reason": "Staff PD"
+                    },
+                    {
+                        "date": "09-04-2024",
+                        "day_of_week": "Wednesday",
+                        "week": 4,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "09-05-2024",
+                        "day_of_week": "Thursday",
+                        "week": 4,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "09-06-2024",
+                        "day_of_week": "Friday",
+                        "week": 4,
+                        "assessment_day": false,
+                        "school": true
+                    }
+                ]
+            },
+            {
+                "week_number": 5,
+                "days": [
+                    {
+                        "date": "09-09-2024",
+                        "day_of_week": "Monday",
+                        "week": 5,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "09-10-2024",
+                        "day_of_week": "Tuesday",
+                        "week": 5,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "09-11-2024",
+                        "day_of_week": "Wednesday",
+                        "week": 5,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "09-12-2024",
+                        "day_of_week": "Thursday",
+                        "week": 5,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "09-13-2024",
+                        "day_of_week": "Friday",
+                        "week": 5,
+                        "assessment_day": false,
+                        "school": true
+                    }
+                ]
+            },
+            {
+                "week_number": 6,
+                "days": [
+                    {
+                        "date": "09-16-2024",
+                        "day_of_week": "Monday",
+                        "week": 6,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "09-17-2024",
+                        "day_of_week": "Tuesday",
+                        "week": 6,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "09-18-2024",
+                        "day_of_week": "Wednesday",
+                        "week": 6,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "09-19-2024",
+                        "day_of_week": "Thursday",
+                        "week": 6,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "09-20-2024",
+                        "day_of_week": "Friday",
+                        "week": 6,
+                        "assessment_day": false,
+                        "school": true
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "cycle": 2,
+        "start_date": "09-23-2024",
+        "end_date": "11-01-2024",
+        "weeks": [
+            {
+                "week_number": 7,
+                "days": [
+                    {
+                        "date": "09-23-2024",
+                        "day_of_week": "Monday",
+                        "week": 7,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "09-24-2024",
+                        "day_of_week": "Tuesday",
+                        "week": 7,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "09-25-2024",
+                        "day_of_week": "Wednesday",
+                        "week": 7,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "09-26-2024",
+                        "day_of_week": "Thursday",
+                        "week": 7,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "09-27-2024",
+                        "day_of_week": "Friday",
+                        "week": 7,
+                        "assessment_day": false,
+                        "school": true
+                    }
+                ]
+            },
+            {
+                "week_number": 8,
+                "days": [
+                    {
+                        "date": "09-30-2024",
+                        "day_of_week": "Monday",
+                        "week": 8,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "10-01-2024",
+                        "day_of_week": "Tuesday",
+                        "week": 8,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "10-02-2024",
+                        "day_of_week": "Wednesday",
+                        "week": 8,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "10-03-2024",
+                        "day_of_week": "Thursday",
+                        "week": 8,
+                        "assessment_day": false,
+                        "school": false,
+                        "reason": "Staff PD"
+                    },
+                    {
+                        "date": "10-04-2024",
+                        "day_of_week": "Friday",
+                        "week": 8,
+                        "assessment_day": false,
+                        "school": false,
+                        "reason": "Holiday"
+                    }
+                ]
+            },
+            {
+                "week_number": 9,
+                "days": [
+                    {
+                        "date": "10-07-2024",
+                        "day_of_week": "Monday",
+                        "week": 9,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "10-08-2024",
+                        "day_of_week": "Tuesday",
+                        "week": 9,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "10-09-2024",
+                        "day_of_week": "Wednesday",
+                        "week": 9,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "10-10-2024",
+                        "day_of_week": "Thursday",
+                        "week": 9,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "10-11-2024",
+                        "day_of_week": "Friday",
+                        "week": 9,
+                        "assessment_day": false,
+                        "school": true
+                    }
+                ]
+            },
+            {
+                "week_number": 10,
+                "days": [
+                    {
+                        "date": "10-14-2024",
+                        "day_of_week": "Monday",
+                        "week": 10,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "10-15-2024",
+                        "day_of_week": "Tuesday",
+                        "week": 10,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "10-16-2024",
+                        "day_of_week": "Wednesday",
+                        "week": 10,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "10-17-2024",
+                        "day_of_week": "Thursday",
+                        "week": 10,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "10-18-2024",
+                        "day_of_week": "Friday",
+                        "week": 10,
+                        "assessment_day": false,
+                        "school": true
+                    }
+                ]
+            },
+            {
+                "week_number": 11,
+                "days": [
+                    {
+                        "date": "10-21-2024",
+                        "day_of_week": "Monday",
+                        "week": 11,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "10-22-2024",
+                        "day_of_week": "Tuesday",
+                        "week": 11,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "10-23-2024",
+                        "day_of_week": "Wednesday",
+                        "week": 11,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "10-24-2024",
+                        "day_of_week": "Thursday",
+                        "week": 11,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "10-25-2024",
+                        "day_of_week": "Friday",
+                        "week": 11,
+                        "assessment_day": false,
+                        "school": true
+                    }
+                ]
+            },
+            {
+                "week_number": 12,
+                "days": [
+                    {
+                        "date": "10-28-2024",
+                        "day_of_week": "Monday",
+                        "week": 12,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "10-29-2024",
+                        "day_of_week": "Tuesday",
+                        "week": 12,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "10-30-2024",
+                        "day_of_week": "Wednesday",
+                        "week": 12,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "10-31-2024",
+                        "day_of_week": "Thursday",
+                        "week": 12,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "11-01-2024",
+                        "day_of_week": "Friday",
+                        "week": 12,
+                        "assessment_day": false,
+                        "school": true
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "cycle": 3,
+        "start_date": "11-04-2024",
+        "end_date": "12-20-2024",
+        "weeks": [
+            {
+                "week_number": 13,
+                "days": [
+                    {
+                        "date": "11-04-2024",
+                        "day_of_week": "Monday",
+                        "week": 13,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "11-05-2024",
+                        "day_of_week": "Tuesday",
+                        "week": 13,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "11-06-2024",
+                        "day_of_week": "Wednesday",
+                        "week": 13,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "11-07-2024",
+                        "day_of_week": "Thursday",
+                        "week": 13,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "11-08-2024",
+                        "day_of_week": "Friday",
+                        "week": 13,
+                        "assessment_day": false,
+                        "school": false,
+                        "reason": "Staff PD"
+                    }
+                ]
+            },
+            {
+                "week_number": 14,
+                "days": [
+                    {
+                        "date": "11-11-2024",
+                        "day_of_week": "Monday",
+                        "week": 14,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "11-12-2024",
+                        "day_of_week": "Tuesday",
+                        "week": 14,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "11-13-2024",
+                        "day_of_week": "Wednesday",
+                        "week": 14,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "11-14-2024",
+                        "day_of_week": "Thursday",
+                        "week": 14,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "11-15-2024",
+                        "day_of_week": "Friday",
+                        "week": 14,
+                        "assessment_day": false,
+                        "school": true
+                    }
+                ]
+            },
+            {
+                "week_number": 15,
+                "days": [
+                    {
+                        "date": "11-18-2024",
+                        "day_of_week": "Monday",
+                        "week": 15,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "11-19-2024",
+                        "day_of_week": "Tuesday",
+                        "week": 15,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "11-20-2024",
+                        "day_of_week": "Wednesday",
+                        "week": 15,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "11-21-2024",
+                        "day_of_week": "Thursday",
+                        "week": 15,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "11-22-2024",
+                        "day_of_week": "Friday",
+                        "week": 15,
+                        "assessment_day": false,
+                        "school": true
+                    }
+                ]
+            },
+            {
+                "week_number": 16,
+                "days": [
+                    {
+                        "date": "11-25-2024",
+                        "day_of_week": "Monday",
+                        "week": 16,
+                        "assessment_day": false,
+                        "school": false,
+                        "reason": "Recess"
+                    },
+                    {
+                        "date": "11-26-2024",
+                        "day_of_week": "Tuesday",
+                        "week": 16,
+                        "assessment_day": false,
+                        "school": false,
+                        "reason": "Recess"
+                    },
+                    {
+                        "date": "11-27-2024",
+                        "day_of_week": "Wednesday",
+                        "week": 16,
+                        "assessment_day": false,
+                        "school": false,
+                        "reason": "Recess"
+                    },
+                    {
+                        "date": "11-28-2024",
+                        "day_of_week": "Thursday",
+                        "week": 16,
+                        "assessment_day": false,
+                        "school": false,
+                        "reason": "Holiday"
+                    },
+                    {
+                        "date": "11-29-2024",
+                        "day_of_week": "Friday",
+                        "week": 16,
+                        "assessment_day": false,
+                        "school": false,
+                        "reason": "Recess"
+                    }
+                ]
+            },
+            {
+                "week_number": 17,
+                "days": [
+                    {
+                        "date": "12-02-2024",
+                        "day_of_week": "Monday",
+                        "week": 17,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "12-03-2024",
+                        "day_of_week": "Tuesday",
+                        "week": 17,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "12-04-2024",
+                        "day_of_week": "Wednesday",
+                        "week": 17,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "12-05-2024",
+                        "day_of_week": "Thursday",
+                        "week": 17,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "12-06-2024",
+                        "day_of_week": "Friday",
+                        "week": 17,
+                        "assessment_day": false,
+                        "school": true
+                    }
+                ]
+            },
+            {
+                "week_number": 18,
+                "days": [
+                    {
+                        "date": "12-09-2024",
+                        "day_of_week": "Monday",
+                        "week": 18,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "12-10-2024",
+                        "day_of_week": "Tuesday",
+                        "week": 18,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "12-11-2024",
+                        "day_of_week": "Wednesday",
+                        "week": 18,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "12-12-2024",
+                        "day_of_week": "Thursday",
+                        "week": 18,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "12-13-2024",
+                        "day_of_week": "Friday",
+                        "week": 18,
+                        "assessment_day": false,
+                        "school": true
+                    }
+                ]
+            },
+            {
+                "week_number": 19,
+                "days": [
+                    {
+                        "date": "12-16-2024",
+                        "day_of_week": "Monday",
+                        "week": 19,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "12-17-2024",
+                        "day_of_week": "Tuesday",
+                        "week": 19,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "12-18-2024",
+                        "day_of_week": "Wednesday",
+                        "week": 19,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "12-19-2024",
+                        "day_of_week": "Thursday",
+                        "week": 19,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "12-20-2024",
+                        "day_of_week": "Friday",
+                        "week": 19,
+                        "assessment_day": false,
+                        "school": true
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "cycle": 4,
+        "start_date": "01-07-2025",
+        "end_date": "02-21-2025",
+        "weeks": [
+            {
+                "week_number": 20,
+                "days": [
+                    {
+                        "date": "01-07-2025",
+                        "day_of_week": "Tuesday",
+                        "week": 20,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "01-08-2025",
+                        "day_of_week": "Wednesday",
+                        "week": 20,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "01-09-2025",
+                        "day_of_week": "Thursday",
+                        "week": 20,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "01-10-2025",
+                        "day_of_week": "Friday",
+                        "week": 20,
+                        "assessment_day": false,
+                        "school": true
+                    }
+                ]
+            },
+            {
+                "week_number": 21,
+                "days": [
+                    {
+                        "date": "01-13-2025",
+                        "day_of_week": "Monday",
+                        "week": 21,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "01-14-2025",
+                        "day_of_week": "Tuesday",
+                        "week": 21,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "01-15-2025",
+                        "day_of_week": "Wednesday",
+                        "week": 21,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "01-16-2025",
+                        "day_of_week": "Thursday",
+                        "week": 21,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "01-17-2025",
+                        "day_of_week": "Friday",
+                        "week": 21,
+                        "assessment_day": false,
+                        "school": true
+                    }
+                ]
+            },
+            {
+                "week_number": 22,
+                "days": [
+                    {
+                        "date": "01-20-2025",
+                        "day_of_week": "Monday",
+                        "week": 22,
+                        "assessment_day": false,
+                        "school": false,
+                        "reason": "Holiday"
+                    },
+                    {
+                        "date": "01-21-2025",
+                        "day_of_week": "Tuesday",
+                        "week": 22,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "01-22-2025",
+                        "day_of_week": "Wednesday",
+                        "week": 22,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "01-23-2025",
+                        "day_of_week": "Thursday",
+                        "week": 22,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "01-24-2025",
+                        "day_of_week": "Friday",
+                        "week": 22,
+                        "assessment_day": false,
+                        "school": true
+                    }
+                ]
+            },
+            {
+                "week_number": 23,
+                "days": [
+                    {
+                        "date": "01-27-2025",
+                        "day_of_week": "Monday",
+                        "week": 23,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "01-28-2025",
+                        "day_of_week": "Tuesday",
+                        "week": 23,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "01-29-2025",
+                        "day_of_week": "Wednesday",
+                        "week": 23,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "01-30-2025",
+                        "day_of_week": "Thursday",
+                        "week": 23,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "01-31-2025",
+                        "day_of_week": "Friday",
+                        "week": 23,
+                        "assessment_day": false,
+                        "school": true
+                    }
+                ]
+            },
+            {
+                "week_number": 24,
+                "days": [
+                    {
+                        "date": "02-03-2025",
+                        "day_of_week": "Monday",
+                        "week": 24,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "02-04-2025",
+                        "day_of_week": "Tuesday",
+                        "week": 24,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "02-05-2025",
+                        "day_of_week": "Wednesday",
+                        "week": 24,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "02-06-2025",
+                        "day_of_week": "Thursday",
+                        "week": 24,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "02-07-2025",
+                        "day_of_week": "Friday",
+                        "week": 24,
+                        "assessment_day": false,
+                        "school": true
+                    }
+                ]
+            },
+            {
+                "week_number": 25,
+                "days": [
+                    {
+                        "date": "02-10-2025",
+                        "day_of_week": "Monday",
+                        "week": 25,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "02-11-2025",
+                        "day_of_week": "Tuesday",
+                        "week": 25,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "02-12-2025",
+                        "day_of_week": "Wednesday",
+                        "week": 25,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "02-13-2025",
+                        "day_of_week": "Thursday",
+                        "week": 25,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "02-14-2025",
+                        "day_of_week": "Friday",
+                        "week": 25,
+                        "assessment_day": false,
+                        "school": false,
+                        "reason": "Staff PD"
+                    }
+                ]
+            },
+            {
+                "week_number": 26,
+                "days": [
+                    {
+                        "date": "02-17-2025",
+                        "day_of_week": "Monday",
+                        "week": 26,
+                        "assessment_day": false,
+                        "school": false,
+                        "reason": "Holiday"
+                    },
+                    {
+                        "date": "02-18-2025",
+                        "day_of_week": "Tuesday",
+                        "week": 26,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "02-19-2025",
+                        "day_of_week": "Wednesday",
+                        "week": 26,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "02-20-2025",
+                        "day_of_week": "Thursday",
+                        "week": 26,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "02-21-2025",
+                        "day_of_week": "Friday",
+                        "week": 26,
+                        "assessment_day": false,
+                        "school": true
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "cycle": 5,
+        "start_date": "02-24-2025",
+        "end_date": "04-17-2025",
+        "weeks": [
+            {
+                "week_number": 27,
+                "days": [
+                    {
+                        "date": "02-24-2025",
+                        "day_of_week": "Monday",
+                        "week": 27,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "02-25-2025",
+                        "day_of_week": "Tuesday",
+                        "week": 27,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "02-26-2025",
+                        "day_of_week": "Wednesday",
+                        "week": 27,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "02-27-2025",
+                        "day_of_week": "Thursday",
+                        "week": 27,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "02-28-2025",
+                        "day_of_week": "Friday",
+                        "week": 27,
+                        "assessment_day": false,
+                        "school": true
+                    }
+                ]
+            },
+            {
+                "week_number": 28,
+                "days": [
+                    {
+                        "date": "03-03-2025",
+                        "day_of_week": "Monday",
+                        "week": 28,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "03-04-2025",
+                        "day_of_week": "Tuesday",
+                        "week": 28,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "03-05-2025",
+                        "day_of_week": "Wednesday",
+                        "week": 28,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "03-06-2025",
+                        "day_of_week": "Thursday",
+                        "week": 28,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "03-07-2025",
+                        "day_of_week": "Friday",
+                        "week": 28,
+                        "assessment_day": false,
+                        "school": true
+                    }
+                ]
+            },
+            {
+                "week_number": 29,
+                "days": [
+                    {
+                        "date": "03-10-2025",
+                        "day_of_week": "Monday",
+                        "week": 29,
+                        "assessment_day": false,
+                        "school": false,
+                        "reason": "Recess"
+                    },
+                    {
+                        "date": "03-11-2025",
+                        "day_of_week": "Tuesday",
+                        "week": 29,
+                        "assessment_day": false,
+                        "school": false,
+                        "reason": "Recess"
+                    },
+                    {
+                        "date": "03-12-2025",
+                        "day_of_week": "Wednesday",
+                        "week": 29,
+                        "assessment_day": false,
+                        "school": false,
+                        "reason": "Recess"
+                    },
+                    {
+                        "date": "03-13-2025",
+                        "day_of_week": "Thursday",
+                        "week": 29,
+                        "assessment_day": false,
+                        "school": false,
+                        "reason": "Recess"
+                    },
+                    {
+                        "date": "03-14-2025",
+                        "day_of_week": "Friday",
+                        "week": 29,
+                        "assessment_day": false,
+                        "school": false,
+                        "reason": "Recess"
+                    }
+                ]
+            },
+            {
+                "week_number": 30,
+                "days": [
+                    {
+                        "date": "03-17-2025",
+                        "day_of_week": "Monday",
+                        "week": 30,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "03-18-2025",
+                        "day_of_week": "Tuesday",
+                        "week": 30,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "03-19-2025",
+                        "day_of_week": "Wednesday",
+                        "week": 30,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "03-20-2025",
+                        "day_of_week": "Thursday",
+                        "week": 30,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "03-21-2025",
+                        "day_of_week": "Friday",
+                        "week": 30,
+                        "assessment_day": false,
+                        "school": true
+                    }
+                ]
+            },
+            {
+                "week_number": 31,
+                "days": [
+                    {
+                        "date": "03-24-2025",
+                        "day_of_week": "Monday",
+                        "week": 31,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "03-25-2025",
+                        "day_of_week": "Tuesday",
+                        "week": 31,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "03-26-2025",
+                        "day_of_week": "Wednesday",
+                        "week": 31,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "03-27-2025",
+                        "day_of_week": "Thursday",
+                        "week": 31,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "03-28-2025",
+                        "day_of_week": "Friday",
+                        "week": 31,
+                        "assessment_day": false,
+                        "school": true
+                    }
+                ]
+            },
+            {
+                "week_number": 32,
+                "days": [
+                    {
+                        "date": "03-31-2025",
+                        "day_of_week": "Monday",
+                        "week": 32,
+                        "assessment_day": false,
+                        "school": false,
+                        "reason": "Holiday"
+                    },
+                    {
+                        "date": "04-01-2025",
+                        "day_of_week": "Tuesday",
+                        "week": 32,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "04-02-2025",
+                        "day_of_week": "Wednesday",
+                        "week": 32,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "04-03-2025",
+                        "day_of_week": "Thursday",
+                        "week": 32,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "04-04-2025",
+                        "day_of_week": "Friday",
+                        "week": 32,
+                        "assessment_day": false,
+                        "school": true
+                    }
+                ]
+            },
+            {
+                "week_number": 33,
+                "days": [
+                    {
+                        "date": "04-07-2025",
+                        "day_of_week": "Monday",
+                        "week": 33,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "04-08-2025",
+                        "day_of_week": "Tuesday",
+                        "week": 33,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "04-09-2025",
+                        "day_of_week": "Wednesday",
+                        "week": 33,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "04-10-2025",
+                        "day_of_week": "Thursday",
+                        "week": 33,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "04-11-2025",
+                        "day_of_week": "Friday",
+                        "week": 33,
+                        "assessment_day": false,
+                        "school": true
+                    }
+                ]
+            },
+            {
+                "week_number": 34,
+                "days": [
+                    {
+                        "date": "04-14-2025",
+                        "day_of_week": "Monday",
+                        "week": 34,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "04-15-2025",
+                        "day_of_week": "Tuesday",
+                        "week": 34,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "04-16-2025",
+                        "day_of_week": "Wednesday",
+                        "week": 34,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "04-17-2025",
+                        "day_of_week": "Thursday",
+                        "week": 34,
+                        "assessment_day": false,
+                        "school": true
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "cycle": 6,
+        "start_date": "04-21-2025",
+        "end_date": "06-04-2025",
+        "weeks": [
+            {
+                "week_number": 35,
+                "days": [
+                    {
+                        "date": "04-21-2025",
+                        "day_of_week": "Monday",
+                        "week": 35,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "04-22-2025",
+                        "day_of_week": "Tuesday",
+                        "week": 35,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "04-23-2025",
+                        "day_of_week": "Wednesday",
+                        "week": 35,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "04-24-2025",
+                        "day_of_week": "Thursday",
+                        "week": 35,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "04-25-2025",
+                        "day_of_week": "Friday",
+                        "week": 35,
+                        "assessment_day": false,
+                        "school": true
+                    }
+                ]
+            },
+            {
+                "week_number": 36,
+                "days": [
+                    {
+                        "date": "04-28-2025",
+                        "day_of_week": "Monday",
+                        "week": 36,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "04-29-2025",
+                        "day_of_week": "Tuesday",
+                        "week": 36,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "04-30-2025",
+                        "day_of_week": "Wednesday",
+                        "week": 36,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "05-01-2025",
+                        "day_of_week": "Thursday",
+                        "week": 36,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "05-02-2025",
+                        "day_of_week": "Friday",
+                        "week": 36,
+                        "assessment_day": false,
+                        "school": false,
+                        "reason": "Staff PD"
+                    }
+                ]
+            },
+            {
+                "week_number": 37,
+                "days": [
+                    {
+                        "date": "05-05-2025",
+                        "day_of_week": "Monday",
+                        "week": 37,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "05-06-2025",
+                        "day_of_week": "Tuesday",
+                        "week": 37,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "05-07-2025",
+                        "day_of_week": "Wednesday",
+                        "week": 37,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "05-08-2025",
+                        "day_of_week": "Thursday",
+                        "week": 37,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "05-09-2025",
+                        "day_of_week": "Friday",
+                        "week": 37,
+                        "assessment_day": false,
+                        "school": true
+                    }
+                ]
+            },
+            {
+                "week_number": 38,
+                "days": [
+                    {
+                        "date": "05-12-2025",
+                        "day_of_week": "Monday",
+                        "week": 38,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "05-13-2025",
+                        "day_of_week": "Tuesday",
+                        "week": 38,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "05-14-2025",
+                        "day_of_week": "Wednesday",
+                        "week": 38,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "05-15-2025",
+                        "day_of_week": "Thursday",
+                        "week": 38,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "05-16-2025",
+                        "day_of_week": "Friday",
+                        "week": 38,
+                        "assessment_day": false,
+                        "school": true
+                    }
+                ]
+            },
+            {
+                "week_number": 39,
+                "days": [
+                    {
+                        "date": "05-19-2025",
+                        "day_of_week": "Monday",
+                        "week": 39,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "05-20-2025",
+                        "day_of_week": "Tuesday",
+                        "week": 39,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "05-21-2025",
+                        "day_of_week": "Wednesday",
+                        "week": 39,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "05-22-2025",
+                        "day_of_week": "Thursday",
+                        "week": 39,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "05-23-2025",
+                        "day_of_week": "Friday",
+                        "week": 39,
+                        "assessment_day": false,
+                        "school": true
+                    }
+                ]
+            },
+            {
+                "week_number": 40,
+                "days": [
+                    {
+                        "date": "05-26-2025",
+                        "day_of_week": "Monday",
+                        "week": 40,
+                        "assessment_day": false,
+                        "school": false,
+                        "reason": "Holiday"
+                    },
+                    {
+                        "date": "05-27-2025",
+                        "day_of_week": "Tuesday",
+                        "week": 40,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "05-28-2025",
+                        "day_of_week": "Wednesday",
+                        "week": 40,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "05-29-2025",
+                        "day_of_week": "Thursday",
+                        "week": 40,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "05-30-2025",
+                        "day_of_week": "Friday",
+                        "week": 40,
+                        "assessment_day": false,
+                        "school": true
+                    }
+                ]
+            },
+            {
+                "week_number": 41,
+                "days": [
+                    {
+                        "date": "06-02-2025",
+                        "day_of_week": "Monday",
+                        "week": 41,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "06-03-2025",
+                        "day_of_week": "Tuesday",
+                        "week": 41,
+                        "assessment_day": false,
+                        "school": true
+                    },
+                    {
+                        "date": "06-04-2025",
+                        "day_of_week": "Wednesday",
+                        "week": 41,
+                        "assessment_day": false,
+                        "school": true
+                    }
+                ]
+            }
+        ]
+    }
+]

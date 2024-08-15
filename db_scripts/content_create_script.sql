@@ -95,12 +95,6 @@ CREATE TABLE content.content_versions
 );
 GO
 
-CREATE TABLE content.content_teks
-(
-    content_version_id INT REFERENCES content.content_versions(id) NOT NULL,
-    tek_item_id UNIQUEIDENTIFIER REFERENCES teks.teks_items(id) NOT NULL
-);
-GO
 
 -- Create content_group table
 CREATE TABLE content.content_group
@@ -149,12 +143,7 @@ CREATE TABLE content.content_file
     id UNIQUEIDENTIFIER PRIMARY KEY NOT NULL,
     file_name NVARCHAR(MAX),
     file_id NVARCHAR(MAX),
-    source_file_id NVARCHAR(MAX),
-    current_folder_id NVARCHAR(MAX),
-    outbound_file_id NVARCHAR(MAX),
-    outbound_folder_id NVARCHAR(MAX),
-    outbound_path NVARCHAR(MAX),
-    created_at DATETIME
+    source_file_id NVARCHAR(MAX)
 );
 
 GO;
@@ -169,12 +158,58 @@ INSERT INTO content.content_status
     (id, status)
 VALUES
     (0, 'NONE'),
-    (1, 'INBOUND'),
-    (2, 'PROCESSING'),
-    (3, 'OUTBOUND'),
-    (4, 'ARCHIVED');
+    (1, 'IMPORTED'),
+    (2, 'PROCESSED'),
+    (3, 'EXPORTED'),
+    (4, 'ARCHIVED'),
+    (5, 'TRANSLATED');
 COMMIT;
 GO
+
+CREATE TABLE content.content_language
+(
+    id INT PRIMARY KEY NOT NULL,
+    language VARCHAR(32),
+    abbreviation VARCHAR(4)
+)
+GO
+
+INSERT INTO content.content_language
+    (id, language, abbreviation)
+VALUES
+    (1, 'ENGLISH', 'EN'),
+    (2, 'SPANISH', 'ESP')
+GO
+
+
+CREATE TABLE content.content_translations(
+    id INT PRIMARY KEY IDENTITY(1,1),
+    target_language_id INT NOT NULL,
+    content_language_id INT NOT NULL,
+    content_subject_id INT NOT NULL,
+    content_grade_id INT NOT NULL
+)
+GO
+
+ALTER TABLE content.content_translations
+ADD CONSTRAINT FK_content_d_tlang
+FOREIGN KEY (target_language_id) REFERENCES content.content_language(id)
+GO
+
+ALTER TABLE content.content_translations
+ADD CONSTRAINT FK_content_d_clang
+FOREIGN KEY (content_language_id) REFERENCES content.content_language(id)
+GO
+
+ALTER TABLE content.content_translations
+ADD CONSTRAINT FK_content_d_subj
+FOREIGN KEY (content_subject_id) REFERENCES content.subjects(id)
+GO
+
+ALTER TABLE content.content_translations
+ADD CONSTRAINT FK_content_d_grade
+FOREIGN KEY (content_grade_id) REFERENCES content.grades(id)
+GO;
 
 BEGIN TRANSACTION
 INSERT INTO content.content_file
@@ -190,6 +225,19 @@ SET file_id = '00000000-0000-0000-0000-000000000000';
 COMMIT;
 GO;
 
+ALTER TABLE content.content_details
+ADD language_id INT NOT NULL DEFAULT 1;
+GO;
+
+ALTER TABLE content.content_details
+ADD CONSTRAINT FK_content_d_lang
+FOREIGN KEY (language_id) REFERENCES content.content_language(id);
+GO;
+
+
+INSERT INTO content.content_status (id, status)
+VALUES (5, 'TRANSLATED'), (6, 'ERROR');
+GO;
 
 -- Trigger to insert into content_versions
 CREATE OR ALTER TRIGGER trg_insert_content_version

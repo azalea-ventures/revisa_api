@@ -9,17 +9,11 @@ public partial class ContentFile
 
     public string? FileName { get; set; }
 
-    public DateTime? CreatedAt { get; set; }
-
     public string? FileId { get; set; }
 
     public string? SourceFileId { get; set; }
 
-    public string? CurrentFolderId { get; set; }
-
-    public string? OutboundFileId { get; set; }
-
-    public string? OutboundFolderId { get; set; }
+    public DateTime? CreatedAt { get; set; }
 
     public virtual ICollection<ContentDetail> ContentDetails { get; set; } = new List<ContentDetail>();
 }

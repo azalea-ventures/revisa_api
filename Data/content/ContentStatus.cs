@@ -5,7 +5,7 @@ namespace revisa_api.Data.content;
 
 public partial class ContentStatus
 {
-    public int Id { get; set; }
+    public int Id { get; set; } = 0;
 
     public string? Status { get; set; }
 
