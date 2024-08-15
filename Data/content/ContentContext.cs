@@ -27,6 +27,8 @@ public partial class ContentContext : DbContext
 
     public virtual DbSet<ContentStatus> ContentStatuses { get; set; }
 
+    public virtual DbSet<ContentTranslation> ContentTranslations { get; set; }
+
     public virtual DbSet<ContentTxt> ContentTxts { get; set; }
 
     public virtual DbSet<ContentType> ContentTypes { get; set; }
@@ -187,6 +189,39 @@ public partial class ContentContext : DbContext
                 .HasMaxLength(12)
                 .IsUnicode(false)
                 .HasColumnName("status");
+        });
+
+        modelBuilder.Entity<ContentTranslation>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__content___3213E83FF95BEB08");
+
+            entity.ToTable("content_translations", "content");
+
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.ContentGradeId).HasColumnName("content_grade_id");
+            entity.Property(e => e.ContentLanguageId).HasColumnName("content_language_id");
+            entity.Property(e => e.ContentSubjectId).HasColumnName("content_subject_id");
+            entity.Property(e => e.TargetLanguageId).HasColumnName("target_language_id");
+
+            entity.HasOne(d => d.ContentGrade).WithMany(p => p.ContentTranslations)
+                .HasForeignKey(d => d.ContentGradeId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_content_d_grade");
+
+            entity.HasOne(d => d.ContentLanguage).WithMany(p => p.ContentTranslationContentLanguages)
+                .HasForeignKey(d => d.ContentLanguageId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_content_d_clang");
+
+            entity.HasOne(d => d.ContentSubject).WithMany(p => p.ContentTranslations)
+                .HasForeignKey(d => d.ContentSubjectId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_content_d_subj");
+
+            entity.HasOne(d => d.TargetLanguage).WithMany(p => p.ContentTranslationTargetLanguages)
+                .HasForeignKey(d => d.TargetLanguageId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_content_d_tlang");
         });
 
         modelBuilder.Entity<ContentTxt>(entity =>
