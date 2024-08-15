@@ -30,6 +30,7 @@ builder.Services.AddScoped<IContentService, ContentService>();
 builder.Services.AddScoped<ITeksService, TeksService>();
 builder.Services.AddScoped<ILanguageSupportService, LanguageSupportService>();
 builder.Services.AddScoped<IElpsService, ElpsService>();
+builder.Services.AddScoped<ITranslatorService, TranslatorService>();
 
 builder.Services.AddHttpClient();
 
@@ -43,10 +44,7 @@ send content to post, get back initial elps supports
 
 app.MapPost(
         "/content",
-        (
-            PostContentRequest request,
-            IContentService contentService
-        ) =>
+        (PostContentRequest request, IContentService contentService) =>
         {
             int contentId = contentService.PostContent(request);
             return Results.Created("/content", contentId);
@@ -105,11 +103,24 @@ app.MapPost(
 
 app.MapGet(
         "/language_supports/iclo",
-        ElpsSupportResponse (string delivery_date, ILanguageSupportService languageSupportService) =>
+        ElpsSupportResponse (
+            string delivery_date,
+            ILanguageSupportService languageSupportService
+        ) =>
         {
             ElpsSupportResponse response = languageSupportService.GetElpsSupports(delivery_date);
             return response;
         }
+    )
+    .WithOpenApi();
+
+app.MapPost(
+        "/translate",
+        async Task<List<Content>> (int contentId, ITranslatorService translatorService, IContentService contentService) => {
+            GetContentResponse contentResponse = contentService.GetContent(contentId);
+            return await translatorService.TranslateContent(contentResponse.Content);
+            }
+
     )
     .WithOpenApi();
 
