@@ -12,4 +12,11 @@ public interface ILanguageSupportService
         LessonSchedule lessonSchedule,
         StrategyObjective strategyObjective
     );
+
+    void CreateIclo(
+        List<string> teks,
+        string grade,
+        revisa_api.Data.content.Subject subject,
+        DateOnly deliveryDate
+    );
 }

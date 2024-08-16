@@ -20,16 +20,20 @@ public class TranslatorService : ITranslatorService
         // we will keep track of which txt element goes which which element object (on the slide)
         int elementIndex = 0;
         content.ForEach(
-            (slide) =>{
+            (slide) =>
+            {
                 textRequestList.AddRange(
-                    slide.Select((s) =>{
-                        return new TranslateContent
+                    slide.Select(
+                        (s) =>
                         {
-                            ObjectId = s.ObjectId,
-                            OriginalIndex = elementIndex++,
-                            TxtObj = new { Text = s.TextContent }
-                        };
-                    })
+                            return new TranslateContent
+                            {
+                                ObjectId = s.ObjectId,
+                                OriginalIndex = elementIndex++,
+                                TxtObj = new { Text = s.TextContent }
+                            };
+                        }
+                    )
                 );
             }
         );
@@ -43,14 +47,12 @@ public class TranslatorService : ITranslatorService
             string url = configuration.GetValue<string>("AZURE_TXT_TRANSLATOR_URL") + route;
             Console.WriteLine("\n" + url + "\n");
             request.Method = HttpMethod.Post;
-            request.RequestUri = new Uri(
-                url
-            );
             request.Content = new StringContent(requestBody, Encoding.UTF8, "application/json");
-
-            var key = configuration.GetValue<string>("AZURE_TXT_TRANSLATOR_KEY");
-            request.Headers.Add("Ocp-Apim-Subscription-Key", key);
-
+            request.Headers.Add(
+                "Ocp-Apim-Subscription-Key",
+                configuration.GetValue<string>("AZURE_TXT_TRANSLATOR_KEY")
+            );
+            request.RequestUri = new Uri(url);
             // Send the request and get response.
             HttpResponseMessage response = await client.SendAsync(request).ConfigureAwait(false);
             var translationContentResult = await response.Content.ReadAsStringAsync();
@@ -61,11 +63,20 @@ public class TranslatorService : ITranslatorService
 
             if (translatedTexts != null && translatedTexts.Length > 0)
             {
-                for(int resInd = 0; resInd < translatedTexts.Length; resInd++){
-                    TranslateContent matchedTranslation = textRequestList.Where( r => r.OriginalIndex == resInd).First();
+                for (int resInd = 0; resInd < translatedTexts.Length; resInd++)
+                {
+                    TranslateContent matchedTranslation = textRequestList
+                        .Where(r => r.OriginalIndex == resInd)
+                        .First();
 
-                    translatedSlideContent.Add(new Content{ObjectId = matchedTranslation.ObjectId, TextContent = translatedTexts[resInd].Translations[0].Text});
-                } 
+                    translatedSlideContent.Add(
+                        new Content
+                        {
+                            ObjectId = matchedTranslation.ObjectId,
+                            TextContent = translatedTexts[resInd].Translations[0].Text
+                        }
+                    );
+                }
             }
             return translatedSlideContent;
         }
