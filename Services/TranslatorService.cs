@@ -1,6 +1,7 @@
 using System.Text;
 // using Newtonsoft.Json;
 using System.Text.Json;
+using Microsoft.AspNetCore.Mvc.Routing;
 
 public class TranslatorService : ITranslatorService
 {
@@ -39,9 +40,11 @@ public class TranslatorService : ITranslatorService
         using (var request = new HttpRequestMessage())
         {
             // Build the request.
+            string url = configuration.GetValue<string>("AZURE_TXT_TRANSLATOR_URL") + route;
+            Console.WriteLine("\n" + url + "\n");
             request.Method = HttpMethod.Post;
             request.RequestUri = new Uri(
-                configuration.GetValue<string>("AZURE_TXT_TRANSLATOR_URL") + route
+                url
             );
             request.Content = new StringContent(requestBody, Encoding.UTF8, "application/json");
 
