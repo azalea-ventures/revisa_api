@@ -6,15 +6,18 @@ using revisa_api.Data.teks;
 public class LanguageSupportService : ILanguageSupportService
 {
     private readonly IDbContextFactory<LanguageSupportContext> _languageSupportContextFactory;
-    private readonly IDbContextFactory<ElpsContext> _elpsContextFactory;
+    private readonly ITeksService _teksService;
+    private readonly IElpsService _elpsService;
 
     public LanguageSupportService(
         IDbContextFactory<LanguageSupportContext> languageSupportContextFactory,
-        IDbContextFactory<ElpsContext> elpsContextFactory
+        ITeksService teksService,
+        IElpsService elpsService
     )
     {
         _languageSupportContextFactory = languageSupportContextFactory;
-        _elpsContextFactory = elpsContextFactory;
+        _teksService = teksService;
+        _elpsService = elpsService;
     }
 
     public ElpsSupportResponse GetElpsSupports(string delivery_date)
@@ -34,7 +37,7 @@ public class LanguageSupportService : ILanguageSupportService
         var iclos = languageSupportContext
             .Iclos.Where(i => i.LessonScheduleId == lesson_schedule.Id)
             .ToList();
-        ElpsSupportResponse? response = null;
+        ElpsSupportResponse response = null;
         iclos.ForEach(iclo =>
         {
             var strategy_objective = languageSupportContext.StrategyObjectives.FirstOrDefault(d =>
@@ -47,9 +50,9 @@ public class LanguageSupportService : ILanguageSupportService
                 d.Id == strategy_objective.DomainObjectiveId
             );
 
-             var domain = languageSupportContext.Domains.FirstOrDefault(d =>
-            d.Id == domain_objective.DomainId
-        );
+            var domain = languageSupportContext.Domains.FirstOrDefault(d =>
+                d.Id == domain_objective.DomainId
+            );
             var teks_item = languageSupportContext.TeksItems.FirstOrDefault(t =>
                 t.Id == iclo.TeksItemId
             );
@@ -124,6 +127,7 @@ public class LanguageSupportService : ILanguageSupportService
     )
     {
         using var languageSupportContext = _languageSupportContextFactory.CreateDbContext();
+
         Iclo iclo =
             new()
             {
@@ -138,6 +142,26 @@ public class LanguageSupportService : ILanguageSupportService
         languageSupportContext.SaveChanges();
 
         return iclo;
+    }
+
+    public void CreateIclo(
+        List<string> teks,
+        string grade,
+        revisa_api.Data.content.Subject subject,
+        DateOnly deliveryDate
+    )
+    {
+        // add language supports and standards
+        List<TeksItem> teksItems = _teksService.GetTeksItems(teks, grade, subject);
+        LessonSchedule lessonSchedule = GetLessonSchedule(deliveryDate);
+
+        using var languageSupportContext = _languageSupportContextFactory.CreateDbContext();
+
+        StrategyObjective strategy_objective = _elpsService.GetStrategyObjective(
+            lessonSchedule.LessonOrder
+        );
+
+        Iclo iclo = GetIclo(teksItems, lessonSchedule, strategy_objective);
     }
 }
 

@@ -5,10 +5,12 @@ using Grade = revisa_api.Data.content.Grade;
 public class ContentService : IContentService
 {
     private readonly ContentContext _dbContext;
+    private readonly ILanguageSupportService _languageSupportService;
 
-    public ContentService(ContentContext dbContext)
+    public ContentService(ContentContext dbContext, ILanguageSupportService languageSupportService)
     {
         _dbContext = dbContext;
+        _languageSupportService = languageSupportService;
     }
 
     // Inserts content info to the database
@@ -72,6 +74,8 @@ public class ContentService : IContentService
             && t.ContentSubject.Subject1.ToUpper() == request.Info.Subject.ToUpper()
             && t.ContentGrade.Grade1.ToUpper() == request.Info.Grade.ToUpper()
         );
+
+        _languageSupportService.CreateIclo(request.Info.Teks, request.Info.Grade, cd.Subject, cd.DeliveryDate);
 
         return new PostContentInfoResponse
         {
