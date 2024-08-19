@@ -121,7 +121,8 @@ public class GetContentResponse : GetContentBaseResponse
     public GetContentResponse(revisa_api.Data.content.ContentDetail entity)
         : base(entity)
     {
-        foreach (var group in entity.ContentVersions.FirstOrDefault().ContentGroups)
+        var latestVersion = entity.ContentVersions.Where(cv => cv.IsLatest == 1).FirstOrDefault();
+        foreach (var group in latestVersion.ContentGroups)
         {
             List<Content> contentList = [];
             foreach (var txt in group.ContentTxts)
