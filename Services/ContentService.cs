@@ -1,3 +1,4 @@
+using System.Runtime.InteropServices;
 using Microsoft.EntityFrameworkCore;
 using revisa_api.Data.content;
 using Grade = revisa_api.Data.content.Grade;
@@ -130,7 +131,7 @@ public class ContentService : IContentService
     {
         using var context = _dbContext;
         ContentDetail? entity = GetContentDetail(contentId);
-
+        
         if (entity == null)
         {
             return new GetContentResponse(null);
@@ -172,7 +173,8 @@ public class ContentService : IContentService
     private ContentDetail? GetContentDetail(int contentId)
     {
         return _dbContext
-            .ContentDetails.Include(c => c.Client)
+            .ContentDetails
+            .Include(c => c.Client)
             .Include(c => c.Grade)
             .Include(c => c.Subject)
             .Include(c => c.Owner)
