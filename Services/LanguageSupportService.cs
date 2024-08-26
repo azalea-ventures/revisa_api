@@ -40,34 +40,34 @@ public class LanguageSupportService : ILanguageSupportService
         ElpsSupportResponse response = null;
         iclos.ForEach(iclo =>
         {
-            var strategy_objective = languageSupportContext.StrategyObjectives.FirstOrDefault(d =>
-                d.Id == iclo.StrategyObjectiveId
-            );
-            var strategy = languageSupportContext.LearningStrategiesMods.FirstOrDefault(s =>
-                s.Id == strategy_objective.StrategyModId
-            );
-            var domain_objective = languageSupportContext.DomainObjectives.FirstOrDefault(d =>
-                d.Id == strategy_objective.DomainObjectiveId
-            );
+            // var strategy_objective = languageSupportContext.StrategyObjectives.FirstOrDefault(d =>
+            //     d.Id == iclo.StrategyObjectiveId
+            // );
+            // var strategy = languageSupportContext.LearningStrategiesMods.FirstOrDefault(s =>
+            //     s.Id == strategy_objective.StrategyModId
+            // );
+            // var domain_objective = languageSupportContext.DomainObjectives.FirstOrDefault(d =>
+            //     d.Id == strategy_objective.DomainObjectiveId
+            // );
 
-            var domain = languageSupportContext.Domains.FirstOrDefault(d =>
-                d.Id == domain_objective.DomainId
-            );
-            var teks_item = languageSupportContext.TeksItems.FirstOrDefault(t =>
-                t.Id == iclo.TeksItemId
-            );
-            response = new ElpsSupportResponse
-            {
-                ElpsStrategy = strategy.Strategy,
-                ElpsDomainObjective =
-                    domain.Domain1 + $" ({domain.Label}) " + domain_objective.Objective,
-                ElpsStrategyIconId = strategy.ImageFileId,
-                ElpsStrategyFileId = strategy.StrategyFileId,
-                ElpsStrategyId = strategy_objective.StrategyModId,
-                ElpsDomainName = domain.Domain1,
-                ElpsStrategyLabel = domain_objective.Label,
-                Teks = $"({teks_item.HumanCodingScheme}) " + teks_item.FullStatement
-            };
+            // var domain = languageSupportContext.Domains.FirstOrDefault(d =>
+            //     d.Id == domain_objective.DomainId
+            // );
+            // var teks_item = languageSupportContext.TeksItems.FirstOrDefault(t =>
+            //     t.Id == iclo.TeksItemId
+            // );
+            // response = new ElpsSupportResponse
+            // {
+            //     ElpsStrategy = strategy.Strategy,
+            //     ElpsDomainObjective =
+            //         domain.Domain1 + $" ({domain.Label}) " + domain_objective.Objective,
+            //     ElpsStrategyIconId = strategy.ImageFileId,
+            //     ElpsStrategyFileId = strategy.StrategyFileId,
+            //     ElpsStrategyId = strategy_objective.StrategyModId,
+            //     ElpsDomainName = domain.Domain1,
+            //     ElpsStrategyLabel = domain_objective.Label,
+            //     Teks = $"({teks_item.HumanCodingScheme}) " + teks_item.FullStatement
+            // };
         });
 
         languageSupportContext.Dispose();
@@ -78,37 +78,39 @@ public class LanguageSupportService : ILanguageSupportService
     {
         using var languageSupportContext = _languageSupportContextFactory.CreateDbContext();
 
-        var iclo = languageSupportContext.Iclos.FirstOrDefault(i => i.Id == icloId);
+        // var iclo = languageSupportContext.Iclos.FirstOrDefault(i => i.Id == icloId);
 
-        var strategy_objective = languageSupportContext.StrategyObjectives.FirstOrDefault(d =>
-            d.Id == iclo.StrategyObjectiveId
-        );
-        var strategy = languageSupportContext.LearningStrategiesMods.FirstOrDefault(s =>
-            s.Id == strategy_objective.StrategyModId
-        );
-        var domain_objective = languageSupportContext.DomainObjectives.FirstOrDefault(d =>
-            d.Id == strategy_objective.DomainObjectiveId
-        );
-        var domain = languageSupportContext.Domains.FirstOrDefault(d =>
-            d.Id == domain_objective.DomainId
-        );
-        var teks_item = languageSupportContext.TeksItems.FirstOrDefault(t =>
-            t.Id == iclo.TeksItemId
-        );
+        // var strategy_objective = languageSupportContext.StrategyObjectives.FirstOrDefault(d =>
+        //     d.Id == iclo.StrategyObjectiveId
+        // );
+        // var strategy = languageSupportContext.LearningStrategiesMods.FirstOrDefault(s =>
+        //     s.Id == strategy_objective.StrategyModId
+        // );
+        // var domain_objective = languageSupportContext.DomainObjectives.FirstOrDefault(d =>
+        //     d.Id == strategy_objective.DomainObjectiveId
+        // );
+        // var domain = languageSupportContext.Domains.FirstOrDefault(d =>
+        //     d.Id == domain_objective.DomainId
+        // );
+        // var teks_item = languageSupportContext.TeksItems.FirstOrDefault(t =>
+        //     t.Id == iclo.TeksItemId
+        // );
 
-        languageSupportContext.Dispose();
-        return new()
-        {
-            ElpsStrategy = strategy.Strategy,
-            ElpsDomainObjective =
-                domain.Domain1 + $" ({domain.Label}) " + domain_objective.Objective,
-            ElpsStrategyIconId = strategy.ImageFileId,
-            ElpsStrategyFileId = strategy.StrategyFileId,
-            ElpsStrategyId = strategy_objective.StrategyModId,
-            ElpsDomainName = domain.Domain1,
-            ElpsStrategyLabel = domain_objective.Label,
-            Teks = $"({teks_item.HumanCodingScheme}) " + teks_item.FullStatement,
-        };
+        // languageSupportContext.Dispose();
+        // return new()
+        // {
+        //     ElpsStrategy = strategy.Strategy,
+        //     ElpsDomainObjective =
+        //         domain.Domain1 + $" ({domain.Label}) " + domain_objective.Objective,
+        //     ElpsStrategyIconId = strategy.ImageFileId,
+        //     ElpsStrategyFileId = strategy.StrategyFileId,
+        //     ElpsStrategyId = strategy_objective.StrategyModId,
+        //     ElpsDomainName = domain.Domain1,
+        //     ElpsStrategyLabel = domain_objective.Label,
+        //     Teks = $"({teks_item.HumanCodingScheme}) " + teks_item.FullStatement,
+        // };
+
+        return new();
     }
 
     public LessonSchedule GetLessonSchedule(DateOnly delivery_date)

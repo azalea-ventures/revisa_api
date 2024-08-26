@@ -73,7 +73,6 @@ CREATE TABLE [language_supports].[support_packages]
     grade_id int not null,
     subject_id int not null,
     lesson_schedule_id int not null,
-    support_package_id int not null,
     is_active int not null default 1,
     elps_strategy_objective_id int null,
     cross_linguistic_connection VARCHAR(255) null,
@@ -82,7 +81,6 @@ CREATE TABLE [language_supports].[support_packages]
     FOREIGN KEY (grade_id) REFERENCES content.grades(id),
     FOREIGN KEY (subject_id) REFERENCES content.subjects(id),
     FOREIGN KEY (lesson_schedule_id) REFERENCES language_supports.lesson_schedule(id),
-    FOREIGN KEY (support_package_id) REFERENCES language_supports.support_packages(id)
 );
 GO
 

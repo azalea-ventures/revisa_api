@@ -40,6 +40,7 @@ public partial class ContentContext : DbContext
     public virtual DbSet<Subject> Subjects { get; set; }
 
     public virtual DbSet<User> Users { get; set; }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Client>(entity =>
@@ -203,7 +204,7 @@ public partial class ContentContext : DbContext
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_content_d_grade");
 
-            entity.HasOne(d => d.ContentLanguage).WithMany(p => p.ContentTranslationContentLanguages)
+            entity.HasOne(d => d.ContentLanguage).WithMany(p => p.ContentTranslationSourceLanguages)
                 .HasForeignKey(d => d.ContentLanguageId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_content_d_clang");

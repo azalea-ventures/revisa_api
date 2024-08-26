@@ -101,6 +101,7 @@ public class GetContentBaseResponse
         Info.Grade = entity.Grade.Grade1;
         Info.Subject = entity.Subject.Subject1;
         Info.DeliveryDate = entity.DeliveryDate.ToString();
+        Info.Language = entity.Language.Language;
         Info.File = new()
         {
             FileId = entity.File?.FileId,

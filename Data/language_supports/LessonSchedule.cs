@@ -12,4 +12,6 @@ public partial class LessonSchedule
     public int LessonOrder { get; set; }
 
     public virtual ICollection<Iclo> Iclos { get; set; } = new List<Iclo>();
+
+    public virtual ICollection<SupportPackage> SupportPackages { get; set; } = new List<SupportPackage>();
 }

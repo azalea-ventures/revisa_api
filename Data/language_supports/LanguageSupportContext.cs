@@ -1,32 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
-using revisa_api.Data.elps;
-using revisa_api.Data.teks;
 
 namespace revisa_api.Data.language_supports;
 
 public partial class LanguageSupportContext : DbContext
 {
-    public LanguageSupportContext() { }
+    public LanguageSupportContext()
+    {
+    }
 
     public LanguageSupportContext(DbContextOptions<LanguageSupportContext> options)
-        : base(options) { }
-
-    public virtual DbSet<ContentTeksSubject> ContentTeksSubjects { get; set; }
+        : base(options)
+    {
+    }
 
     public virtual DbSet<Iclo> Iclos { get; set; }
 
     public virtual DbSet<Language> Languages { get; set; }
-
     public virtual DbSet<LessonSchedule> LessonSchedules { get; set; }
 
-    public virtual DbSet<StrategyObjective> StrategyObjectives { get; set; }
+    public virtual DbSet<SupportPackage> SupportPackages { get; set; }
 
-    public virtual DbSet<LearningStrategiesMod> LearningStrategiesMods { get; set; }
-    public virtual DbSet<Domain> Domains { get; set; }
-    public virtual DbSet<DomainObjective> DomainObjectives { get; set; }
-    public virtual DbSet<TeksItem> TeksItems { get; set; }
+    public virtual DbSet<ContentTeksSubject> ContentTeksSubjects { get;  set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -39,7 +35,16 @@ public partial class LanguageSupportContext : DbContext
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.ContentSubjectId).HasColumnName("content_subject_id");
             entity.Property(e => e.TeksSubjectId).HasColumnName("teks_subject_id");
+
+            entity.HasOne(d => d.ContentSubject).WithMany(p => p.ContentTeksSubjects)
+                .HasForeignKey(d => d.ContentSubjectId)
+                .HasConstraintName("FK__content_t__conte__015F0FBB");
+
+            entity.HasOne(d => d.TeksSubject).WithMany(p => p.ContentTeksSubjects)
+                .HasForeignKey(d => d.TeksSubjectId)
+                .HasConstraintName("FK__content_t__teks___025333F4");
         });
+
 
         modelBuilder.Entity<Iclo>(entity =>
         {
@@ -48,27 +53,25 @@ public partial class LanguageSupportContext : DbContext
             entity.ToTable("iclos", "language_supports");
 
             entity.Property(e => e.Id).HasColumnName("id");
-            entity.Property(e => e.Iclo1).HasColumnType("text").HasColumnName("iclo");
+            entity.Property(e => e.Iclo1)
+                .HasColumnType("text")
+                .HasColumnName("iclo");
             entity.Property(e => e.LessonScheduleId).HasColumnName("lesson_schedule_id");
             entity.Property(e => e.StrategyObjectiveId).HasColumnName("strategy_objective_id");
             entity.Property(e => e.TeksItemId).HasColumnName("teks_item_id");
 
-            entity
-                .HasOne(d => d.LessonSchedule)
-                .WithMany(p => p.Iclos)
+            entity.HasOne(d => d.LessonSchedule).WithMany(p => p.Iclos)
                 .HasForeignKey(d => d.LessonScheduleId)
                 .HasConstraintName("FK__iclos__lesson_sc__6D58170E");
 
-            entity
-                .HasOne(d => d.StrategyObjective)
-                .WithMany(p => p.Iclos)
+            entity.HasOne(d => d.StrategyObjective).WithMany(p => p.Iclos)
                 .HasForeignKey(d => d.StrategyObjectiveId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__iclos__strategy___752E4300");
 
-            entity
-                .HasOne(d => d.TeksItem)
-                .WithMany(p => p.Iclos)
+            entity.HasOne(d => d.TeksItem).WithMany(p => p.Iclos)
                 .HasForeignKey(d => d.TeksItemId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__iclos__teks_item__76226739");
         });
 
@@ -79,13 +82,11 @@ public partial class LanguageSupportContext : DbContext
             entity.ToTable("languages", "language_supports");
 
             entity.Property(e => e.Id).HasColumnName("id");
-            entity
-                .Property(e => e.LanguageName)
+            entity.Property(e => e.LanguageName)
                 .HasMaxLength(32)
                 .IsUnicode(false)
                 .HasColumnName("language_name");
-            entity
-                .Property(e => e.LanguageShort)
+            entity.Property(e => e.LanguageShort)
                 .HasMaxLength(4)
                 .IsUnicode(false)
                 .HasColumnName("language_short");
@@ -102,131 +103,51 @@ public partial class LanguageSupportContext : DbContext
             entity.Property(e => e.LessonOrder).HasColumnName("lesson_order");
         });
 
-        modelBuilder.Entity<Domain>(entity =>
+        modelBuilder.Entity<SupportPackage>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__domains__3213E83F40239699");
+            entity.HasKey(e => e.Id).HasName("PK__support___3213E83F1CFE1778");
 
-            entity.ToTable("domains", "elps");
+            entity.ToTable("support_packages", "language_supports");
 
             entity.Property(e => e.Id).HasColumnName("id");
-            entity.Property(e => e.Domain1).IsUnicode(false).HasColumnName("domain");
-            entity.Property(e => e.Label).HasMaxLength(1).IsUnicode(false).HasColumnName("label");
-        });
-
-        modelBuilder.Entity<DomainObjective>(entity =>
-        {
-            entity.HasKey(e => e.Id).HasName("PK__domain_o__3213E83F05212433");
-
-            entity.ToTable("domain_objectives", "elps");
-
-            entity.Property(e => e.Id).HasColumnName("id");
-            entity.Property(e => e.DomainId).HasColumnName("domain_id");
-            entity.Property(e => e.Label).HasMaxLength(1).IsUnicode(false).HasColumnName("label");
-            entity.Property(e => e.Objective).HasColumnName("objective");
-
-            entity
-                .HasOne(d => d.Domain)
-                .WithMany(p => p.DomainObjectives)
-                .HasForeignKey(d => d.DomainId)
-                .HasConstraintName("FK__domain_ob__domai__232A17DA");
-        });
-
-        modelBuilder.Entity<StrategyObjective>(entity =>
-        {
-            entity.HasKey(e => e.Id).HasName("PK__strategi__3213E83F0EC8FB95");
-
-            entity.ToTable("strategies_objectives", "elps");
-
-            entity.Property(e => e.Id).HasColumnName("id");
-            entity.Property(e => e.DomainObjectiveId).HasColumnName("domain_objective_id");
-            entity.Property(e => e.StrategyModId).HasColumnName("strategy_mod_id");
-
-            entity
-                .HasOne(d => d.DomainObjective)
-                .WithMany(p => p.StrategiesObjectives)
-                .HasForeignKey(d => d.DomainObjectiveId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__strategie__domai__382534C0");
-
-            entity
-                .HasOne(d => d.StrategyMod)
-                .WithMany(p => p.StrategiesObjectives)
-                .HasForeignKey(d => d.StrategyModId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__strategie__strat__37311087");
-        });
-
-        modelBuilder.Entity<LearningStrategiesMod>(entity =>
-        {
-            entity.HasKey(e => e.Id).HasName("PK__learning__3213E83FA0787ED2");
-
-            entity.ToTable("learning_strategies_mods", "elps");
-
-            entity.Property(e => e.Id).HasColumnName("id");
-            entity
-                .Property(e => e.ImageFileId)
+            entity.Property(e => e.ContentLanguageId).HasColumnName("content_language_id");
+            entity.Property(e => e.CrossLinguisticConnection)
                 .HasMaxLength(255)
                 .IsUnicode(false)
-                .HasColumnName("image_file_id");
-            entity
-                .Property(e => e.StrategyFileId)
-                .HasMaxLength(255)
-                .IsUnicode(false)
-                .HasColumnName("strategy_file_id");
-            entity.Property(e => e.LearningStrategyId).HasColumnName("learning_strategy_id");
-            entity.Property(e => e.Strategy).HasColumnName("strategy");
+                .HasColumnName("cross_linguistic_connection");
+            entity.Property(e => e.ElpsStrategyObjectiveId).HasColumnName("elps_strategy_objective_id");
+            entity.Property(e => e.GradeId).HasColumnName("grade_id");
+            entity.Property(e => e.IsActive)
+                .HasDefaultValue(1)
+                .HasColumnName("is_active");
+            entity.Property(e => e.LessonScheduleId).HasColumnName("lesson_schedule_id");
+            entity.Property(e => e.SubjectId).HasColumnName("subject_id");
 
-            entity
-                .HasOne(d => d.LearningStrategy)
-                .WithMany(p => p.LearningStrategiesMods)
-                .HasForeignKey(d => d.LearningStrategyId)
+            entity.HasOne(d => d.ContentLanguage).WithMany(p => p.SupportPackages)
+                .HasForeignKey(d => d.ContentLanguageId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__learning___learn__1E6562BD");
-        });
+                .HasConstraintName("FK__support_p__conte__2EF0D041");
 
-        modelBuilder.Entity<LearningStrategy>(entity =>
-        {
-            entity.HasKey(e => e.Id).HasName("PK__learning__3213E83FBA4068D5");
+            entity.HasOne(d => d.ElpsStrategyObjective).WithMany(p => p.SupportPackages)
+                .HasForeignKey(d => d.ElpsStrategyObjectiveId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__support_p__elps___2DFCAC08");
 
-            entity.ToTable("learning_strategies", "elps");
+            entity.HasOne(d => d.Grade).WithMany(p => p.SupportPackages)
+                .HasForeignKey(d => d.GradeId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__support_p__grade__2FE4F47A");
 
-            entity.Property(e => e.Id).HasColumnName("id");
-            entity.Property(e => e.Label).HasMaxLength(1).IsUnicode(false).HasColumnName("label");
-            entity.Property(e => e.Strategy).HasColumnName("strategy");
-        });
-        modelBuilder.Entity<TeksItem>(entity =>
-        {
-            entity.HasKey(e => e.Id).HasName("PK__teks_ite__3213E83F80BCBD75");
+            entity.HasOne(d => d.LessonSchedule).WithMany(p => p.SupportPackages)
+                .HasForeignKey(d => d.LessonScheduleId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__support_p__lesso__31CD3CEC");
 
-            entity.ToTable("teks_items", "teks");
+            entity.HasOne(d => d.Subject).WithMany(p => p.SupportPackages)
+                .HasForeignKey(d => d.SubjectId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__support_p__subje__30D918B3");
 
-            entity.Property(e => e.Id).ValueGeneratedNever().HasColumnName("id");
-            entity.Property(e => e.FullStatement).HasColumnName("full_statement");
-            entity.Property(e => e.HumanCodingScheme).HasColumnName("human_coding_scheme");
-            entity.Property(e => e.ItemTypeId).HasColumnName("item_type_id");
-            entity.Property(e => e.Language).HasColumnName("language");
-            entity
-                .Property(e => e.LastChangeTea)
-                .HasColumnType("datetime")
-                .HasColumnName("last_change_tea");
-            entity.Property(e => e.ListEnumeration).HasColumnName("list_enumeration");
-            entity.Property(e => e.ParentId).HasColumnName("parent_id");
-            entity
-                .Property(e => e.UploadedAt)
-                .HasColumnType("datetime")
-                .HasColumnName("uploaded_at");
-
-            entity
-                .HasOne(d => d.ItemType)
-                .WithMany(p => p.TeksItems)
-                .HasForeignKey(d => d.ItemTypeId)
-                .HasConstraintName("FK__teks_item__item___5D01B3B4");
-
-            entity
-                .HasOne(d => d.Parent)
-                .WithMany(p => p.InverseParent)
-                .HasForeignKey(d => d.ParentId)
-                .HasConstraintName("FK__teks_item__paren__5C0D8F7B");
         });
 
         OnModelCreatingPartial(modelBuilder);
