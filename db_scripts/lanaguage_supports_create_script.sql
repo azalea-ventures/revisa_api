@@ -66,6 +66,26 @@ CREATE TABLE language_supports.cognates
 );
 GO
 
+CREATE TABLE [language_supports].[support_packages]
+(
+    id int PRIMARY KEY IDENTITY(1,1),
+    content_language_id int not null,
+    grade_id int not null,
+    subject_id int not null,
+    lesson_schedule_id int not null,
+    support_package_id int not null,
+    is_active int not null default 1,
+    elps_strategy_objective_id int null,
+    cross_linguistic_connection VARCHAR(255) null,
+    FOREIGN KEY (elps_strategy_objective_id) REFERENCES elps.strategies_objectives(id),
+    FOREIGN KEY (content_language_id) REFERENCES content.content_language(id),
+    FOREIGN KEY (grade_id) REFERENCES content.grades(id),
+    FOREIGN KEY (subject_id) REFERENCES content.subjects(id),
+    FOREIGN KEY (lesson_schedule_id) REFERENCES language_supports.lesson_schedule(id),
+    FOREIGN KEY (support_package_id) REFERENCES language_supports.support_packages(id)
+);
+GO
+
 --sample data for testing
 BEGIN TRANSACTION
 INSERT INTO language_supports.lesson_schedule
