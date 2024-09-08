@@ -100,6 +100,19 @@ CREATE TABLE elps.strategies_objectives (
 );
 
 
+ALTER TABLE [elps].[domains]
+ADD color_hex_code CHAR(7);
+
+
+
+ALTER TABLE elps.learning_strategies_mods 
+ADD strategy_rich_text NVARCHAR(max) null;
+
+ALTER TABLE elps.domain_objectives
+ADD objective_rich_text NVARCHAR(max) null;
+
+
+
 -- **WIPE AND RESTART elps schema** 
 
 -- USE revisa_db;

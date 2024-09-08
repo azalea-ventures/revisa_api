@@ -556,6 +556,14 @@ VALUES
 
 COMMIT;
 
+UPDATE [elps].domains SET color_hex_code=
+   (CASE WHEN domain = 'listening' THEN '#990fff'
+        WHEN domain = 'speaking' THEN '#115cff'
+        WHEN domain = 'reading' THEN '#68390c'
+        WHEN domain = 'writing' THEN '#ff00ff'
+
+   END);
+
 -- BEGIN TRANSACTION
 -- INSERT INTO elps.strategies_objectives 
 -- (strategy_mod_id, domain_objective_id)

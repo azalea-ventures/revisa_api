@@ -15,7 +15,9 @@ public partial class LearningStrategiesMod
 
     public string? StrategyFileId { get; set; }
 
+    public string? StrategyRichText { get; set; }
+
     public virtual LearningStrategy LearningStrategy { get; set; } = null!;
 
-    public virtual ICollection<StrategyObjective> StrategiesObjectives { get; set; } = new List<StrategyObjective>();
+    public virtual ICollection<StrategyObjective> StrategyObjectives { get; set; } = new List<StrategyObjective>();
 }

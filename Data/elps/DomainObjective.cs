@@ -13,7 +13,9 @@ public partial class DomainObjective
 
     public string? Objective { get; set; }
 
+    public string? ObjectiveRichText { get; set; }
+
     public virtual Domain? Domain { get; set; }
 
-    public virtual ICollection<StrategyObjective> StrategiesObjectives { get; set; } = new List<StrategyObjective>();
+    public virtual ICollection<StrategyObjective> StrategyObjectives { get; set; } = new List<StrategyObjective>();
 }
