@@ -3,6 +3,8 @@
 ##
 ## Get latest from `dotnet new gitignore`
 
+sample.json
+send_slide_text.json
 # dotenv files
 .env
 
