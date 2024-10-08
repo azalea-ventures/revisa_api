@@ -101,18 +101,6 @@ app.MapPost(
     )
     .WithOpenApi();
 
-app.MapGet(
-        "/language_supports/iclo",
-        ElpsSupportResponse (
-            string delivery_date,
-            ILanguageSupportService languageSupportService
-        ) =>
-        {
-            ElpsSupportResponse response = languageSupportService.GetElpsSupports(delivery_date);
-            return response;
-        }
-    )
-    .WithOpenApi();
 
 app.MapPost(
         "/translate",
@@ -123,5 +111,10 @@ app.MapPost(
 
     )
     .WithOpenApi();
+
+app.MapPost("/supports/elps", (ElpsSupportsRequest request, IElpsService elpsService) => {
+   
+    elpsService.SetElpsSupports(request);
+}).WithOpenApi();
 
 app.Run();

@@ -15,7 +15,6 @@ public partial class LanguageSupportContext : DbContext
     {
     }
 
-    public virtual DbSet<Iclo> Iclos { get; set; }
 
     public virtual DbSet<Language> Languages { get; set; }
     public virtual DbSet<LessonSchedule> LessonSchedules { get; set; }
@@ -43,36 +42,6 @@ public partial class LanguageSupportContext : DbContext
             entity.HasOne(d => d.TeksSubject).WithMany(p => p.ContentTeksSubjects)
                 .HasForeignKey(d => d.TeksSubjectId)
                 .HasConstraintName("FK__content_t__teks___025333F4");
-        });
-
-
-        modelBuilder.Entity<Iclo>(entity =>
-        {
-            entity.HasKey(e => e.Id).HasName("PK__iclos__3213E83F7A520BBC");
-
-            entity.ToTable("iclos", "language_supports");
-
-            entity.Property(e => e.Id).HasColumnName("id");
-            entity.Property(e => e.Iclo1)
-                .HasColumnType("text")
-                .HasColumnName("iclo");
-            entity.Property(e => e.LessonScheduleId).HasColumnName("lesson_schedule_id");
-            entity.Property(e => e.StrategyObjectiveId).HasColumnName("strategy_objective_id");
-            entity.Property(e => e.TeksItemId).HasColumnName("teks_item_id");
-
-            entity.HasOne(d => d.LessonSchedule).WithMany(p => p.Iclos)
-                .HasForeignKey(d => d.LessonScheduleId)
-                .HasConstraintName("FK__iclos__lesson_sc__6D58170E");
-
-            entity.HasOne(d => d.StrategyObjective).WithMany(p => p.Iclos)
-                .HasForeignKey(d => d.StrategyObjectiveId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__iclos__strategy___752E4300");
-
-            entity.HasOne(d => d.TeksItem).WithMany(p => p.Iclos)
-                .HasForeignKey(d => d.TeksItemId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__iclos__teks_item__76226739");
         });
 
         modelBuilder.Entity<Language>(entity =>

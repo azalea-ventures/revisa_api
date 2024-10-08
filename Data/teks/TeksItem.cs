@@ -24,7 +24,6 @@ public partial class TeksItem
 
     public DateTime? UploadedAt { get; set; }
 
-    public virtual ICollection<Iclo> Iclos { get; set; } = new List<Iclo>();
 
     public virtual ICollection<TeksItem> InverseParent { get; set; } = new List<TeksItem>();
 

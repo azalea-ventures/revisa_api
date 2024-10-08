@@ -1,39 +1,845 @@
 {
-  "info": {
-    "client": "HOUSTON-ISD",
-    "grade": "1",
-    "subject": "MATH",
-    "delivery_date": "09-04-2024",
-    "teks": [],
-    "language": "EN",
-    "file": {
-      "file_id": "1MTsqi0B1tTIt6zJNporCWeCNNTSdn2LUbGRFmaaULsA",
-      "file_name": "G1MTH_SD_Sept 4",
-      "source_file_id": "1KL9JMUCMCyJS2zNsafbzY1Pr2stDsVf1GwJecu903h4",
-      "created_at": "2024-08-15T07:12:54.709Z"
+  "domain_objective_data": [
+    {
+      "rich_text": [
+        { "is_bold": false, "text": "  distinguish " },
+        { "is_bold": true, "text": "sounds and intonation patterns" },
+        { "is_bold": false, "text": " of english with increasing ease." }
+      ],
+      "domain": "listening",
+      "domain_objective_label": "2(A)",
+      "domain_objective_statement": "distinguish sounds and intonation patterns of english with increasing ease"
     },
-    "status": "IMPORTED",
-    "updated_by": { "name": "Revisa", "email": "ling@eduspecialistonline.org" },
-    "created_at": "2024-08-15T07:13:03.127Z"
-  }
-}
-
-{
-  "info": {
-    "client": "HOUSTON-ISD",
-    "grade": "1",
-    "subject": "MATH",
-    "delivery_date": "09-04-2024",
-    "teks": [],
-    "language": "EN",
-    "file": {
-      "file_id": "19Dr0G6YYe_ifGRGrV2veKffFaW4h2DJQtTk0pJU7RNs",
-      "file_name": "G1MTH_SD_Sept 4",
-      "source_file_id": "1KL9JMUCMCyJS2zNsafbzY1Pr2stDsVf1GwJecu903h4",
-      "created_at": "2024-08-15T07:55:45.202Z"
+    {
+      "rich_text": [
+        { "is_bold": false, "text": "  " },
+        {
+          "is_bold": true,
+          "text": "practice producing sounds of newly acquired vocabulary"
+        },
+        {
+          "is_bold": false,
+          "text": " such as long and short vowels, silent letters, and consonant clusters to pronounce english words in a manner that is increasingly comprehensible."
+        }
+      ],
+      "domain": "speaking",
+      "domain_objective_label": "3(A)",
+      "domain_objective_statement": "practice producing sounds of newly acquired vocabulary such as long and short vowels, silent letters, and consonant clusters to pronounce english words in a manner that is increasingly comprehensible"
     },
-    "status": "IMPORTED",
-    "updated_by": { "name": "Revisa", "email": "ling@eduspecialistonline.org" },
-    "created_at": "2024-08-15T07:55:56.398Z"
-  }
+    {
+      "rich_text": [
+        {
+          "is_bold": false,
+          "text": "  learn relationships between sounds and letters of the english language and decode (sound out) words using a combination of skills such as recognizing "
+        },
+        {
+          "is_bold": true,
+          "text": "sound-letter relationships and identifying cognates, affixes, roots, and base words."
+        }
+      ],
+      "domain": "reading",
+      "domain_objective_label": "4(A)",
+      "domain_objective_statement": "learn relationships between sounds and letters of the english language and decode (sound out) words using a combination of skills such as recognizing sound-letter relationships and identifying cognates, affixes, roots, and base words"
+    },
+    {
+      "rich_text": [
+        { "is_bold": false, "text": "  " },
+        {
+          "is_bold": true,
+          "text": "learn relationships between sounds and letters of the english"
+        },
+        {
+          "is_bold": false,
+          "text": " language to represent sounds when writing in english."
+        }
+      ],
+      "domain": "writing",
+      "domain_objective_label": "5(A)",
+      "domain_objective_statement": "learn relationships between sounds and letters of the english language to represent sounds when writing in english"
+    },
+    {
+      "rich_text": [
+        { "is_bold": false, "text": "  recognize elements of the " },
+        { "is_bold": true, "text": "english sound system" },
+        {
+          "is_bold": false,
+          "text": " in newly acquired vocabulary such as long and short vowels, silent letters, and consonant clusters."
+        }
+      ],
+      "domain": "listening",
+      "domain_objective_label": "2(B)",
+      "domain_objective_statement": "recognize elements of the english sound system in newly acquired vocabulary such as long and short vowels, silent letters, and consonant clusters"
+    },
+    {
+      "rich_text": [
+        {
+          "is_bold": false,
+          "text": "  expand and internalize initial english vocabulary by learning and using high-frequency english words necessary for identifying and describing people, places, and objects, by "
+        },
+        {
+          "is_bold": true,
+          "text": "retelling simple stories and basic information represented or supported by pictures"
+        },
+        {
+          "is_bold": false,
+          "text": ", and by learning and using routine language needed for classroom communication."
+        }
+      ],
+      "domain": "speaking",
+      "domain_objective_label": "3(B)",
+      "domain_objective_statement": "expand and internalize initial english vocabulary by learning and using high-frequency english words necessary for identifying and describing people, places, and objects, by retelling simple stories and basic information represented or supported by pictures, and by learning and using routine language needed for classroom communication"
+    },
+    {
+      "rich_text": [
+        { "is_bold": false, "text": "  " },
+        {
+          "is_bold": true,
+          "text": "write using newly acquired basic vocabulary and content-based grade-level vocabulary."
+        }
+      ],
+      "domain": "writing",
+      "domain_objective_label": "5(B)",
+      "domain_objective_statement": "write using newly acquired basic vocabulary and content-based grade-level vocabulary"
+    },
+    {
+      "rich_text": [
+        { "is_bold": false, "text": "  learn " },
+        {
+          "is_bold": true,
+          "text": "new language structures, expressions, and basic and academic vocabulary "
+        },
+        {
+          "is_bold": false,
+          "text": "heard during classroom instruction and interactions."
+        }
+      ],
+      "domain": "listening",
+      "domain_objective_label": "2(C)",
+      "domain_objective_statement": "learn new language structures, expressions, and basic and academic vocabulary heard during classroom instruction and interactions"
+    },
+    {
+      "rich_text": [
+        { "is_bold": false, "text": "  " },
+        {
+          "is_bold": true,
+          "text": "speak using a variety of grammatical structures, sentence lengths, sentence types"
+        },
+        {
+          "is_bold": false,
+          "text": ", and connecting words with increasing accuracy and ease as more english is acquired."
+        }
+      ],
+      "domain": "speaking",
+      "domain_objective_label": "3(C)",
+      "domain_objective_statement": "speak using a variety of grammatical structures, sentence lengths, sentence types, and connecting words with increasing accuracy and ease as more english is acquired"
+    },
+    {
+      "rich_text": [{ "is_bold": false, "text": "" }],
+      "domain": "",
+      "domain_objective_label": "",
+      "domain_objective_statement": ""
+    },
+    {
+      "rich_text": [
+        {
+          "is_bold": false,
+          "text": "  spell familiar english words with increasing accuracy, and "
+        },
+        {
+          "is_bold": true,
+          "text": "employ english spelling patterns and rules"
+        },
+        {
+          "is_bold": false,
+          "text": " with increasing accuracy as more english is acquired."
+        }
+      ],
+      "domain": "writing",
+      "domain_objective_label": "5(C)",
+      "domain_objective_statement": "spell familiar english words with increasing accuracy, and employ english spelling patterns and rules with increasing accuracy as more english is acquired"
+    },
+    {
+      "rich_text": [
+        { "is_bold": false, "text": "  " },
+        { "is_bold": true, "text": "monitor understanding of spoken language" },
+        {
+          "is_bold": false,
+          "text": " during classroom instruction and interactions and seek clarification as needed."
+        }
+      ],
+      "domain": "listening",
+      "domain_objective_label": "2(D)",
+      "domain_objective_statement": "monitor understanding of spoken language during classroom instruction and interactions and seek clarification as needed"
+    },
+    {
+      "rich_text": [
+        {
+          "is_bold": false,
+          "text": "  speak using grade-level content area vocabulary in context to internalize new english words and "
+        },
+        { "is_bold": true, "text": "build academic language proficiency" },
+        { "is_bold": false, "text": "." }
+      ],
+      "domain": "speaking",
+      "domain_objective_label": "3(D)",
+      "domain_objective_statement": "speak using grade-level content area vocabulary in context to internalize new english words and build academic language proficiency"
+    },
+    {
+      "rich_text": [
+        { "is_bold": false, "text": "  " },
+        {
+          "is_bold": true,
+          "text": "use pre reading supports such as graphic organizers, illustrations, and pre taught topic"
+        },
+        {
+          "is_bold": false,
+          "text": " related vocabulary and other pre reading activities to enhance comprehension of written text."
+        }
+      ],
+      "domain": "reading",
+      "domain_objective_label": "4(D)",
+      "domain_objective_statement": "use pre reading supports such as graphic organizers, illustrations, and pre taught topic related vocabulary and other pre reading activities to enhance comprehension of written text"
+    },
+    {
+      "rich_text": [
+        { "is_bold": false, "text": "  edit writing for " },
+        { "is_bold": true, "text": "standard grammar and usage" },
+        { "is_bold": false, "text": ", " },
+        {
+          "is_bold": true,
+          "text": "including subject-verb agreement, pronoun agreement, and appropriate verb tenses"
+        },
+        {
+          "is_bold": false,
+          "text": " commensurate with grade-level expectations as more english is acquired."
+        }
+      ],
+      "domain": "writing",
+      "domain_objective_label": "5(D)",
+      "domain_objective_statement": "edit writing for standard grammar and usage, including subject-verb agreement, pronoun agreement, and appropriate verb tenses commensurate with grade-level expectations as more english is acquired"
+    },
+    {
+      "rich_text": [
+        { "is_bold": false, "text": "  " },
+        {
+          "is_bold": true,
+          "text": "use visual, contextual, and linguistic support "
+        },
+        {
+          "is_bold": false,
+          "text": "to enhance and confirm understanding of increasingly complex and elaborated spoken language."
+        }
+      ],
+      "domain": "listening",
+      "domain_objective_label": "2(E)",
+      "domain_objective_statement": "use visual, contextual, and linguistic support to enhance and confirm understanding of increasingly complex and elaborated spoken language"
+    },
+    {
+      "rich_text": [
+        { "is_bold": false, "text": " " },
+        {
+          "is_bold": true,
+          "text": "share information in cooperative learning interactions."
+        }
+      ],
+      "domain": "speaking",
+      "domain_objective_label": "3(E)",
+      "domain_objective_statement": "share information in cooperative learning interactions"
+    },
+    {
+      "rich_text": [
+        { "is_bold": false, "text": "  " },
+        { "is_bold": true, "text": "read linguistically accommodated content" },
+        {
+          "is_bold": false,
+          "text": " area material with a decreasing need for linguistic accommodations as more english is learned."
+        }
+      ],
+      "domain": "reading",
+      "domain_objective_label": "4(E)",
+      "domain_objective_statement": "read linguistically accommodated content area material with a decreasing need for linguistic accommodations as more english is learned"
+    },
+    {
+      "rich_text": [
+        {
+          "is_bold": false,
+          "text": "  employ increasingly complex grammatical structures in content area writing commensurate with grade-level expectations, such as (i) "
+        },
+        {
+          "is_bold": true,
+          "text": "using correct verbs, tenses, and pronouns/antecedents."
+        }
+      ],
+      "domain": "writing",
+      "domain_objective_label": "5(E)",
+      "domain_objective_statement": "employ increasingly complex grammatical structures in content area writing commensurate with grade-level expectations, such as (i) using correct verbs, tenses, and pronouns/antecedents"
+    },
+    {
+      "rich_text": [
+        { "is_bold": false, "text": "  " },
+        {
+          "is_bold": true,
+          "text": "listen to and derive meaning from a variety of media"
+        },
+        {
+          "is_bold": false,
+          "text": " such as audio tape, video, etc., to build and reinforce concept and language attainment."
+        }
+      ],
+      "domain": "listening",
+      "domain_objective_label": "2(F)",
+      "domain_objective_statement": "listen to and derive meaning from a variety of media such as audio tape, video, etc., to build and reinforce concept and language attainment"
+    },
+    {
+      "rich_text": [
+        {
+          "is_bold": false,
+          "text": "  ask and give information ranging from using a very limited bank of high-frequency, highneed, concrete vocabulary, including key words and expressions needed for basic communication in academic and social contexts, to "
+        },
+        {
+          "is_bold": true,
+          "text": "using abstract and content-based vocabulary during extended speaking assignments."
+        }
+      ],
+      "domain": "speaking",
+      "domain_objective_label": "3(F)",
+      "domain_objective_statement": "ask and give information ranging from using a very limited bank of high-frequency, highneed, concrete vocabulary, including key words and expressions needed for basic communication in academic and social contexts, to using abstract and content-based vocabulary during extended speaking assignments"
+    },
+    {
+      "rich_text": [
+        { "is_bold": false, "text": "  " },
+        {
+          "is_bold": true,
+          "text": "use visual and contextual support and support from peers and teachers"
+        },
+        {
+          "is_bold": false,
+          "text": " to read grade appropriate content area text, enhance and confirm understanding, and develop vocabulary, grasp of language structures, and background knowledge needed to comprehend increasingly challenging language."
+        }
+      ],
+      "domain": "reading",
+      "domain_objective_label": "4(F)",
+      "domain_objective_statement": "use visual and contextual support and support from peers and teachers to read grade appropriate content area text, enhance and confirm understanding, and develop vocabulary, grasp of language structures, and background knowledge needed to comprehend increasingly challenging language"
+    },
+    {
+      "rich_text": [
+        { "is_bold": false, "text": "  " },
+        {
+          "is_bold": true,
+          "text": "write using a variety of grade-appropriate sentence lengths, patterns, and connecting words to combine phrases, clauses, and sentences"
+        },
+        {
+          "is_bold": false,
+          "text": " in increasingly accurate ways as more english is acquired."
+        }
+      ],
+      "domain": "writing",
+      "domain_objective_label": "5(F)",
+      "domain_objective_statement": "write using a variety of grade-appropriate sentence lengths, patterns, and connecting words to combine phrases, clauses, and sentences in increasingly accurate ways as more english is acquired"
+    },
+    {
+      "rich_text": [
+        { "is_bold": false, "text": "  " },
+        {
+          "is_bold": true,
+          "text": "understand the general meaning, main points, and important details of spoken language"
+        },
+        {
+          "is_bold": false,
+          "text": " ranging from situations in which topics, language, and contexts are familiar to unfamiliar."
+        }
+      ],
+      "domain": "listening",
+      "domain_objective_label": "2(G)",
+      "domain_objective_statement": "understand the general meaning, main points, and important details of spoken language ranging from situations in which topics, language, and contexts are familiar to unfamiliar"
+    },
+    {
+      "rich_text": [
+        { "is_bold": false, "text": " " },
+        { "is_bold": true, "text": "express opinions, ideas, and feelings" },
+        {
+          "is_bold": false,
+          "text": " ranging from communicating single words and short phrases to participating in extended discussions on a variety of social and grade appropriate academic topics."
+        }
+      ],
+      "domain": "speaking",
+      "domain_objective_label": "3(G)",
+      "domain_objective_statement": "express opinions, ideas, and feelings ranging from communicating single words and short phrases to participating in extended discussions on a variety of social and grade appropriate academic topics"
+    },
+    {
+      "rich_text": [
+        {
+          "is_bold": false,
+          "text": "demonstrate comprehension of increasingly complex english by "
+        },
+        {
+          "is_bold": true,
+          "text": "participatingin shared reading, retelling or summarizing"
+        },
+        {
+          "is_bold": false,
+          "text": "material, responding to questions, and taking notes commensurate with content area and grade level needs."
+        }
+      ],
+      "domain": "reading",
+      "domain_objective_label": "4(G)",
+      "domain_objective_statement": "demonstrate comprehension of increasingly complex english by participating in shared reading,retelling or summarizing material,responding to questions, and taking notes commensurate with content area and grade level needs"
+    },
+    {
+      "rich_text": [
+        { "is_bold": false, "text": " " },
+        {
+          "is_bold": true,
+          "text": "narrate, describe, and explain with increasing specificity and detai"
+        },
+        {
+          "is_bold": false,
+          "text": "l to fulfill content area writing needs as more english is acquired."
+        }
+      ],
+      "domain": "writing",
+      "domain_objective_label": "5(G)",
+      "domain_objective_statement": "narrate, describe, and explain with increasing specificity and detail to fulfill content area writing needs as more english is acquired"
+    },
+    {
+      "rich_text": [
+        { "is_bold": false, "text": "  " },
+        {
+          "is_bold": true,
+          "text": "understand implicit ideas and information"
+        },
+        {
+          "is_bold": false,
+          "text": " in increasingly complex spoken language commensurate with grade-level learning expectations."
+        }
+      ],
+      "domain": "listening",
+      "domain_objective_label": "2(H)",
+      "domain_objective_statement": "understand implicit ideas and information in increasingly complex spoken language commensurate with grade-level learning expectations"
+    },
+    {
+      "rich_text": [
+        { "is_bold": false, "text": "  " },
+        { "is_bold": true, "text": "narrate, describe, and explain" },
+        {
+          "is_bold": false,
+          "text": " with increasing specificity and detail as more english is acquired."
+        }
+      ],
+      "domain": "speaking",
+      "domain_objective_label": "3(H)",
+      "domain_objective_statement": "narrate, describe, and explain with increasing specificity and detail as more english is acquired"
+    },
+    {
+      "rich_text": [
+        {
+          "is_bold": true,
+          "text": "read silently with increasing ease and comprehension for longer periods."
+        }
+      ],
+      "domain": "reading",
+      "domain_objective_label": "4(h)",
+      "domain_objective_statement": "read silently with increasing ease and comprehension for longer periods"
+    },
+    {
+      "rich_text": [
+        {
+          "is_bold": false,
+          "text": "  demonstrate listening comprehension of increasingly complex spoken english by "
+        },
+        {
+          "is_bold": true,
+          "text": "following directions, retelling or summarizing"
+        },
+        {
+          "is_bold": false,
+          "text": " spoken messages, responding to questions and requests, collaborating with peers, and taking notes commensurate with content and grade-level needs."
+        }
+      ],
+      "domain": "listening",
+      "domain_objective_label": "2(I)",
+      "domain_objective_statement": "demonstrate listening comprehension of increasingly complex spoken english by following directions, retelling or summarizing spoken messages, responding to questions and requests, collaborating with peers, and taking notes commensurate with content and grade-level needs"
+    },
+    {
+      "rich_text": [
+        { "is_bold": false, "text": "  " },
+        {
+          "is_bold": true,
+          "text": "adapt spoken language appropriately for formal and informal purposes."
+        }
+      ],
+      "domain": "speaking",
+      "domain_objective_label": "3(I)",
+      "domain_objective_statement": "adapt spoken language appropriately for formal and informal purposes"
+    },
+    {
+      "rich_text": [
+        {
+          "is_bold": false,
+          "text": "  demonstrate english comprehension and expand reading skills by employing basic reading skills such as "
+        },
+        {
+          "is_bold": true,
+          "text": "demonstrating understanding of supporting ideas and details"
+        },
+        {
+          "is_bold": false,
+          "text": " in text and graphic sources, summarizing text, and distinguishing main ideas from details commensurate with content area needs."
+        }
+      ],
+      "domain": "reading",
+      "domain_objective_label": "4(I)",
+      "domain_objective_statement": "demonstrate english comprehension and expand reading skills by employing basic reading skills such as demonstrating understanding of supporting ideas and details in text and graphic sources, summarizing text, and distinguishing main ideas from details commensurate with content area needs"
+    },
+    {
+      "rich_text": [
+        { "is_bold": false, "text": "  " },
+        { "is_bold": true, "text": "respond orally to information" },
+        {
+          "is_bold": false,
+          "text": " presented in a wide variety of print, electronic, audio, and visual media to build and reinforce concept and language attainment."
+        }
+      ],
+      "domain": "speaking",
+      "domain_objective_label": "3(J)",
+      "domain_objective_statement": "respond orally to information presented in a wide variety of print, electronic, audio, and visual media to build and reinforce concept and language attainment"
+    },
+    {
+      "rich_text": [
+        {
+          "is_bold": false,
+          "text": "  demonstrate english comprehension and expand reading skills by employing "
+        },
+        {
+          "is_bold": true,
+          "text": "inferential skills such as predicting, making connections between ideas, drawing inferences and conclusions from text and graphic sources, and finding supporting text evidence commensurate with content area needs."
+        }
+      ],
+      "domain": "reading",
+      "domain_objective_label": "4(J)",
+      "domain_objective_statement": "demonstrate english comprehension and expand reading skills by employing inferential skills such as predicting, making connections between ideas, drawing inferences and conclusions from text and graphic sources, and finding supporting text evidence commensurate with content area needs"
+    },
+    {
+      "rich_text": [
+        {
+          "is_bold": false,
+          "text": "  demonstrate english comprehension and "
+        },
+        {
+          "is_bold": true,
+          "text": "expand reading skills by employing analytical skills such as evaluating written information and performing critical analyses commensurate with content area and grade-level needs."
+        }
+      ],
+      "domain": "reading",
+      "domain_objective_label": "4(K)",
+      "domain_objective_statement": "demonstrate english comprehension and expand reading skills by employing analytical skills such as evaluating written information and performing critical analyses commensurate with content area and grade-level needs"
+    },
+    {
+      "rich_text": [
+        {
+          "is_bold": false,
+          "text": "  develop basic sight vocabulary, derive meaning of environmental print, and comprehend "
+        },
+        {
+          "is_bold": true,
+          "text": "english vocabulary and language structures "
+        },
+        {
+          "is_bold": false,
+          "text": "used routinely in written classroom materials."
+        }
+      ],
+      "domain": "reading",
+      "domain_objective_label": "4(C)",
+      "domain_objective_statement": "develop basic sight vocabulary, derive meaning of environmental print, and comprehend english vocabulary and language structures used routinely in written classroom materials"
+    },
+    {
+      "rich_text": [
+        { "is_bold": false, "text": "  rceognize " },
+        { "is_bold": true, "text": "directionality" },
+        {
+          "is_bold": false,
+          "text": " of english reading such as left to right and top to bottom;"
+        }
+      ],
+      "domain": "reading",
+      "domain_objective_label": "4(B)",
+      "domain_objective_statement": "rceognize directionality of english reading such as left to right and top to bottom"
+    }
+  ],
+  "strategy_data": [
+    {
+      "rich_text": [
+        { "is_bold": false, "text": "  Use prior " },
+        { "is_bold": true, "text": "knowledge and experiences" },
+        { "is_bold": false, "text": " to understand meanings in English." }
+      ],
+      "strategy_label": "(1.A)",
+      "strategy_statement": "use prior knowledge and experiences to understand meanings in english"
+    },
+    {
+      "rich_text": [
+        { "is_bold": false, "text": "  Monitor " },
+        { "is_bold": true, "text": "oral language production " },
+        { "is_bold": false, "text": "and employ " },
+        { "is_bold": true, "text": "self-corrective techniques" },
+        { "is_bold": false, "text": " or other resources." }
+      ],
+      "strategy_label": "(1.B)",
+      "strategy_statement": "monitor oral language production and employ self-corrective techniques or other resources"
+    },
+    {
+      "rich_text": [
+        { "is_bold": false, "text": " Monitor " },
+        { "is_bold": true, "text": "written language production" },
+        { "is_bold": false, "text": " and employ " },
+        { "is_bold": true, "text": "self-corrective techniques" },
+        { "is_bold": false, "text": " or other resources." }
+      ],
+      "strategy_label": "(1.B)",
+      "strategy_statement": "monitor written language production and employ self-corrective techniques or other resources"
+    },
+    {
+      "rich_text": [
+        {
+          "is_bold": false,
+          "text": " Use strategic learning techniques such as "
+        },
+        { "is_bold": true, "text": "concept mapping" },
+        {
+          "is_bold": false,
+          "text": " to acquire basic and grade-level vocabulary."
+        }
+      ],
+      "strategy_label": "(1.C)",
+      "strategy_statement": "use strategic learning techniques such as concept mapping to acquire basic and grade-level vocabulary"
+    },
+    {
+      "rich_text": [
+        {
+          "is_bold": false,
+          "text": "  Use strategic learning techniques such as "
+        },
+        { "is_bold": true, "text": "drawing" },
+        {
+          "is_bold": false,
+          "text": " to acquire basic and grade-level vocabulary."
+        }
+      ],
+      "strategy_label": "(1.C)",
+      "strategy_statement": "use strategic learning techniques such as drawing to acquire basic and grade-level vocabulary"
+    },
+    {
+      "rich_text": [
+        {
+          "is_bold": false,
+          "text": " Use strategic learning techniques such as "
+        },
+        { "is_bold": true, "text": "comparing and contrasting " },
+        {
+          "is_bold": false,
+          "text": "to acquire basic and grade-level vocabulary."
+        }
+      ],
+      "strategy_label": "(1.C)",
+      "strategy_statement": "use strategic learning techniques such as comparing and contrasting to acquire basic and grade-level vocabulary"
+    },
+    {
+      "rich_text": [
+        {
+          "is_bold": false,
+          "text": "  Use strategic learning techniques such as "
+        },
+        { "is_bold": true, "text": "reviewing" },
+        {
+          "is_bold": false,
+          "text": " to acquire basic and grade -evel vocabulary."
+        }
+      ],
+      "strategy_label": "(1.C)",
+      "strategy_statement": "use strategic learning techniques such as reviewing to acquire basic and grade -evel vocabulary"
+    },
+    {
+      "rich_text": [
+        {
+          "is_bold": false,
+          "text": " Speak using learning strategies such as "
+        },
+        { "is_bold": true, "text": "requesting assistance" },
+        { "is_bold": false, "text": " when exact English words are not known." }
+      ],
+      "strategy_label": "(1.D)",
+      "strategy_statement": "speak using learning strategies such as requesting assistance when exact english words are not known"
+    },
+    {
+      "rich_text": [
+        {
+          "is_bold": false,
+          "text": " speak using learning strategies such as "
+        },
+        { "is_bold": true, "text": "employing nonverbal cues" },
+        {
+          "is_bold": false,
+          "text": ", when exact English words are not known."
+        }
+      ],
+      "strategy_label": "(1.D)",
+      "strategy_statement": "speak using learning strategies such as employing nonverbal cues, when exact english words are not known"
+    },
+    {
+      "rich_text": [
+        {
+          "is_bold": false,
+          "text": " speak using learning strategies such as "
+        },
+        { "is_bold": true, "text": "using synonyms" },
+        { "is_bold": false, "text": " when exact English words are not known." }
+      ],
+      "strategy_label": "(1.D)",
+      "strategy_statement": "speak using learning strategies such as using synonyms when exact english words are not known"
+    },
+    {
+      "rich_text": [
+        {
+          "is_bold": false,
+          "text": "  speak using learning strategies such as "
+        },
+        { "is_bold": true, "text": "circumlocution" },
+        {
+          "is_bold": false,
+          "text": " (conveying ideas by defining or describing) when exact English words are not known."
+        }
+      ],
+      "strategy_label": "(1.D)",
+      "strategy_statement": "speak using learning strategies such as circumlocution (conveying ideas by defining or describing) when exact english words are not known"
+    },
+    {
+      "rich_text": [
+        { "is_bold": false, "text": "  " },
+        {
+          "is_bold": true,
+          "text": "Internalize new basic and academic language by using and reusing it"
+        },
+        { "is_bold": false, "text": " in meaningful ways " },
+        { "is_bold": true, "text": "in speaking " },
+        {
+          "is_bold": false,
+          "text": "activities that build concept and language attainment."
+        }
+      ],
+      "strategy_label": "(1.E)",
+      "strategy_statement": "internalize new basic and academic language by using and reusing it in meaningful ways in speaking activities that build concept and language attainment"
+    },
+    {
+      "rich_text": [
+        { "is_bold": false, "text": "  " },
+        {
+          "is_bold": true,
+          "text": "Internalize new basic and academic language by using and reusing it "
+        },
+        { "is_bold": false, "text": "in meaningful ways " },
+        { "is_bold": true, "text": "in writing" },
+        {
+          "is_bold": false,
+          "text": " activities that build concept and language attainment."
+        }
+      ],
+      "strategy_label": "(1.E)",
+      "strategy_statement": "internalize new basic and academic language by using and reusing it in meaningful ways in writing activities that build concept and language attainment"
+    },
+    {
+      "rich_text": [
+        { "is_bold": false, "text": " use accessible language and" },
+        { "is_bold": true, "text": " learn new and essential language" },
+        { "is_bold": false, "text": " in the process." }
+      ],
+      "strategy_label": "(1.F)",
+      "strategy_statement": "use accessible language and learn new and essential language in the process"
+    },
+    {
+      "rich_text": [
+        {
+          "is_bold": false,
+          "text": "  Demonstrate an increasing ability to distinguish between "
+        },
+        { "is_bold": true, "text": "formal and informal English" },
+        {
+          "is_bold": false,
+          "text": " and an increasing knowledge of when to use each one commensurate with grade-level learning expectations;"
+        }
+      ],
+      "strategy_label": "(1.G)",
+      "strategy_statement": "demonstrate an increasing ability to distinguish between formal and informal english and an increasing knowledge of when to use each one commensurate with grade-level learning expectations"
+    },
+    {
+      "rich_text": [
+        {
+          "is_bold": false,
+          "text": "  Develop and expand repertoire of learning strategies such as "
+        },
+        { "is_bold": true, "text": "reasoning inductively" },
+        {
+          "is_bold": false,
+          "text": ", commensurate with grade-level learning."
+        }
+      ],
+      "strategy_label": "(1.H)",
+      "strategy_statement": "develop and expand repertoire of learning strategies such as reasoning inductively, commensurate with grade-level learning"
+    },
+    {
+      "rich_text": [
+        {
+          "is_bold": false,
+          "text": " Develop and expand repertoire of learning strategies such as "
+        },
+        { "is_bold": true, "text": "reasoning deductively" },
+        {
+          "is_bold": false,
+          "text": ", commensurate with grade-level learning."
+        }
+      ],
+      "strategy_label": "(1.H)",
+      "strategy_statement": "develop and expand repertoire of learning strategies such as reasoning deductively, commensurate with grade-level learning"
+    },
+    {
+      "rich_text": [
+        {
+          "is_bold": false,
+          "text": " Develop and expand repertoire of learning strategies such as looking for "
+        },
+        { "is_bold": true, "text": "patterns in language" },
+        {
+          "is_bold": false,
+          "text": ", commensurate with grade-level learning."
+        }
+      ],
+      "strategy_label": "(1.H)",
+      "strategy_statement": "develop and expand repertoire of learning strategies such as looking for patterns in language, commensurate with grade-level learning"
+    },
+    {
+      "rich_text": [
+        {
+          "is_bold": false,
+          "text": "  Develop and expand repertoire of learning strategies such as "
+        },
+        { "is_bold": true, "text": "analyzing sayings and expressions" },
+        { "is_bold": false, "text": " commensurate with grade-level learning." }
+      ],
+      "strategy_label": "(1.H)",
+      "strategy_statement": "develop and expand repertoire of learning strategies such as analyzing sayings and expressions commensurate with grade-level learning"
+    },
+    {
+      "rich_text": [
+        { "is_bold": false, "text": "  Use prior " },
+        { "is_bold": true, "text": "knowledge and experiences" },
+        { "is_bold": false, "text": " to understand meanings in English. 1." }
+      ],
+      "strategy_label": "(1.A)",
+      "strategy_statement": "use prior knowledge and experiences to understand meanings in english. 1"
+    },
+    {
+      "rich_text": [{ "is_bold": false, "text": "" }],
+      "strategy_statement": ""
+    }
+  ]
 }

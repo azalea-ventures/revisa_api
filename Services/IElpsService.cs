@@ -1,5 +1,5 @@
-using revisa_api.Data.elps;
+// using revisa_api.Data.elps;
 
-public interface IElpsService{
-    StrategyObjective GetStrategyObjective(int lessonOrder);
-}
+// public interface IElpsService{
+//     StrategyObjective GetStrategyObjective(int lessonOrder);
+// }

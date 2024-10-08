@@ -14,7 +14,6 @@ public partial class StrategyObjective
 
     public virtual DomainObjective DomainObjective { get; set; } = null!;
 
-    public virtual ICollection<Iclo> Iclos { get; set; } = new List<Iclo>();
 
     public virtual LearningStrategiesMod StrategyMod { get; set; } = null!;
         public virtual ICollection<SupportPackage> SupportPackages { get; set; } =
