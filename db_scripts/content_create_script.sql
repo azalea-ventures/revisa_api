@@ -191,6 +191,13 @@ CREATE TABLE content.content_translations(
 )
 GO
 
+CREATE TABLE content.content_rich_txt 
+(
+    content_txt_id INT not null,
+    rich_txt NVARCHAR(max) null
+    FOREIGN KEY (content_txt_id) REFERENCES content.content_txt(id)
+);
+
 ALTER TABLE content.content_translations
 ADD CONSTRAINT FK_content_d_tlang
 FOREIGN KEY (target_language_id) REFERENCES content.content_language(id)

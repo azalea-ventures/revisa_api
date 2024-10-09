@@ -2,10 +2,13 @@ using System.Text.Json;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Net.Http.Headers;
-using revisa_api.Data.content;
 using revisa_api.Data.language_supports;
 using revisa_api.Data.teks;
 
+public interface ITeksService
+{
+    Task GetTEKS(string endpoint);
+}
 public class TeksService : ITeksService
 {
     private readonly IDbContextFactory<TeksContext> _dbContextFactory;
@@ -23,19 +26,6 @@ public class TeksService : ITeksService
         _httpClientFactory = httpClientFactory;
     }
 
-    public List<TeksItem> GetTeksItems(List<string> teksLabels, string grade, Subject subject)
-    {
-
-        var teksSubjectId = _languageSupportContext
-            .ContentTeksSubjects.Where(s => s.ContentSubjectId == subject.Id)
-            .Select(ts => ts.TeksSubjectId).FirstOrDefault();
-
-        var context = _dbContextFactory.CreateDbContext();;
-
-        var tek = context.Teks.FirstOrDefault(t => t.SubjectId == teksSubjectId);
-
-        return null;
-    }
 
     public async Task GetTEKS(string endpoint)
     {
