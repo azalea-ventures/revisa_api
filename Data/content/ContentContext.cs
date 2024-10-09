@@ -25,6 +25,8 @@ public partial class ContentContext : DbContext
 
     public virtual DbSet<ContentLanguage> ContentLanguages { get; set; }
 
+    public virtual DbSet<ContentRichTxt> ContentRichTxts { get; set; }
+
     public virtual DbSet<ContentStatus> ContentStatuses { get; set; }
 
     public virtual DbSet<ContentTranslation> ContentTranslations { get; set; }
@@ -40,6 +42,10 @@ public partial class ContentContext : DbContext
     public virtual DbSet<Subject> Subjects { get; set; }
 
     public virtual DbSet<User> Users { get; set; }
+
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
+        => optionsBuilder.UseSqlServer("Data Source=tcp:revisa-db.database.windows.net,1433;Initial Catalog=revisa_db;Persist Security Info=False;User ID=revisa_admin;Password=EeR8kMiFf@y5SCb;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -172,6 +178,21 @@ public partial class ContentContext : DbContext
                 .HasColumnName("language");
         });
 
+        modelBuilder.Entity<ContentRichTxt>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToTable("content_rich_txt", "content");
+
+            entity.Property(e => e.ContentTxtId).HasColumnName("content_txt_id");
+            entity.Property(e => e.RichTxt).HasColumnName("rich_txt");
+
+            entity.HasOne(d => d.ContentTxt).WithMany()
+                .HasForeignKey(d => d.ContentTxtId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__content_r__rich___4D755761");
+        });
+
         modelBuilder.Entity<ContentStatus>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK__content___3213E83F0639AA97");
@@ -204,7 +225,7 @@ public partial class ContentContext : DbContext
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_content_d_grade");
 
-            entity.HasOne(d => d.ContentLanguage).WithMany(p => p.ContentTranslationSourceLanguages)
+            entity.HasOne(d => d.ContentLanguage).WithMany(p => p.ContentTranslationContentLanguages)
                 .HasForeignKey(d => d.ContentLanguageId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_content_d_clang");

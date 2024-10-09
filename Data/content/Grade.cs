@@ -13,6 +13,6 @@ public partial class Grade
     public virtual ICollection<ContentDetail> ContentDetails { get; set; } = new List<ContentDetail>();
 
     public virtual ICollection<ContentTranslation> ContentTranslations { get; set; } = new List<ContentTranslation>();
-        public virtual ICollection<SupportPackage> SupportPackages { get; set; }
-
+       public virtual ICollection<SupportPackage> SupportPackages { get; set; } =
+        new List<SupportPackage>();
 }

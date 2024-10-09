@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using revisa_api.Data.content;
+﻿using revisa_api.Data.content;
 using revisa_api.Data.elps;
 using Grade = revisa_api.Data.content.Grade;
 
