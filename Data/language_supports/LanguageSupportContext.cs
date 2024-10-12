@@ -70,9 +70,6 @@ public partial class LanguageSupportContext : DbContext
 
     public virtual DbSet<TranslationPair> TranslationPairs { get; set; }
 
-    public virtual DbSet<User> Users { get; set; }
-
-
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<AttrType>(entity =>
