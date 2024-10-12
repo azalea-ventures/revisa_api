@@ -2,6 +2,16 @@ using Microsoft.EntityFrameworkCore;
 using revisa_api.Data.content;
 using Grade = revisa_api.Data.content.Grade;
 
+public interface IContentService{
+
+    PostContentInfoResponse PostContentInfo(PostContentBaseRequest request);
+    int PostContent(PostContentRequest content);
+    GetContentResponse GetContent(int contentId);
+    GetContentBaseResponse GetContentInfo(int contentId);
+
+    List<GetContentBaseResponse> GetContentInfoBySubject(string subject);
+}
+
 public class ContentService : IContentService
 {
     private readonly ContentContext _dbContext;
@@ -38,7 +48,8 @@ public class ContentService : IContentService
 
         cd.Language =
             _dbContext.ContentLanguages.FirstOrDefault(l =>
-                l.Abbreviation == request.Info.Language.ToUpper()
+                l.Abbreviation.Equals(
+                    request.Info.Language)
             ) ?? new ContentLanguage { Abbreviation = request.Info.Language };
 
         cd.Owner =
@@ -68,9 +79,12 @@ public class ContentService : IContentService
         _dbContext.SaveChanges();
 
         ContentTranslation translation = _dbContext.ContentTranslations.FirstOrDefault(t =>
-            t.ContentLanguage.Abbreviation.ToUpper() == request.Info.Language.ToUpper()
-            && t.ContentSubject.Subject1.ToUpper() == request.Info.Subject.ToUpper()
-            && t.ContentGrade.Grade1.ToUpper() == request.Info.Grade.ToUpper()
+            t.ContentLanguage.Abbreviation.Equals(
+                request.Info.Language)
+            && t.ContentSubject.Subject1.Equals(
+                request.Info.Subject)
+            && t.ContentGrade.Grade1.Equals(
+                request.Info.Grade)
         );
 
         return new PostContentInfoResponse
@@ -126,7 +140,7 @@ public class ContentService : IContentService
     {
         using var context = _dbContext;
         ContentDetail? entity = GetContentDetail(contentId);
-        
+
         if (entity == null)
         {
             return new GetContentResponse(null);
@@ -158,7 +172,9 @@ public class ContentService : IContentService
             .Include(c => c.Language)
             .Include(c => c.File)
             .Include(c => c.Status)
-            .Where(c => c.Subject.Subject1 == subject.ToUpper())
+            .Where(c =>
+                c.Subject.Subject1.Equals(subject)
+            )
             .ToList();
 
         contentDetailList.ForEach(c => contentInfoList.Add(new(entity: c)));
@@ -169,8 +185,7 @@ public class ContentService : IContentService
     private ContentDetail? GetContentDetail(int contentId)
     {
         return _dbContext
-            .ContentDetails
-            .Include(c => c.Client)
+            .ContentDetails.Include(c => c.Client)
             .Include(c => c.Grade)
             .Include(c => c.Subject)
             .Include(c => c.Owner)

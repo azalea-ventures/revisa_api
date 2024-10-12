@@ -117,4 +117,8 @@ app.MapPost("/supports/elps", (ElpsSupportsRequest request, IElpsService elpsSer
     elpsService.SetElpsSupports(request);
 }).WithOpenApi();
 
+app.MapGet("/content/source", () => {
+    PdfDocumentParser.ParsePdfDocument();
+});
+
 app.Run();

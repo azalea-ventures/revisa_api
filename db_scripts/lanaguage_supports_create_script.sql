@@ -69,6 +69,17 @@ CREATE TABLE language_supports.translation_pairs
 );
 GO
 
+CREATE TABLE language_supports.elps_supports(
+    lesson_schedule_id INT NOT NULL,
+    strategy_objective_id INT NOT NULL, 
+    grade_id INT NOT NULL,
+    subject_id INT NOT NULL,
+    FOREIGN KEY (lesson_schedule_id) REFERENCES language_supports.lesson_schedule(id),
+    FOREIGN KEY (strategy_objective_id) REFERENCES elps.strategies_objectives(id),
+    FOREIGN KEY (grade_id) REFERENCES content.grades(id),
+    FOREIGN KEY (subject_id) REFERENCES content.subjects(id)
+)
+
 
 --sample data for testing
 BEGIN TRANSACTION

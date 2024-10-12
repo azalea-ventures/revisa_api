@@ -1,8 +1,8 @@
 using System.Text;
-// using Newtonsoft.Json;
 using System.Text.Json;
-using Microsoft.AspNetCore.Mvc.Routing;
-
+public interface ITranslatorService {
+    Task<List<Content>> TranslateContent(List<List<Content> >content);
+}
 public class TranslatorService : ITranslatorService
 {
     private IConfiguration configuration;
