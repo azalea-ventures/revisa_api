@@ -43,7 +43,6 @@ public class LanguageSupportService : ILanguageSupportService
             .SupportPackages.Include(sp => sp.LessonSchedule)
             .Include(sp => sp.Grade)
             .Include(sp => sp.Subject)
-            .Include(sp => sp.ElpsStrategyObjective)
             .Where(sp =>
                 sp.LessonSchedule.DeliveryDate == DateOnly.Parse(delivery_date)
                 && sp.Subject.Subject1 == subject
@@ -51,7 +50,7 @@ public class LanguageSupportService : ILanguageSupportService
             )
             .FirstOrDefault();
 
-        if (supportPackage == null || supportPackage.ElpsStrategyObjective == null)
+        if (supportPackage == null || supportPackage.ElpsStrategyObjectiveId == null)
         {
             return response;
         }
@@ -61,6 +60,7 @@ public class LanguageSupportService : ILanguageSupportService
             .ThenInclude(sm => sm.LearningStrategy)
             .Include(sob => sob.DomainObjective)
             .ThenInclude(dob => dob.Domain)
+            .Where(sob => sob.Id == supportPackage.ElpsStrategyObjectiveId)
             .FirstOrDefault();
 
         response.ElpsStrategy = strategyObjective?.StrategyMod.Strategy;
