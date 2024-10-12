@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using revisa_api.Data.language_supports;
+﻿using revisa_api.Data.language_supports;
 
 namespace revisa_api.Data.elps;
 
@@ -14,9 +12,9 @@ public partial class StrategyObjective
 
     public virtual DomainObjective DomainObjective { get; set; } = null!;
 
-    public virtual ICollection<Iclo> Iclos { get; set; } = new List<Iclo>();
+    public virtual ICollection<SupportPackage> SupportPackages { get; set; } =
+        new List<SupportPackage>();
 
     public virtual LearningStrategiesMod StrategyMod { get; set; } = null!;
-        public virtual ICollection<SupportPackage> SupportPackages { get; set; } =
-        new List<SupportPackage>();
+
 }

@@ -191,6 +191,8 @@ CREATE TABLE content.content_translations(
 )
 GO
 
+
+
 ALTER TABLE content.content_translations
 ADD CONSTRAINT FK_content_d_tlang
 FOREIGN KEY (target_language_id) REFERENCES content.content_language(id)

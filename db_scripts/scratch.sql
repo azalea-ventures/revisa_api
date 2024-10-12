@@ -79,3 +79,29 @@ ADD status_id INT DEFAULT 0 REFERENCES content.content_status(id);
 
 
 
+-- INSERT INTO language_supports.support_packages
+--     (
+--     content_language_id,
+--     grade_id,
+--     subject_id,
+--     lesson_schedule_id,
+--     is_active,
+--     elps_strategy_objective_id,
+--     cross_linguistic_connection
+--     )
+  
+-- SELECT 
+--     cd.language_id, 
+--     cd.grade_id, 
+--     cd.subject_id, 
+--     (
+--         SELECT TOP 1 ls.id
+--         FROM language_supports.lesson_schedule ls
+--         WHERE ls.delivery_date = cd.delivery_date
+--     ), 
+--     1, 
+--     null, 
+--     null
+-- FROM content.content_details cd;
+
+

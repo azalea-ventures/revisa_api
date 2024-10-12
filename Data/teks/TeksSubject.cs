@@ -13,6 +13,5 @@ public partial class TeksSubject
     public string? TacChapter { get; set; }
 
     public virtual ICollection<Tek> Teks { get; set; } = new List<Tek>();
-    public virtual ICollection<ContentTeksSubject> ContentTeksSubjects { get; set; } =
-        new List<ContentTeksSubject>();
+
 }

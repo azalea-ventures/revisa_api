@@ -15,8 +15,6 @@ public partial class Subject
 
     public virtual ICollection<ContentTranslation> ContentTranslations { get; set; } =
         new List<ContentTranslation>();
-    public virtual ICollection<ContentTeksSubject> ContentTeksSubjects { get; set; } =
-        new List<ContentTeksSubject>();
-
-    public virtual ICollection<SupportPackage> SupportPackages { get; set; }
+    public virtual ICollection<SupportPackage> SupportPackages { get; set; } =
+        new List<SupportPackage>();
 }
