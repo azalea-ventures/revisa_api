@@ -101,24 +101,50 @@ app.MapPost(
     )
     .WithOpenApi();
 
-
 app.MapPost(
         "/translate",
-        async Task<List<Content>> (int contentId, ITranslatorService translatorService, IContentService contentService) => {
+        async Task<List<Content>> (
+            int contentId,
+            ITranslatorService translatorService,
+            IContentService contentService
+        ) =>
+        {
             GetContentResponse contentResponse = contentService.GetContent(contentId);
             return await translatorService.TranslateContent(contentResponse.Content);
-            }
-
+        }
     )
     .WithOpenApi();
 
-app.MapPost("/supports/elps", (ElpsSupportsRequest request, IElpsService elpsService) => {
-   
-    elpsService.SetElpsSupports(request);
-}).WithOpenApi();
+app.MapPost(
+        "/supports/elps",
+        (ElpsSupportsRequest request, IElpsService elpsService) =>
+        {
+            elpsService.SetElpsSupports(request);
+        }
+    )
+    .WithOpenApi();
 
-app.MapGet("/content/source", () => {
-    PdfDocumentParser.ParsePdfDocument();
-});
+// TODO - finish writing this and deploy!
+app.MapGet(
+        "/supports/elps",
+        ElpsSupportResponse (
+            [FromQuery(Name = "deliveryDate")] string deliveryDate,
+            [FromQuery(Name = "subject")] string subject,
+            [FromQuery(Name = "grade")] string grade,
+            ILanguageSupportService languageSupportService
+        ) =>
+        {
+            return languageSupportService.GetElpsSupports(deliveryDate, grade, subject);
+        }
+    )
+    .WithOpenApi();
+
+app.MapGet(
+    "/content/source",
+    () =>
+    {
+        PdfDocumentParser.ParsePdfDocument();
+    }
+);
 
 app.Run();
