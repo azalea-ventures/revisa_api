@@ -15,7 +15,7 @@ public class TranslatorService : ITranslatorService
     public async Task<List<Content>> TranslateContent(List<List<Content>> content)
     {
         // Input and output languages are defined as parameters.
-        string route = "/translate?api-version=3.0&from=en&to=es&includeAlignment=true";
+        string route = "/translate?api-version=3.0&from=en&to=es&includeAlignment=true&category=2abca732-82ea-4257-9236-971859e71efb-custom_translate_math-EDUCATI";
         List<TranslateContent> textRequestList = new();
         // we will keep track of which txt element goes which which element object (on the slide)
         int elementIndex = 0;
@@ -45,7 +45,6 @@ public class TranslatorService : ITranslatorService
         {
             // Build the request.
             string url = configuration.GetValue<string>("AZURE_TXT_TRANSLATOR_URL") + route;
-            Console.WriteLine("\n" + url + "\n");
             request.Method = HttpMethod.Post;
             request.Content = new StringContent(requestBody, Encoding.UTF8, "application/json");
             request.Headers.Add(
