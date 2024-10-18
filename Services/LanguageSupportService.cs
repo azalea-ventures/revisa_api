@@ -69,6 +69,7 @@ public class LanguageSupportService : ILanguageSupportService
         response.ElpsStrategyLabel = strategyObjective?.StrategyMod.LearningStrategy.Label;
         response.ElpsStrategyFileId = strategyObjective?.StrategyMod.StrategyFileId;
         response.ElpsStrategyIconId = strategyObjective?.StrategyMod.ImageFileId;
+        response.CrossLinguisticConnection = supportPackage.CrossLinguisticConnection;
 
         return response;
     }

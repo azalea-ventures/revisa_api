@@ -22,6 +22,9 @@ public class ElpsSupportResponse
 
     [JsonPropertyName("elps_strategy_icon_id")]
     public string ElpsStrategyIconId { get; set; }
+
+    [JsonPropertyName("cross_linguistic_connection")]
+    public string CrossLinguisticConnection { get; set; }
 }
 
 public class SupportPackageMeta
