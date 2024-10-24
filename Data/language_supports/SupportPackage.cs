@@ -1,6 +1,7 @@
-﻿using revisa_api.Data.content;
+﻿using System;
+using System.Collections.Generic;
+using revisa_api.Data.content;
 using revisa_api.Data.elps;
-using Grade = revisa_api.Data.content.Grade;
 
 namespace revisa_api.Data.language_supports;
 
@@ -24,12 +25,11 @@ public partial class SupportPackage
 
     public virtual ContentLanguage ContentLanguage { get; set; } = null!;
 
-    public virtual StrategyObjective? ElpsStrategyObjective { get; set; }
+    public virtual StrategiesObjective? ElpsStrategyObjective { get; set; }
 
-    public virtual Grade Grade { get; set; } = null!;
+    public virtual content.Grade Grade { get; set; } = null!;
 
     public virtual LessonSchedule LessonSchedule { get; set; } = null!;
 
     public virtual Subject Subject { get; set; } = null!;
-
 }

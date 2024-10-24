@@ -11,8 +11,8 @@ public partial class ContentLanguage
     public string? Language { get; set; }
 
     public string? Abbreviation { get; set; }
+        public virtual ICollection<SupportPackage> SupportPackages { get; set; } = new List<SupportPackage>();
 
-    public virtual ICollection<SupportPackage> SupportPackages {get; set;}  = new List<SupportPackage>();
 
     public virtual ICollection<ContentDetail> ContentDetails { get; set; } = new List<ContentDetail>();
 

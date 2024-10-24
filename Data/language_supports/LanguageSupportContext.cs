@@ -1,7 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
 using revisa_api.Data.content;
 using revisa_api.Data.elps;
-using Grade = revisa_api.Data.content.Grade;
 
 namespace revisa_api.Data.language_supports;
 
@@ -16,41 +17,16 @@ public partial class LanguageSupportContext : DbContext
     {
     }
 
-    public virtual DbSet<AttrType> AttrTypes { get; set; }
-
-    public virtual DbSet<Client> Clients { get; set; }
-
-    public virtual DbSet<ContentDetail> ContentDetails { get; set; }
-
-    public virtual DbSet<ContentFile> ContentFiles { get; set; }
-
-    public virtual DbSet<ContentGroup> ContentGroups { get; set; }
 
     public virtual DbSet<ContentLanguage> ContentLanguages { get; set; }
 
-    public virtual DbSet<ContentRichTxt> ContentRichTxts { get; set; }
-
-    public virtual DbSet<ContentStatus> ContentStatuses { get; set; }
-
     public virtual DbSet<ContentTranslation> ContentTranslations { get; set; }
-
-    public virtual DbSet<ContentTxt> ContentTxts { get; set; }
-
-    public virtual DbSet<ContentType> ContentTypes { get; set; }
-
-    public virtual DbSet<ContentVersion> ContentVersions { get; set; }
 
     public virtual DbSet<Domain> Domains { get; set; }
 
-    public virtual DbSet<DomainLevel> DomainLevels { get; set; }
-
-    public virtual DbSet<DomainLvlAttr> DomainLvlAttrs { get; set; }
-
-    public virtual DbSet<DomainLvlAttrItem> DomainLvlAttrItems { get; set; }
-
     public virtual DbSet<DomainObjective> DomainObjectives { get; set; }
 
-    public virtual DbSet<Grade> Grades { get; set; }
+    public virtual DbSet<content.Grade> Grades { get; set; }
 
     public virtual DbSet<Language> Languages { get; set; }
 
@@ -62,136 +38,19 @@ public partial class LanguageSupportContext : DbContext
 
     public virtual DbSet<Level> Levels { get; set; }
 
-    public virtual DbSet<StrategyObjective> StrategiesObjectives { get; set; }
+    public virtual DbSet<StrategiesObjective?> StrategiesObjectives { get; set; }
 
     public virtual DbSet<Subject> Subjects { get; set; }
 
     public virtual DbSet<SupportPackage> SupportPackages { get; set; }
 
-    public virtual DbSet<TranslationPair> TranslationPairs { get; set; }
+    public virtual DbSet<TranslationPvrRule> TranslationPvrRules { get; set; }
+
+    public virtual DbSet<User> Users { get; set; }
+
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<AttrType>(entity =>
-        {
-            entity.HasKey(e => e.Id).HasName("PK__attr_typ__3213E83FD6BC78D3");
-
-            entity.ToTable("attr_type", "elps");
-
-            entity.Property(e => e.Id).HasColumnName("id");
-            entity.Property(e => e.Typ).HasColumnName("typ");
-        });
-
-        modelBuilder.Entity<Client>(entity =>
-        {
-            entity.HasKey(e => e.Id).HasName("PK__clients__3213E83F99ECF343");
-
-            entity.ToTable("clients", "content", tb => tb.HasTrigger("trg_upper_client_name"));
-
-            entity.HasIndex(e => e.ClientName, "UQ__clients__9ADC3B74ADFDD228").IsUnique();
-
-            entity.Property(e => e.Id).HasColumnName("id");
-            entity.Property(e => e.ClientName)
-                .HasMaxLength(100)
-                .HasColumnName("client_name");
-        });
-
-        modelBuilder.Entity<ContentDetail>(entity =>
-        {
-            entity.HasKey(e => e.Id).HasName("PK__content___3213E83FD5B946B5");
-
-            entity.ToTable("content_details", "content", tb => tb.HasTrigger("trg_insert_content_version"));
-
-            entity.Property(e => e.Id).HasColumnName("id");
-            entity.Property(e => e.ClientId).HasColumnName("client_id");
-            entity.Property(e => e.CreatedAt)
-                .HasDefaultValueSql("(getdate())")
-                .HasColumnType("datetime")
-                .HasColumnName("created_at");
-            entity.Property(e => e.DeliveryDate).HasColumnName("delivery_date");
-            entity.Property(e => e.FileId)
-                .HasDefaultValue(new Guid("00000000-0000-0000-0000-000000000000"))
-                .HasColumnName("file_id");
-            entity.Property(e => e.GradeId).HasColumnName("grade_id");
-            entity.Property(e => e.LanguageId)
-                .HasDefaultValue(1)
-                .HasColumnName("language_id");
-            entity.Property(e => e.OwnerId).HasColumnName("owner_id");
-            entity.Property(e => e.StatusId)
-                .HasDefaultValue(0)
-                .HasColumnName("status_id");
-            entity.Property(e => e.SubjectId).HasColumnName("subject_id");
-            entity.Property(e => e.UpdatedAt)
-                .HasDefaultValueSql("(getdate())")
-                .HasColumnType("datetime")
-                .HasColumnName("updated_at");
-
-            entity.HasOne(d => d.Client).WithMany(p => p.ContentDetails)
-                .HasForeignKey(d => d.ClientId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__content_d__clien__31432D07");
-
-            entity.HasOne(d => d.File).WithMany(p => p.ContentDetails)
-                .HasForeignKey(d => d.FileId)
-                .HasConstraintName("FK_content_d_file");
-
-            entity.HasOne(d => d.Grade).WithMany(p => p.ContentDetails)
-                .HasForeignKey(d => d.GradeId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__content_d__grade__32375140");
-
-            entity.HasOne(d => d.Language).WithMany(p => p.ContentDetails)
-                .HasForeignKey(d => d.LanguageId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_content_d_lang");
-
-            entity.HasOne(d => d.Owner).WithMany(p => p.ContentDetails)
-                .HasForeignKey(d => d.OwnerId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__content_d__owner__341F99B2");
-
-            entity.HasOne(d => d.Status).WithMany(p => p.ContentDetails)
-                .HasForeignKey(d => d.StatusId)
-                .HasConstraintName("FK__content_d__statu__61B15A38");
-
-            entity.HasOne(d => d.Subject).WithMany(p => p.ContentDetails)
-                .HasForeignKey(d => d.SubjectId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__content_d__subje__332B7579");
-        });
-
-        modelBuilder.Entity<ContentFile>(entity =>
-        {
-            entity.HasKey(e => e.Id).HasName("PK__content___3213E83F6D69A64E");
-
-            entity.ToTable("content_file", "content");
-
-            entity.Property(e => e.Id)
-                .HasDefaultValueSql("(newid())")
-                .HasColumnName("id");
-            entity.Property(e => e.CreatedAt)
-                .HasColumnType("datetime")
-                .HasColumnName("created_at");
-            entity.Property(e => e.FileId).HasColumnName("file_id");
-            entity.Property(e => e.FileName).HasColumnName("file_name");
-            entity.Property(e => e.SourceFileId).HasColumnName("source_file_id");
-        });
-
-        modelBuilder.Entity<ContentGroup>(entity =>
-        {
-            entity.HasKey(e => e.Id).HasName("PK__content___3213E83FD4F75830");
-
-            entity.ToTable("content_group", "content");
-
-            entity.Property(e => e.Id).HasColumnName("id");
-            entity.Property(e => e.ContentVersionId).HasColumnName("content_version_id");
-
-            entity.HasOne(d => d.ContentVersion).WithMany(p => p.ContentGroups)
-                .HasForeignKey(d => d.ContentVersionId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__content_g__conte__454A25B4");
-        });
-
         modelBuilder.Entity<ContentLanguage>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK__content___3213E83FB4472063");
@@ -209,21 +68,6 @@ public partial class LanguageSupportContext : DbContext
                 .HasMaxLength(32)
                 .IsUnicode(false)
                 .HasColumnName("language");
-        });
-
-        modelBuilder.Entity<ContentRichTxt>(entity =>
-        {
-            entity
-                .HasNoKey()
-                .ToTable("content_rich_txt", "content");
-
-            entity.Property(e => e.ContentTxtId).HasColumnName("content_txt_id");
-            entity.Property(e => e.RichTxt).HasColumnName("rich_txt");
-
-            entity.HasOne(d => d.ContentTxt).WithMany()
-                .HasForeignKey(d => d.ContentTxtId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__content_r__rich___4D755761");
         });
 
         modelBuilder.Entity<ContentStatus>(entity =>
@@ -446,7 +290,7 @@ public partial class LanguageSupportContext : DbContext
                 .HasConstraintName("FK__domain_ob__domai__232A17DA");
         });
 
-        modelBuilder.Entity<Grade>(entity =>
+        modelBuilder.Entity<content.Grade>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK__grades__3213E83FB55E4571");
 
@@ -542,7 +386,7 @@ public partial class LanguageSupportContext : DbContext
                 .HasColumnName("lvl");
         });
 
-        modelBuilder.Entity<StrategyObjective>(entity =>
+        modelBuilder.Entity<StrategiesObjective>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK__strategi__3213E83F0EC8FB95");
 
@@ -552,12 +396,12 @@ public partial class LanguageSupportContext : DbContext
             entity.Property(e => e.DomainObjectiveId).HasColumnName("domain_objective_id");
             entity.Property(e => e.StrategyModId).HasColumnName("strategy_mod_id");
 
-            entity.HasOne(d => d.DomainObjective).WithMany(p => p.StrategyObjectives)
+            entity.HasOne(d => d.DomainObjective).WithMany(p => p.StrategiesObjectives)
                 .HasForeignKey(d => d.DomainObjectiveId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__strategie__domai__382534C0");
 
-            entity.HasOne(d => d.StrategyMod).WithMany(p => p.StrategyObjectives)
+            entity.HasOne(d => d.StrategyMod).WithMany(p => p.StrategiesObjectives)
                 .HasForeignKey(d => d.StrategyModId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__strategie__strat__37311087");
@@ -583,10 +427,7 @@ public partial class LanguageSupportContext : DbContext
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.ContentLanguageId).HasColumnName("content_language_id");
-            entity.Property(e => e.CrossLinguisticConnection)
-                .HasMaxLength(255)
-                .IsUnicode(false)
-                .HasColumnName("cross_linguistic_connection");
+            entity.Property(e => e.CrossLinguisticConnection).HasColumnName("cross_linguistic_connection");
             entity.Property(e => e.ElpsStrategyObjectiveId).HasColumnName("elps_strategy_objective_id");
             entity.Property(e => e.GradeId).HasColumnName("grade_id");
             entity.Property(e => e.IsActive)
@@ -620,34 +461,72 @@ public partial class LanguageSupportContext : DbContext
                 .HasConstraintName("FK__support_p__subje__45D43599");
         });
 
-        modelBuilder.Entity<TranslationPair>(entity =>
+        modelBuilder.Entity<TranslationPvrRule>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__translat__3213E83FFD76787D");
+            entity
+                .HasNoKey()
+                .ToTable("translation_pvr_rules", "language_supports");
 
-            entity.ToTable("translation_pairs", "language_supports");
+            entity.Property(e => e.ContentTranslationId).HasColumnName("content_translation_id");
+            entity.Property(e => e.PreviewBody).HasColumnName("preview_body");
+            entity.Property(e => e.PreviewNotes).HasColumnName("preview_notes");
+            entity.Property(e => e.ReviewBody).HasColumnName("review_body");
+            entity.Property(e => e.ReviewNotes).HasColumnName("review_notes");
+            entity.Property(e => e.StudentTitle).HasColumnName("student_title");
+            entity.Property(e => e.TeacherContent).HasColumnName("teacher_content");
+            entity.Property(e => e.TeacherTitle).HasColumnName("teacher_title");
+            entity.Property(e => e.ViewBody).HasColumnName("view_body");
+            entity.Property(e => e.ViewNotes).HasColumnName("view_notes");
 
-            entity.Property(e => e.Id).HasColumnName("id");
-            entity.Property(e => e.LanguageOriginId).HasColumnName("language_origin_id");
-            entity.Property(e => e.LanguageOriginText)
-                .HasMaxLength(56)
-                .IsUnicode(false)
-                .HasColumnName("language_origin_text");
-            entity.Property(e => e.LanguageTargetId).HasColumnName("language_target_id");
-            entity.Property(e => e.LanguageTargetMeaning)
-                .HasColumnType("text")
-                .HasColumnName("language_target_meaning");
-            entity.Property(e => e.LanguageTargetText)
-                .HasMaxLength(56)
-                .IsUnicode(false)
-                .HasColumnName("language_target_text");
+            entity.HasOne(d => d.ContentTranslation).WithMany()
+                .HasForeignKey(d => d.ContentTranslationId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__translati__conte__654CE0F2");
 
-            entity.HasOne(d => d.LanguageOrigin).WithMany(p => p.TranslationPairLanguageOrigins)
-                .HasForeignKey(d => d.LanguageOriginId)
-                .HasConstraintName("FK__translati__langu__49A4C67D");
+            entity.HasOne(d => d.PreviewBodyNavigation).WithMany()
+                .HasForeignKey(d => d.PreviewBody)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__translati__previ__691D71D6");
 
-            entity.HasOne(d => d.LanguageTarget).WithMany(p => p.TranslationPairLanguageTargets)
-                .HasForeignKey(d => d.LanguageTargetId)
-                .HasConstraintName("FK__translati__langu__4A98EAB6");
+            entity.HasOne(d => d.PreviewNotesNavigation).WithMany()
+                .HasForeignKey(d => d.PreviewNotes)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__translati__previ__6A11960F");
+
+            entity.HasOne(d => d.ReviewBodyNavigation).WithMany()
+                .HasForeignKey(d => d.ReviewBody)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__translati__revie__6CEE02BA");
+
+            entity.HasOne(d => d.ReviewNotesNavigation).WithMany()
+                .HasForeignKey(d => d.ReviewNotes)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__translati__revie__6DE226F3");
+
+            entity.HasOne(d => d.StudentTitleNavigation).WithMany()
+                .HasForeignKey(d => d.StudentTitle)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__translati__stude__67352964");
+
+            entity.HasOne(d => d.TeacherContentNavigation).WithMany()
+                .HasForeignKey(d => d.TeacherContent)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__translati__teach__68294D9D");
+
+            entity.HasOne(d => d.TeacherTitleNavigation).WithMany()
+                .HasForeignKey(d => d.TeacherTitle)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__translati__teach__6641052B");
+
+            entity.HasOne(d => d.ViewBodyNavigation).WithMany()
+                .HasForeignKey(d => d.ViewBody)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__translati__view___6B05BA48");
+
+            entity.HasOne(d => d.ViewNotesNavigation).WithMany()
+                .HasForeignKey(d => d.ViewNotes)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__translati__view___6BF9DE81");
         });
 
         OnModelCreatingPartial(modelBuilder);

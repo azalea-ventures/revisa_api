@@ -55,21 +55,21 @@ public class LanguageSupportService : ILanguageSupportService
             return response;
         }
 
-        StrategyObjective? strategyObjective = languageSupportContext
-            .StrategiesObjectives.Include(sob => sob.StrategyMod)
-            .ThenInclude(sm => sm.LearningStrategy)
-            .Include(sob => sob.DomainObjective)
-            .ThenInclude(dob => dob.Domain)
-            .Where(sob => sob.Id == supportPackage.ElpsStrategyObjectiveId)
-            .FirstOrDefault();
+        // StrategyObjective? strategyObjective = languageSupportContext
+        //     .StrategiesObjectives.Include(sob => sob.StrategyMod)
+        //     .ThenInclude(sm => sm.LearningStrategy)
+        //     .Include(sob => sob.DomainObjective)
+        //     .ThenInclude(dob => dob.Domain)
+        //     .Where(sob => sob.Id == supportPackage.ElpsStrategyObjectiveId)
+        //     .FirstOrDefault();
 
-        response.ElpsStrategy = strategyObjective?.StrategyMod.Strategy;
-        response.ElpsDomainName = strategyObjective?.DomainObjective.Domain?.Domain1;
-        response.ElpsObjective = strategyObjective?.DomainObjective.Objective;
-        response.ElpsStrategyLabel = strategyObjective?.StrategyMod.LearningStrategy.Label;
-        response.ElpsStrategyFileId = strategyObjective?.StrategyMod.StrategyFileId;
-        response.ElpsStrategyIconId = strategyObjective?.StrategyMod.ImageFileId;
-        response.CrossLinguisticConnection = supportPackage.CrossLinguisticConnection;
+        // response.ElpsStrategy = strategyObjective?.StrategyMod.Strategy;
+        // response.ElpsDomainName = strategyObjective?.DomainObjective.Domain?.Domain1;
+        // response.ElpsObjective = strategyObjective?.DomainObjective.Objective;
+        // response.ElpsStrategyLabel = strategyObjective?.StrategyMod.LearningStrategy.Label;
+        // response.ElpsStrategyFileId = strategyObjective?.StrategyMod.StrategyFileId;
+        // response.ElpsStrategyIconId = strategyObjective?.StrategyMod.ImageFileId;
+        // response.CrossLinguisticConnection = supportPackage.CrossLinguisticConnection;
 
         return response;
     }
