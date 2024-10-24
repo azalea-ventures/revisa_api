@@ -6,6 +6,7 @@ public interface ILanguageSupportService
 {
     ElpsSupportResponse GetElpsSupports(string delivery_date, string grade, string subject);
     LessonSchedule GetLessonSchedule(DateOnly delivery_date);
+    PvrResponse GetPvrSupports(string grade, string subject);
 }
 
 public class LanguageSupportService : ILanguageSupportService
@@ -55,23 +56,47 @@ public class LanguageSupportService : ILanguageSupportService
             return response;
         }
 
-        // StrategyObjective? strategyObjective = languageSupportContext
-        //     .StrategiesObjectives.Include(sob => sob.StrategyMod)
-        //     .ThenInclude(sm => sm.LearningStrategy)
-        //     .Include(sob => sob.DomainObjective)
-        //     .ThenInclude(dob => dob.Domain)
-        //     .Where(sob => sob.Id == supportPackage.ElpsStrategyObjectiveId)
-        //     .FirstOrDefault();
+        StrategiesObjective? strategyObjective = languageSupportContext
+            .StrategiesObjectives.Include(sob => sob.StrategyMod)
+            .ThenInclude(sm => sm.LearningStrategy)
+            .Include(sob => sob.DomainObjective)
+            .ThenInclude(dob => dob.Domain)
+            .Where(sob => sob.Id == supportPackage.ElpsStrategyObjectiveId)
+            .FirstOrDefault();
 
-        // response.ElpsStrategy = strategyObjective?.StrategyMod.Strategy;
-        // response.ElpsDomainName = strategyObjective?.DomainObjective.Domain?.Domain1;
-        // response.ElpsObjective = strategyObjective?.DomainObjective.Objective;
-        // response.ElpsStrategyLabel = strategyObjective?.StrategyMod.LearningStrategy.Label;
-        // response.ElpsStrategyFileId = strategyObjective?.StrategyMod.StrategyFileId;
-        // response.ElpsStrategyIconId = strategyObjective?.StrategyMod.ImageFileId;
-        // response.CrossLinguisticConnection = supportPackage.CrossLinguisticConnection;
+        response.ElpsStrategy = strategyObjective?.StrategyMod.Strategy;
+        response.ElpsDomainName = strategyObjective?.DomainObjective.Domain?.Domain1;
+        response.ElpsObjective = strategyObjective?.DomainObjective.Objective;
+        response.ElpsStrategyLabel = strategyObjective?.StrategyMod.LearningStrategy.Label;
+        response.ElpsStrategyFileId = strategyObjective?.StrategyMod.StrategyFileId;
+        response.ElpsStrategyIconId = strategyObjective?.StrategyMod.ImageFileId;
+        response.CrossLinguisticConnection = supportPackage.CrossLinguisticConnection;
 
         return response;
+    }
+
+    public PvrResponse GetPvrSupports(string grade, string subject)
+    {
+        using var languageSupportContext = _languageSupportContextFactory.CreateDbContext();
+
+        TranslationPvrRule? pvrRule = languageSupportContext
+            .TranslationPvrRules.Include(pvr => pvr.PreviewBodyNavigation)
+            .Include(pvr => pvr.PreviewNotesNavigation)
+            .Include(pvr => pvr.ViewBodyNavigation)
+            .Include(pvr => pvr.ViewNotesNavigation)
+            .Include(pvr => pvr.StudentTitleNavigation)
+            .Include(pvr => pvr.TeacherTitleNavigation)
+            .Include(pvr => pvr.TeacherContentNavigation)
+            .Include(pvr => pvr.ReviewBodyNavigation)
+            .Include(pvr => pvr.ReviewNotesNavigation)
+            .Include(pvr => pvr.ContentTranslation)
+            .Where(pvr =>
+                pvr.ContentTranslation.ContentGrade.Grade1 == grade
+                && pvr.ContentTranslation.ContentSubject.Subject1 == subject
+            )
+            .FirstOrDefault();
+        
+        return new(pvrRule, grade, subject);
     }
 
     public LessonSchedule GetLessonSchedule(DateOnly delivery_date)

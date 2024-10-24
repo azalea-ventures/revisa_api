@@ -46,8 +46,6 @@ public partial class LanguageSupportContext : DbContext
 
     public virtual DbSet<TranslationPvrRule> TranslationPvrRules { get; set; }
 
-    public virtual DbSet<User> Users { get; set; }
-
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

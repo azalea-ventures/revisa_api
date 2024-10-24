@@ -152,6 +152,19 @@ app.MapGet(
     )
     .WithOpenApi();
 
+    app.MapGet(
+        "/supports/pvr",
+         (
+            [FromQuery(Name = "subject")] string subject,
+            [FromQuery(Name = "grade")] string grade,
+            ILanguageSupportService languageSupportService
+        ) =>
+        {
+            return languageSupportService.GetPvrSupports(grade, subject);
+        }
+    )
+    .WithOpenApi();
+
 app.MapGet(
         "/content/external",
         async (
@@ -164,6 +177,8 @@ app.MapGet(
         }
     )
     .WithOpenApi();
+
+
 
 // app.MapGet(
 //     "/content/source",
