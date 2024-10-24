@@ -4,7 +4,7 @@ using revisa_api.Data.elps;
 
 public interface IElpsService
 {
-    StrategyObjective GetStrategyObjective(int lessonOrder);
+    StrategiesObjective GetStrategyObjective(int lessonOrder);
     void SetElpsSupports(ElpsSupportsRequest request);
 }
 
@@ -71,9 +71,9 @@ public class ElpsService : IElpsService
 
     }
 
-    public StrategyObjective GetStrategyObjective(int lessonOrder)
+    public StrategiesObjective GetStrategyObjective(int lessonOrder)
     {
         using var dbContext = _dbContext;
-        return dbContext.StrategyObjectives.Where(x => x.Id == lessonOrder).FirstOrDefault();
+        return dbContext.StrategiesObjectives.Where(x => x.Id == lessonOrder).FirstOrDefault();
     }
 }

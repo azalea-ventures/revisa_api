@@ -35,7 +35,7 @@ public partial class ElpsContext : DbContext
 
     public virtual DbSet<Level> Levels { get; set; }
 
-    public virtual DbSet<StrategyObjective> StrategyObjectives { get; set; }
+    public virtual DbSet<StrategiesObjective> StrategiesObjectives { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -219,7 +219,7 @@ public partial class ElpsContext : DbContext
                 .HasColumnName("lvl");
         });
 
-        modelBuilder.Entity<StrategyObjective>(entity =>
+        modelBuilder.Entity<StrategiesObjective>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK__strategi__3213E83F0EC8FB95");
 
@@ -229,12 +229,12 @@ public partial class ElpsContext : DbContext
             entity.Property(e => e.DomainObjectiveId).HasColumnName("domain_objective_id");
             entity.Property(e => e.StrategyModId).HasColumnName("strategy_mod_id");
 
-            entity.HasOne(d => d.DomainObjective).WithMany(p => p.StrategyObjectives)
+            entity.HasOne(d => d.DomainObjective).WithMany(p => p.StrategiesObjectives)
                 .HasForeignKey(d => d.DomainObjectiveId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__strategie__domai__382534C0");
 
-            entity.HasOne(d => d.StrategyMod).WithMany(p => p.StrategyObjectives)
+            entity.HasOne(d => d.StrategyMod).WithMany(p => p.StrategiesObjectives)
                 .HasForeignKey(d => d.StrategyModId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__strategie__strat__37311087");
