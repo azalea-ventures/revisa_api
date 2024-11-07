@@ -94,7 +94,7 @@ public class LanguageSupportService : ILanguageSupportService
             .Where(pvr =>
                 pvr.ContentTranslation.ContentGrade.Grade1 == grade
                 && pvr.ContentTranslation.ContentSubject.Subject1 == subject
-                && pvr.ContentTranslation.ContentLanguage.Language == language
+                && pvr.ContentTranslation.ContentLanguage.Abbreviation == language
             )
             .FirstOrDefault();
         
