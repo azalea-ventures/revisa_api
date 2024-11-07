@@ -157,10 +157,11 @@ app.MapGet(
          (
             [FromQuery(Name = "subject")] string subject,
             [FromQuery(Name = "grade")] string grade,
+            [FromQuery(Name = "language")] string language,
             ILanguageSupportService languageSupportService
         ) =>
         {
-            return languageSupportService.GetPvrSupports(grade, subject);
+            return languageSupportService.GetPvrSupports(grade, subject, language);
         }
     )
     .WithOpenApi();
