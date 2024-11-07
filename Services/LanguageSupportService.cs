@@ -6,7 +6,7 @@ public interface ILanguageSupportService
 {
     ElpsSupportResponse GetElpsSupports(string delivery_date, string grade, string subject);
     LessonSchedule GetLessonSchedule(DateOnly delivery_date);
-    PvrResponse GetPvrSupports(string grade, string subject);
+    PvrResponse GetPvrSupports(string grade, string subject, string language);
 }
 
 public class LanguageSupportService : ILanguageSupportService
@@ -75,7 +75,7 @@ public class LanguageSupportService : ILanguageSupportService
         return response;
     }
 
-    public PvrResponse GetPvrSupports(string grade, string subject)
+    public PvrResponse GetPvrSupports(string grade, string subject, string language)
     {
         using var languageSupportContext = _languageSupportContextFactory.CreateDbContext();
 
@@ -90,9 +90,11 @@ public class LanguageSupportService : ILanguageSupportService
             .Include(pvr => pvr.ReviewBodyNavigation)
             .Include(pvr => pvr.ReviewNotesNavigation)
             .Include(pvr => pvr.ContentTranslation)
+            .ThenInclude(ct => ct.ContentLanguage)
             .Where(pvr =>
                 pvr.ContentTranslation.ContentGrade.Grade1 == grade
                 && pvr.ContentTranslation.ContentSubject.Subject1 == subject
+                && pvr.ContentTranslation.ContentLanguage.Language == language
             )
             .FirstOrDefault();
         
