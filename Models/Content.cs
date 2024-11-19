@@ -134,3 +134,12 @@ public class GetContentResponse : GetContentBaseResponse
         }
     }
 }
+
+
+public class PutContentInfoRequest{
+    [JsonPropertyName("content_id")]
+    public int ContentId { get; set; }
+
+    [JsonPropertyName("status")]
+    public string Status { get; set; }
+}

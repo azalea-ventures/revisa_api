@@ -86,6 +86,17 @@ app.MapPost(
     )
     .WithOpenApi();
 
+app.MapPut(
+        "/content/info",
+        async (PutContentInfoRequest request, IContentService contentService) =>
+        {
+            await contentService.UpdateContentStatus(request.ContentId, request.Status);
+            return Results.Ok();
+        }
+    ).WithOpenApi();
+
+    
+
 app.MapGet(
         "/content/info",
         (
@@ -124,7 +135,9 @@ app.MapPost(
         ) =>
         {
             GetContentResponse contentResponse = contentService.GetContent(contentId);
-            return await translatorService.TranslateContent(contentResponse.Content);
+            List<Content> content = await translatorService.TranslateContent(contentResponse.Content);
+            await contentService.UpdateContentStatus(contentId, "TRANSLATED");
+            return content;
         }
     )
     .WithOpenApi();
