@@ -6,6 +6,8 @@ public interface IContentService{
 
     PostContentInfoResponse PostContentInfo(PostContentBaseRequest request);
     int PostContent(PostContentRequest content);
+
+    Task UpdateContentStatus(int contentId, string status);
     GetContentResponse GetContent(int contentId);
     GetContentBaseResponse GetContentInfo(int contentId);
 
@@ -136,9 +138,24 @@ public class ContentService : IContentService
         return contentVersion.Id;
     }
 
+    public async Task UpdateContentStatus(int contentId, string status)
+    {
+        ContentDetail? entity = GetContentDetail(contentId);
+
+        if (entity == null)
+        {
+            return;
+        }
+
+        entity.Status = _dbContext.ContentStatuses.FirstOrDefault(s => s.Status == status)
+            ?? new ContentStatus { Id = 0 };
+
+        _dbContext.SaveChanges();
+    }
+
+    
     public GetContentResponse GetContent(int contentId)
     {
-        using var context = _dbContext;
         ContentDetail? entity = GetContentDetail(contentId);
 
         if (entity == null)
@@ -153,9 +170,7 @@ public class ContentService : IContentService
 
     public GetContentBaseResponse GetContentInfo(int contentId)
     {
-        using var context = _dbContext;
         ContentDetail? entity = GetContentDetail(contentId);
-
         return new(entity);
     }
 
@@ -163,7 +178,6 @@ public class ContentService : IContentService
     {
         List<GetContentBaseResponse> contentInfoList = new();
 
-        using var context = _dbContext;
         List<ContentDetail> contentDetailList = _dbContext
             .ContentDetails.Include(c => c.Client)
             .Include(c => c.Grade)
