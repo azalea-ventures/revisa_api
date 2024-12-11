@@ -39,10 +39,16 @@ public partial class ContentContext : DbContext
 
     public virtual DbSet<Grade> Grades { get; set; }
 
+    public virtual DbSet<SourceContent> SourceContents { get; set; }
+
+    public virtual DbSet<SourceType> SourceTypes { get; set; }
+
+    public virtual DbSet<SourceTypeSubdivision> SourceTypeSubdivisions { get; set; }
+
     public virtual DbSet<Subject> Subjects { get; set; }
 
     public virtual DbSet<User> Users { get; set; }
-    
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Client>(entity =>
@@ -316,6 +322,69 @@ public partial class ContentContext : DbContext
             entity.Property(e => e.Grade1)
                 .HasMaxLength(50)
                 .HasColumnName("grade");
+        });
+
+        modelBuilder.Entity<SourceContent>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__source_c__3213E83F3B1A9D3D");
+
+            entity.ToTable("source_content", "content");
+
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.GradeId).HasColumnName("grade_id");
+            entity.Property(e => e.SourceContentName)
+                .HasMaxLength(255)
+                .IsUnicode(false)
+                .HasColumnName("source_content_name");
+            entity.Property(e => e.SourceTypeId).HasColumnName("source_type_id");
+            entity.Property(e => e.SubjectId).HasColumnName("subject_id");
+
+            entity.HasOne(d => d.Grade).WithMany(p => p.SourceContents)
+                .HasForeignKey(d => d.GradeId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__source_co__grade__243E37A4");
+
+            entity.HasOne(d => d.SourceType).WithMany(p => p.SourceContents)
+                .HasForeignKey(d => d.SourceTypeId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__source_co__sourc__25325BDD");
+
+            entity.HasOne(d => d.Subject).WithMany(p => p.SourceContents)
+                .HasForeignKey(d => d.SubjectId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__source_co__subje__234A136B");
+        });
+
+        modelBuilder.Entity<SourceType>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__source_t__3213E83FC100AA5A");
+
+            entity.ToTable("source_types", "content");
+
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.SourceName)
+                .HasMaxLength(32)
+                .IsUnicode(false)
+                .HasColumnName("source_name");
+        });
+
+        modelBuilder.Entity<SourceTypeSubdivision>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToTable("source_type_subdivisions", "content");
+
+            entity.Property(e => e.SourceTypeId).HasColumnName("source_type_id");
+            entity.Property(e => e.SubdivLevel).HasColumnName("subdiv_level");
+            entity.Property(e => e.SubdivName)
+                .HasMaxLength(32)
+                .IsUnicode(false)
+                .HasColumnName("subdiv_name");
+
+            entity.HasOne(d => d.SourceType).WithMany()
+                .HasForeignKey(d => d.SourceTypeId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__source_ty__sourc__206DA6C0");
         });
 
         modelBuilder.Entity<Subject>(entity =>

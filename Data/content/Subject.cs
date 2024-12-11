@@ -13,6 +13,8 @@ public partial class Subject
     public virtual ICollection<ContentDetail> ContentDetails { get; set; } = new List<ContentDetail>();
 
     public virtual ICollection<ContentTranslation> ContentTranslations { get; set; } = new List<ContentTranslation>();
-        public virtual ICollection<SupportPackage> SupportPackages { get; set; } = new List<SupportPackage>();
 
+    public virtual ICollection<SourceContent> SourceContents { get; set; } = new List<SourceContent>();
+
+    public virtual ICollection<SupportPackage> SupportPackages { get; set; } = new List<SupportPackage>();
 }

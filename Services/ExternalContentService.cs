@@ -21,6 +21,7 @@ public class ExternalContentService : IExternalContentService
         _blobServiceClient = blobServiceClient;
     }
 
+    // TODO: !!Move to Document API!!
     public async Task<Object> AnalyzePdfDocument(string pdfUrl, string pages)
     {
         string classifier = "revisa-pdf-mapperv0.4.0";
@@ -51,4 +52,10 @@ public class ExternalContentService : IExternalContentService
             );
         }
     }
+
+    public async Task GetContentBundle(string sourceType, string[] contentBundle, string? module, string? topic, string? lesson){
+
+    }
+
+
 }

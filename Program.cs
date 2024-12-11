@@ -93,9 +93,8 @@ app.MapPut(
             await contentService.UpdateContentStatus(request.ContentId, request.Status);
             return Results.Ok();
         }
-    ).WithOpenApi();
-
-    
+    )
+    .WithOpenApi();
 
 app.MapGet(
         "/content/info",
@@ -135,7 +134,9 @@ app.MapPost(
         ) =>
         {
             GetContentResponse contentResponse = contentService.GetContent(contentId);
-            List<Content> content = await translatorService.TranslateContent(contentResponse.Content);
+            List<Content> content = await translatorService.TranslateContent(
+                contentResponse.Content
+            );
             await contentService.UpdateContentStatus(contentId, "TRANSLATED");
             return content;
         }
@@ -165,9 +166,9 @@ app.MapGet(
     )
     .WithOpenApi();
 
-    app.MapGet(
+app.MapGet(
         "/supports/pvr",
-         (
+        (
             [FromQuery(Name = "subject")] string subject,
             [FromQuery(Name = "grade")] string grade,
             [FromQuery(Name = "language")] string language,
@@ -180,7 +181,7 @@ app.MapGet(
     .WithOpenApi();
 
 app.MapGet(
-        "/content/external",
+        "/content/external/pdf",
         async (
             [FromQuery(Name = "pdfUrl")] string pdfUrl,
             [FromQuery(Name = "pages")] string pages,
@@ -192,14 +193,18 @@ app.MapGet(
     )
     .WithOpenApi();
 
+app.MapGet(
+    "/content/external",
+    (
+        [FromQuery(Name = "sourceType")] string sourceType,
+        [FromQuery(Name = "contentBundle")] string[] contentBundle,
+        [FromQuery(Name = "module")] string? module,
+        [FromQuery(Name = "topic")] string? topic,
+        [FromQuery(Name = "lesson")] string? lesson
+    ) => {
 
-
-// app.MapGet(
-//     "/content/source",
-//     () =>
-//     {
-//         PdfDocumentParser.ParsePdfDocument();
-//     }
-// );
+        
+     }
+);
 
 app.Run();
