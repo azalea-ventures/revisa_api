@@ -5,6 +5,13 @@ using Azure.Storage.Blobs;
 public interface IExternalContentService
 {
     Task<Object> AnalyzePdfDocument(string blobName, string pages);
+    Task<ExternalContentResponse> GetContentBundle(
+        string sourceType,
+        string[] contentBundle,
+        string? module,
+        string? topic,
+        string? lesson
+    );
 }
 
 public class ExternalContentService : IExternalContentService
@@ -47,15 +54,55 @@ public class ExternalContentService : IExternalContentService
             // Send the request and get response.
             HttpResponseMessage response = await client.SendAsync(request).ConfigureAwait(false);
 
-            return await JsonSerializer.DeserializeAsync<Object>(
-                await response.Content.ReadAsStreamAsync()
-            );
+            var responseStream = await response.Content.ReadAsStreamAsync();
+            if (responseStream == null)
+            {
+                throw new InvalidOperationException("Response content stream is null.");
+            }
+
+            var result = await JsonSerializer.DeserializeAsync<Object>(responseStream);
+            if (result == null)
+            {
+                throw new InvalidOperationException("Deserialized object is null.");
+            }
+            return result;
         }
     }
 
-    public async Task GetContentBundle(string sourceType, string[] contentBundle, string? module, string? topic, string? lesson){
-
+    public async Task<ExternalContentResponse> GetContentBundle(
+        string sourceType,
+        string[] contentBundle,
+        string? module,
+        string? topic,
+        string? lesson
+    )
+    {
+        // check source type, if eureka, proceed to GetEurekaContentBundle
+        if (sourceType == "eureka")
+        {
+            return await GetEurkaContentBundle(contentBundle, module, topic, lesson);
+        }
+        else
+        {
+            // was not a eureka source type, return new ExternalContentResponse
+            // add an error for invalid source type
+            var errorResponse = new ErrorResponse
+            {
+                Message = "Invalid source type",
+                Code = "INVALID_SOURCE_TYPE"
+            };
+            return new ExternalContentResponse { Error = errorResponse };
+        }
     }
 
-
+    private async Task<ExternalContentResponse> GetEurkaContentBundle(
+        string[] contentBundle,
+        string? module,
+        string? topic,
+        string? lesson
+    )
+    {
+        // get content bundle from eureka
+        return new();
+    }
 }

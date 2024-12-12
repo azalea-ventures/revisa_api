@@ -195,16 +195,25 @@ app.MapGet(
 
 app.MapGet(
     "/content/external",
-    (
-        [FromQuery(Name = "sourceType")] string sourceType,
-        [FromQuery(Name = "contentBundle")] string[] contentBundle,
-        [FromQuery(Name = "module")] string? module,
-        [FromQuery(Name = "topic")] string? topic,
-        [FromQuery(Name = "lesson")] string? lesson
-    ) => {
+    async (HttpContext context) =>
+    {
+        string sourceType = context.Request.Query["sourceType"];
+        string[] contentBundle = context.Request.Query["contentBundle"].ToArray();
+        string? module = context.Request.Query["module"];
+        string? topic = context.Request.Query["topic"];
+        string? lesson = context.Request.Query["lesson"];
 
-        
-     }
+        var externalContentService =
+            context.RequestServices.GetRequiredService<IExternalContentService>();
+
+        return await externalContentService.GetContentBundle(
+            sourceType,
+            contentBundle,
+            module,
+            topic,
+            lesson
+        );
+    }
 );
 
 app.Run();

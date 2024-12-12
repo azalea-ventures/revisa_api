@@ -61,7 +61,6 @@ public class PostContentInfoResponse
     [JsonPropertyName("needs_translation")]
     public bool NeedsTranslation { get; set; }
     public string Status { get; set; }
-    
 }
 
 public class PostContentResponse
@@ -135,8 +134,8 @@ public class GetContentResponse : GetContentBaseResponse
     }
 }
 
-
-public class PutContentInfoRequest{
+public class PutContentInfoRequest
+{
     [JsonPropertyName("content_id")]
     public int ContentId { get; set; }
 
